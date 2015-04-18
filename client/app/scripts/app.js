@@ -23,6 +23,7 @@ angular
     .config(function($routeProvider, RestangularProvider, $httpProvider, $locationProvider, CONFIG) {
 
         $httpProvider.interceptors.push('authInterceptor');
+        $httpProvider.interceptors.push('httpErrorResponseInterceptor');
         //$locationProvider.html5Mode(true);
 
         RestangularProvider.setBaseUrl(CONFIG.API_HOST);
@@ -75,6 +76,9 @@ angular
             .when('/logout', {
                 templateUrl: 'views/logout.html',
                 controller: 'LogoutCtrl'
+            })
+            .when('/404', {
+                templateUrl: '404.html'
             })
             .otherwise({
                 redirectTo: '/'
@@ -132,6 +136,27 @@ angular
             logOut: function() {console.log("yo");}
         };
     })
+    .factory('httpErrorResponseInterceptor', ['$q', '$location', function($q, $location){
+        return {
+            response: function(responseData) {
+                return responseData;
+            },
+            responseError: function error(response) {
+                switch (response.status) {
+                    case 401:
+                        $location.path('/login');
+                        break;
+                    case 404:
+                        $location.path('/404');
+                        break;
+                    default:
+                        $location.path('/404');
+                }
+
+                return $q.reject(response);
+            }
+        };
+    }])
     .directive('youtube', function() {
         return {
             restrict: 'E',
