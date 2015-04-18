@@ -9,11 +9,7 @@
  */
 angular.module('clientApp')
   .controller('LogoutCtrl', function ($scope, LogOutService, $window, $location) {
-    $scope.logOut = function logOut() {
-    	console.log("yo");
-    	//if ($window.sessionStorage.token) {
-    		delete $window.sessionStorage.token;
-    		$location.path('/');
-    	//}
-    }
+    	delete $window.sessionStorage.token;
+    	delete $window.sessionStorage.user;
+    	$location.path('/');
   });
