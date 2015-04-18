@@ -1,6 +1,6 @@
 var restful = require('node-restful');
 var expressJwt = require('express-jwt');
-var bcrypt = require('bcrypt');
+var bcrypt = require('bcrypt-nodejs');
 var SALT_WORK_FACTOR = 10;
 var secret = 'nightingale';
 
