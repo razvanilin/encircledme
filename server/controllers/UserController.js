@@ -9,10 +9,19 @@ module.exports = function(app, route) {
     var User = restful.model(
         'user',
         app.models.user
-    ).methods(['get', 'put', 'post', 'delete']).before('post', hash_password).before('put', hash_password);
+    ).methods(['get', 'put', 'post', 'delete'])
+    .before('post', hash_password)
+    .before('put', hash_password);
 
     function hash_password(req, res, next) {
 
+        // First check if all the required fields are not empty
+        if (req.body.username == null || req.body.email == null || req.body.password == null
+            || req.body.username == '' || req.body.email == '' || req.body.password == '') {
+
+            return res.status(400).send('Incorrect data');
+        }
+        console.log("username: "+req.body.username+" email: "+req.body.email);
         bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt) {
             if (err) return next(err);
 
@@ -32,7 +41,7 @@ module.exports = function(app, route) {
         User.findOne({
             username: req.params.username
         }, function(err, data) {
-            if (err || data === null) 
+            if (err || data === null)
                 return res.status(404).send("User not found");
             else
                 res.send(data.profile);
