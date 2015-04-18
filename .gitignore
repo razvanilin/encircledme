@@ -1,0 +1,6 @@
+client/.sass-cache
+client/.tmp
+client/bower_components
+server/saleNow.sublime-project
+server/sftp-config.json
+server/node_modules
