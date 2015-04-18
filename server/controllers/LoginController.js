@@ -5,7 +5,6 @@ var LocalStrategy = require('passport-local').Strategy;
 var mongoose = require('mongoose');
 var expressJwt = require('express-jwt');
 var jwt = require('jsonwebtoken');
-var secret = 'nightingale';
 
 module.exports = function(app, route) {
 
@@ -71,7 +70,7 @@ module.exports = function(app, route) {
                     profile: user.profile
                 };
 
-                var token = jwt.sign(profile, secret, {
+                var token = jwt.sign(profile, app.settings.secret, {
                     expiresInMinutes: 60 * 5
                 });
 

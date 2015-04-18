@@ -8,12 +8,12 @@
  * Controller of the clientApp
  */
 angular.module('clientApp')
-  .controller('UserCtrl', function ($scope, $routeParams, $http) {
+  .controller('UserCtrl', function ($scope, $routeParams, $http, CONFIG) {
     $scope.viewUser = true;
     $scope.user = {};
     $scope.user.username = $routeParams.username;
     $http({
-            url: 'http://188.226.229.203:3000/user/'+$routeParams.username,
+            url: CONFIG.API_HOST+'/user/'+$routeParams.username,
             method: 'GET'
         })
             .success(function(data, status, headers, config) {

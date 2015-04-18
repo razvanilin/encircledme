@@ -8,12 +8,12 @@
  * Controller of the clientApp
  */
 angular.module('clientApp')
-  .controller('LoginCtrl', function ($scope, $http, $window, $location) {
+  .controller('LoginCtrl', function ($scope, $http, $window, $location, CONFIG) {
   	$scope.login = {};
   	$scope.message = '';
   	$scope.logIn = function() {
   		$http
-  			.post('http://188.226.229.203:3000/login', $scope.login)
+  			.post(CONFIG.API_HOST+'/login', $scope.login)
   			.success(function(data, status, headers, config) {
   				$window.sessionStorage.token = data.token;
   				$scope.message = 'Welcome';

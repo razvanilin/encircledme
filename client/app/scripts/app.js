@@ -8,18 +8,24 @@
  *
  * Main module of the application.
  */
+
+//var settings = require('settings.js');
+
 angular
     .module('clientApp', [
         'ngResource',
         'ngRoute',
         'restangular'
     ])
-    .config(function($routeProvider, RestangularProvider, $httpProvider, $locationProvider) {
+    .constant("CONFIG", {
+        "API_HOST" : "http://localhost:3000",
+    })
+    .config(function($routeProvider, RestangularProvider, $httpProvider, $locationProvider, CONFIG) {
 
         $httpProvider.interceptors.push('authInterceptor');
         //$locationProvider.html5Mode(true);
 
-        RestangularProvider.setBaseUrl('http://188.226.229.203:3000');
+        RestangularProvider.setBaseUrl(CONFIG.API_HOST);
 
         $routeProvider
             .when('/', {

@@ -21,7 +21,7 @@ or
 sudo yum install nodejs
 sudo yum install npm
 ```
-* Install MongoDB
+* Install MongoDB v2.6 or below
 
 ```
 #!bash
@@ -39,6 +39,13 @@ sudo npm install -g grunt-cli
 sudo npm install -g bower
 sudo npm install -g yo
 ```
+* Install compass gem
+```
+#!bash
+
+gem install compass
+```
+
 ### Getting and setting up the project
 
 * Clone the repository on your machine
@@ -60,12 +67,16 @@ cd ../client/
 npm install
 bower install
 ```
-* Edit the database location in server/index.js with your own IP (localhost) and db name
+* Edit API port, db host and name, and the secret key used for generating tokens (server/settings.js)
 
 ```
 #!javascript
 
-mongoose.connect('mongodb://your-ip-address/your-db-name');
+module.exports = {
+	dbhost: 'mongodb://your-ip/db-name',
+	port: 3000,
+	secret: 'place-your-key-here'
+};
 ```
 * Edit the IP address and port for the front-end application (client/Gruntfile.js)
 
@@ -85,9 +96,10 @@ connect: {
 ```
 #!javascript
 
-RestangularProvider.setBaseUrl('http://your-ip-address:3000');
+.constant("CONFIG", {
+        "API_HOST" : "your-api-host:port",
+    })
 ```
-If you modified the port in the server/index.js then update the address above accordingly
 
 # Starting the project #
 * Create and start the database
@@ -95,11 +107,11 @@ If you modified the port in the server/index.js then update the address above ac
 ```
 #!bash
 
+mongod
+
 mongo
 use encircled
 exit
-
-mongod
 ```
 
 * Start the API
