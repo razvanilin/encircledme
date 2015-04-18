@@ -1,6 +1,8 @@
 client/.sass-cache
 client/.tmp
 client/bower_components
+client/npm-debug.log
 server/saleNow.sublime-project
 server/sftp-config.json
 server/node_modules
+server/npm-debug.log
