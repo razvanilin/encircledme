@@ -8,19 +8,13 @@
  * Controller of the clientApp
  */
 angular.module('clientApp')
-  .controller('UserCtrl', function ($scope, $routeParams, $http, CONFIG) {
+  .controller('UserCtrl', function ($scope, $routeParams, $http, CONFIG, User) {
     $scope.viewUser = true;
     $scope.user = {};
     $scope.user.username = $routeParams.username;
-    $http({
-            url: CONFIG.API_HOST+'/user/'+$routeParams.username,
-            method: 'GET'
-        })
-            .success(function(data, status, headers, config) {
-                
-                $scope.user = data; // Should log 'foo'
-                console.log($scope.user);
-            });
-    //console.log($scope.user.avatar);
-
+    User.one($routeParams.username).get()
+        .then(function(data, status, headers, config) {
+            $scope.user = data;
+            console.log($scope.user);
+        });
   });

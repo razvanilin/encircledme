@@ -8,31 +8,22 @@
  * Controller of the clientApp
  */
 angular.module('clientApp')
-  .controller('LoginCtrl', function ($scope, $http, $window, $location, CONFIG) {
-  	$scope.login = {};
-  	$scope.message = '';
-  	$scope.logIn = function() {
-  		$http
-  			.post(CONFIG.API_HOST+'/login', $scope.login)
-  			.success(function(data, status, headers, config) {
-  				$window.sessionStorage.token = data.token;
-  				$scope.message = 'Welcome';
-  				//console.log(data);
-  				$location.path("/user/"+data.username);
-  			})
-  			.error(function(data, status, headers, config) {
-  				// Erase the token if the user fails to log in
-  				delete $window.sessionStorage.token;
-
-  				$scope.message = 'Invalid username or password';
-  			});
-  	};
-
-    /*$scope.login = {};
-    $scope.logIn = function() {
-    	Login.post($scope.login).then(function() {
-    		//$scope.login = login;
-    		$location.path('/'+$scope.login.id);
-    	});
-    }*/
-  });
+    .controller('LoginCtrl', function($scope, $http, $window, $location, CONFIG, Login) {
+        $scope.login = {};
+        $scope.message = '';
+        $scope.logIn = function() {
+            Login.post($scope.login).then(function(data, status, headers, config) {
+                    $window.sessionStorage.token = data.token;
+                    $window.sessionStorage.user = JSON.stringify(data.user);
+                    $scope.message = 'Welcome';
+                    var username = JSON.parse($window.sessionStorage.user).username;
+                    $location.path("/user/" + username);
+                },
+                function(response) {
+                    console.log("Error with status code", response.status);
+                    delete $window.sessionStorage.token;
+                    delete $window.sessionStorage.user;
+                    $scope.message = 'Invalid username or password';
+                });
+        };
+    });

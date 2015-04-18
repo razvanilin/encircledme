@@ -9,10 +9,7 @@ module.exports = function(app, route) {
     var User = restful.model(
         'user',
         app.models.user
-    ).methods(['get', 'put', 'post', 'delete']
-    ).before('post', hash_password
-    ).before('put', hash_password
-    );
+    ).methods(['get', 'put', 'post', 'delete']).before('post', hash_password).before('put', hash_password);
 
     function hash_password(req, res, next) {
 
@@ -31,10 +28,15 @@ module.exports = function(app, route) {
     User.register(app, route);
 
     app.get('/user/:username', function(req, res, next) {
-    	console.log(req.params.username);
-    	User.findOne({ username: req.params.username}, function(err, data) {
-    		res.send(data.profile);
-    	});
+        console.log(req.params.username);
+        User.findOne({
+            username: req.params.username
+        }, function(err, data) {
+            if (err || data === null) 
+                return res.status(404).send("User not found");
+            else
+                res.send(data.profile);
+        });
     });
 
     // Return middleware

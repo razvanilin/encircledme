@@ -14,32 +14,6 @@ module.exports = function(app, route) {
 
     var User = mongoose.model('User', app.models.user);
 
-    // Setting up the Remember Me strategy
-    /*passport.use(new RememberMeStrategy(
-        function(token, done) {
-            Token.consume(token, function(err, user) {
-                if (err) {
-                    return done(err);
-                }
-                if (!user) {
-                    return done(null, false);
-                }
-                return done(null, user);
-            });
-        },
-        function(user, done) {
-            var token = utils.generateToken(64);
-            Token.save(token, {
-                userId: user.id
-            }, function(err) {
-                if (err) {
-                    return done(err);
-                }
-                return done(null, token);
-            });
-        }
-    ));*/
-
     // Create the middleware
     app.post('/login', function(req, res) {
         var username = req.body.username || '';
@@ -82,7 +56,10 @@ module.exports = function(app, route) {
 
                 console.log('Log in successfull as ' + user.username);
                 res.json({
-                    username: user.username,
+                    user: {
+                        id: user._id,
+                        username: user.username
+                    },
                     token: token
                 });
             });
