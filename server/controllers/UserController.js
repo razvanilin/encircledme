@@ -10,9 +10,9 @@ module.exports = function(app, route) {
         'user',
         app.models.user
     ).methods(['get', 'put', 'post', 'delete'])
-    .before('get', expressJwt({secret: app.settings.secret}))
-    .before('post', hash_password)
-    .before('put', hash_password);
+    //.before('get', expressJwt({secret: app.settings.secret}))
+    .before('post', hash_password);
+    //.before('put', hash_password);
 
     function hash_password(req, res, next) {
 
