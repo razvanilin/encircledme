@@ -7,6 +7,7 @@ var uuid = require('uuid');
 var methodOverride = require('method-override');
 var _ = require('lodash');
 var cors = require('cors');
+var expressJwt = require('express-jwt');
 
 // Create the application
 var app = express();
@@ -52,10 +53,13 @@ mongoose.connection.once('open', function() {
 
 	// Load the routes
 	var routes = require('./routes');
+	//app.use(expressJwt({ secret: app.settings.secret}).unless({path: ['/','/login', '/user/:username']}));
 
 	_.each(routes, function(controller, route) {
 		app.use(route, controller(app, route));
 	});
+
+	
 
 	console.log('Listening on port '+app.settings.port);
 	app.listen(app.settings.port);

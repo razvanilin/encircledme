@@ -10,6 +10,7 @@ module.exports = function(app, route) {
         'user',
         app.models.user
     ).methods(['get', 'put', 'post', 'delete'])
+    .before('get', expressJwt({secret: app.settings.secret}))
     .before('post', hash_password)
     .before('put', hash_password);
 
@@ -36,6 +37,7 @@ module.exports = function(app, route) {
     // Register this endpoint with the application
     User.register(app, route);
 
+    // Get the user profile
     app.get('/user/:username', function(req, res, next) {
         console.log(req.params.username);
         User.findOne({

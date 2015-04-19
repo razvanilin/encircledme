@@ -58,7 +58,8 @@ module.exports = function(app, route) {
                 res.json({
                     user: {
                         id: user._id,
-                        username: user.username
+                        username: user.username,
+                        avatar: user.profile.avatar
                     },
                     token: token
                 });
