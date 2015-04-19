@@ -26,9 +26,9 @@ module.exports = function(app, route) {
         User.findOne({
             username: username
         }, function(err, user) {
-            if (err) {
+            if (err || user === null) {
                 console.log(err);
-                return res.send(401, 'Wrong username (dev)');
+                return res.status(401).send('Wrong username (dev)');
             }
 
             user.comparePassword(password, function(isMatch) {
