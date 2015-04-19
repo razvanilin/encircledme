@@ -18,7 +18,7 @@ angular
         'restangular'
     ])
     .constant("CONFIG", {
-        "API_HOST" : "http://localhost:3000",
+        "API_HOST": "http://localhost:3000",
     })
     .config(function($routeProvider, RestangularProvider, $httpProvider, $locationProvider, CONFIG) {
 
@@ -114,44 +114,55 @@ angular
     .factory('User', function(UserRestangular) {
         return UserRestangular.service('user');
     })
-    .factory('authInterceptor', function($rootScope, $q, $window, $location) {
+    .factory('AuthenticationService', function() {
+        var auth = {
+            isLogged: false
+        }
+
+        return auth;
+    })
+    .factory('authInterceptor', function($rootScope, $q, $window, $location, AuthenticationService) {
         return {
             request: function(config) {
                 config.headers = config.headers || {};
                 if ($window.sessionStorage.token) {
                     config.headers.Authorization = 'Bearer ' + $window.sessionStorage.token;
+                    AuthenticationService.isLogged = true;
                 }
                 return config;
             },
             response: function(response) {
                 if (response.status === 401) {
                     $location.path('/login');
+                    AuthenticationService.isLogged = false;
                 }
                 return response || $q.when(response);
             }
         };
     })
-    .factory('httpErrorResponseInterceptor', ['$q', '$location', function($q, $location){
-        return {
-            response: function(responseData) {
-                return responseData;
-            },
-            responseError: function error(response) {
-                switch (response.status) {
-                    case 401:
-                        $location.path('/login');
-                        break;
-                    case 404:
-                        $location.path('/404');
-                        break;
-                    default:
-                        $location.path('/404');
-                }
+    .factory('httpErrorResponseInterceptor', ['$q', '$location',
+        function($q, $location) {
+            return {
+                response: function(responseData) {
+                    return responseData;
+                },
+                responseError: function error(response) {
+                    switch (response.status) {
+                        case 401:
+                            $location.path('/login');
+                            break;
+                        case 404:
+                            $location.path('/404');
+                            break;
+                        default:
+                            $location.path('/404');
+                    }
 
-                return $q.reject(response);
-            }
-        };
-    }])
+                    return $q.reject(response);
+                }
+            };
+        }
+    ])
     .directive('youtube', function() {
         return {
             restrict: 'E',
