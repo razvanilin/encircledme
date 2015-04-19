@@ -131,11 +131,6 @@ angular
             }
         };
     })
-    .factory('LogOutService', function() {
-        return {
-            logOut: function() {console.log("yo");}
-        };
-    })
     .factory('httpErrorResponseInterceptor', ['$q', '$location', function($q, $location){
         return {
             response: function(responseData) {

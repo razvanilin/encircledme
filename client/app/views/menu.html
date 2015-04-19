@@ -1,9 +1,14 @@
-<div class="menu">
-	<span>Razvan </span><img src="images/raz.jpg" class="profile img-circle">
-	<div class="menu-items btn-group-vertical">
-		<a class="btn btn-default" ng-href=".">Profile</a>
-		<a class="btn btn-default" ng-href=".">Edit Profile</a>
+<div class="menu" ng-controller="MenuCtrl">
+	<span>{{ menu.username }} </span><img ng-src="images/{{ menu.avatar }}" class="profile img-circle">
+	<div ng-if="menu.loggedIn == true" class="menu-items btn-group-vertical">
+		<a class="btn btn-default" ng-href="#/user/{{ menu.username }}">Profile</a>
+		<a class="btn btn-default" ng-href="#/user/{{ menu.username }}/edit">Edit Profile</a>
 		<a class="btn btn-default" ng-href="#/logout">Log Out</a>
+	</div>
+
+	<div ng-if="menu.loggedIn == false" class="menu-items btn-group-vertical">
+		<a class="btn btn-default" ng-href="#/signup">Sign Up</a>
+		<a class="btn btn-default" ng-href="#/login">Log In</a>
 	</div>
 </div>
 <script>

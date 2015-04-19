@@ -8,7 +8,7 @@
  * Controller of the clientApp
  */
 angular.module('clientApp')
-  .controller('LogoutCtrl', function ($scope, LogOutService, $window, $location) {
+  .controller('LogoutCtrl', function ($scope, $window, $location) {
     	delete $window.sessionStorage.token;
     	delete $window.sessionStorage.user;
     	$location.path('/');
