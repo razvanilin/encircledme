@@ -17,13 +17,13 @@ angular.module('clientApp')
                     $window.sessionStorage.user = JSON.stringify(data.user);
                     AuthenticationService.isLogged = true;
 
-                    $scope.message = 'Welcome';
+                    $scope.message = false;
 
                     var username = JSON.parse($window.sessionStorage.user).username;
                     $location.path("/user/" + username);
                 },
                 function(response) {
-                    console.log("Error with status code", response.status);
+                    //console.log(response.data, response.status);
                     delete $window.sessionStorage.token;
                     delete $window.sessionStorage.user;
                     AuthenticationService.isLogged = false;

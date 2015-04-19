@@ -28,13 +28,13 @@ module.exports = function(app, route) {
         }, function(err, user) {
             if (err || user === null) {
                 console.log(err);
-                return res.status(401).send('Wrong username (dev)');
+                return res.status(401).send('Wrong username or password');
             }
 
             user.comparePassword(password, function(isMatch) {
                 if (!isMatch) {
                     console.log("Failed to login with " + user.username);
-                    return res.status(401).send('Wrong password (dev)');
+                    return res.status(401).send('Wrong username or password');
                 }
 
                 var profile = {

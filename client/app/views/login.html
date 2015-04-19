@@ -27,6 +27,7 @@
       <div class="form-group">
           <button type="submit" ng-click="logIn()" class="btn btn-default">Sign in</button>
       </div>
+      <div ng-if="message" class="alert alert-danger" role="alert">{{ message }}</div>
     </form>
   </div>
 </div>
