@@ -25,7 +25,7 @@ angular.module('clientApp')
                     $scope.message = false;
 
                     var username = JSON.parse($window.sessionStorage.user).username;
-                    $location.path("/user/" + username);
+                    $location.path(username);
                 },
                 function(response) {
                     //console.log(response.data, response.status);
