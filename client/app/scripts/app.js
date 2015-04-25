@@ -61,7 +61,7 @@ angular
                 templateUrl: 'views/login.html',
                 controller: 'LoginCtrl'
             })
-            .when('/user/:username', {
+            .when('/:username', {
                 templateUrl: 'views/user.html',
                 controller: 'UserCtrl'
             })

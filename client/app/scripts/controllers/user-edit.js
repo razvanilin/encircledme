@@ -21,7 +21,7 @@ angular.module('clientApp')
 
             $scope.saveProfile = function() {
                 $scope.profile.save().then(function() {
-                    $location.path('/user/'+$routeParams.username);
+                    $location.path($routeParams.username);
                 });
             };
 
@@ -44,7 +44,7 @@ angular.module('clientApp')
                         if (data.status === 401) {
                             $location.path('/user/'+$routeParams.username+'/edit');
                         }
-                        $location.path('/user/'+$routeParams.username);
+                        $location.path($routeParams.username);
                     });
                 }
             }

@@ -11,7 +11,7 @@ angular.module('clientApp')
     .controller('LoginCtrl', function($scope, $http, $window, $location, AuthenticationService, Login) {
         // check if the user is logged in
         if (AuthenticationService.isLogged) {
-            $location.path('/user/'+JSON.parse($window.sessionStorage.user).username);
+            $location.path(JSON.parse($window.sessionStorage.user).username);
         }
 
         $scope.login = {};
