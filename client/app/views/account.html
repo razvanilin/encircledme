@@ -1,0 +1,37 @@
+<div class="row">
+	<ng-include src="'views/edit-menu.html'"></ng-include>
+	<div class="col-md-9">
+		<div class="row">
+			<h3 class="lead">Edit your Account</h3>
+		</div>
+
+		<form role="form" class="form-horizontal">
+		  <div class="form-group">
+		  	<label for="inputOld" class="col-sm-4 control-label">Old Password</label>
+		  	<div class="col-sm-4">
+			  	<input type="password" ng-model="password.old" class="form-control" id="inputOld" placeholder="Old Password" required>
+		  	</div>
+		  </div>
+
+		  <div class="form-group">
+		  	<label for="inputNew" class="col-sm-4 control-label">New Password</label>
+		  	<div class="col-sm-4">
+			  	<input type="password" ng-model="password.new" class="form-control" id="inputNew" placeholder="New Password" required>
+		  	</div>
+		  </div>
+
+		  <div class="form-group" ng-class="{ 'has-error':password.error}">
+		    <label for="inputConfirm" class="col-sm-4 control-label">Confirm Password</label>
+		    <div class="col-sm-4">
+		      <input type="password" ng-model="password.newConfirm" class="form-control" id="inputConfirm" placeholder="Confirm Password" required>
+		    </div>
+		  </div>
+
+		  <div class="form-group">
+		    <div class="col-sm-offset-4 col-sm-4">
+		      <button type="submit" ng-click="changePassword()" class="btn btn-default">Change Password</button>
+		    </div>
+		  </div>
+		</form>
+	</div>
+</div>

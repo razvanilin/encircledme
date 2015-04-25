@@ -108,6 +108,12 @@ module.exports = function(app, route) {
         });
     });
 
+
+    // Avatar upload route
+    app.put('/user/:username/avatar', expressJwt({ secret: app.settings.secret }), function(req, res, next) {
+        var file = req.file;
+    });
+
     // Return middleware
     return function(req, res, next) {
         next();

@@ -8,9 +8,10 @@
  * Controller of the clientApp
  */
 angular.module('clientApp')
-    .controller('UserAddCtrl', function($scope, User, $location, $window) {
-        if ($window.sessionStorage.token) {
-            $location.path('/');
+    .controller('UserAddCtrl', function($scope, User, $location, $window, AuthenticationService) {
+        if (AuthenticationService.isLogged) {
+            $location.path(JSON.parse($window.sessionStorage.user).username);
+            return;
         } else {
             $scope.user = {};
             $scope.saveUser = function() {

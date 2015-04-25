@@ -61,14 +61,6 @@ angular
                 templateUrl: 'views/login.html',
                 controller: 'LoginCtrl'
             })
-            .when('/:username', {
-                templateUrl: 'views/user.html',
-                controller: 'UserCtrl'
-            })
-            .when('/user/:username/edit', {
-                templateUrl: 'views/user-edit.html',
-                controller: 'UserEditCtrl'
-            })
             .when('/signup', {
                 templateUrl: 'views/user-add.html',
                 controller: 'UserAddCtrl'
@@ -79,6 +71,23 @@ angular
             })
             .when('/404', {
                 templateUrl: '404.html'
+            })
+            .when('/test', {
+                templateUrl: 'views/edit-menu.html'
+            })
+
+            // keep username one of the lasts routes in the app to avoid faulty routing
+            .when('/:username', {
+                templateUrl: 'views/user.html',
+                controller: 'UserCtrl'
+            })
+            .when('/user/:username/profile', {
+              templateUrl: 'views/profile.html',
+              controller: 'ProfileCtrl'
+            })
+            .when('/user/:username/account', {
+              templateUrl: 'views/account.html',
+              controller: 'AccountCtrl'
             })
             .otherwise({
                 redirectTo: '/'

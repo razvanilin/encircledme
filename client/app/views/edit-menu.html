@@ -1,0 +1,21 @@
+	<div class="col-md-3" style="border-right: 1px solid #eee;text-align:left;" ng-controller="MenuCtrl">
+		<ul class="nav nav-pills nav-stacked">
+
+			<li role="presentation" style="border-bottom: 1px solid #eee;padding-bottom:10px;">
+				<img ng-src="images/{{ menu.avatar }}" class="profile img-circle" style="width:40px;height:40px;"> 
+				<span><a ng-href="#/{{ menu.username }}">{{ menu.username }}</a></span>
+			</li>
+
+			<li role="presentation" ng-class="{active: viewProfile}">
+				<a ng-href="#/user/{{ menu.username }}/profile"><span class="glyphicon glyphicon-pencil"></span> Profile Settings</a>
+			</li>
+
+			<li role="presentation" style="border-bottom: 1px solid #eee;padding-bottom:10px;" ng-class="{active: viewAccount}">
+				<a ng-href="#/user/{{ menu.username }}/account"><span class="glyphicon glyphicon-cog"></span> Account Settings</a>
+			</li>
+
+			<li role="presentation">
+				<a ng-href="#/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a>
+			</li>		
+		</ul>
+	</div>

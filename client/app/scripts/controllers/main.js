@@ -8,10 +8,8 @@
  * Controller of the clientApp
  */
 angular.module('clientApp')
-  .controller('MainCtrl', function ($scope) {
-    $scope.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
+  .controller('MainCtrl', function ($scope, AuthenticationService, $location, $window) {
+    if (AuthenticationService.isLogged) {
+    	$location.path(JSON.parse($window.sessionStorage.user).username);
+    }
   });
