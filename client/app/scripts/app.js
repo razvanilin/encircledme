@@ -158,7 +158,7 @@ angular
                 responseError: function error(response) {
                     switch (response.status) {
                         case 401:
-                            $location.path('/login');
+                            //$location.path('/login');
                             break;
                         case 404:
                             $location.path('/404');

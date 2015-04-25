@@ -6,7 +6,7 @@
 		</div>
 
 		<form role="form" class="form-horizontal">
-		  <div class="form-group">
+		  <div class="form-group" ng-class="{ 'has-error':password.error.old}">
 		  	<label for="inputOld" class="col-sm-4 control-label">Old Password</label>
 		  	<div class="col-sm-4">
 			  	<input type="password" ng-model="password.old" class="form-control" id="inputOld" placeholder="Old Password" required>
@@ -20,7 +20,7 @@
 		  	</div>
 		  </div>
 
-		  <div class="form-group" ng-class="{ 'has-error':password.error}">
+		  <div class="form-group" ng-class="{ 'has-error':password.error.new}">
 		    <label for="inputConfirm" class="col-sm-4 control-label">Confirm Password</label>
 		    <div class="col-sm-4">
 		      <input type="password" ng-model="password.newConfirm" class="form-control" id="inputConfirm" placeholder="Confirm Password" required>
@@ -32,6 +32,8 @@
 		      <button type="submit" ng-click="changePassword()" class="btn btn-default">Change Password</button>
 		    </div>
 		  </div>
+
+		  <div ng-if="password.success" class="alert alert-success" role="alert"><strong>Great! </strong> Password Changed</div>
 		</form>
 	</div>
 </div>

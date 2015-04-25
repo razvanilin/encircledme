@@ -21,22 +21,25 @@ angular.module('clientApp')
             $scope.password.old         = "";
             $scope.password.new         = "";
             $scope.password.newConfirm  = "";
-            $scope.password.error       = false;
+            $scope.password.error       = {};
+            $scope.password.success		= false;
            
 
             $scope.changePassword = function() {
                 if ($scope.password.new != $scope.password.newConfirm) {
-                    $scope.password.error = true;
+                    $scope.password.error.new = true;
                 } else {
-                    $scope.password.error = false;
+                    $scope.password.error.new = false;
                 }
 
-                if (!$scope.password.error && $scope.password.new.length > 0) {
-                    User.one($scope.password.username).customPUT($scope.password, 'password').then(function(data){
-                        if (data.status === 401) {
-                            $location.path('/user/'+$routeParams.username+'/edit');
+                if (!$scope.password.error.new && $scope.password.new.length > 0) {
+                    User.one($scope.password.username).customPUT($scope.password, 'password').then(function(data, status){      
+                        $scope.password.success = true;
+                    }, function(response) {
+                    	if (response.status === 401) {
+                            $scope.password.error.old = true;
+                            $scope.password.success	= false;
                         }
-                        $location.path($routeParams.username);
                     });
                 }
             }
