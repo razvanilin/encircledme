@@ -11,6 +11,7 @@ angular.module('clientApp')
     .controller('SettingsCircleCtrl', function($scope, FileUploader, AuthenticationService, User, $location, CONFIG, $window) {
         if (AuthenticationService.isLogged) {
             $scope.viewCircle = true;
+            $scope.viewUploads = false;
             $scope.host = CONFIG.API_HOST;
             $scope.user = {};
             var id = JSON.parse($window.sessionStorage.user).id;
@@ -44,6 +45,7 @@ angular.module('clientApp')
                 console.info('onWhenAddingFileFailed', item, filter, options);
             };
             uploader.onAfterAddingFile = function(fileItem) {
+                $scope.viewUploads = true;
                 console.info('onAfterAddingFile', fileItem);
             };
             uploader.onAfterAddingAll = function(addedFileItems) {

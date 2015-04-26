@@ -38,7 +38,7 @@
 
 	<div class="row top-buffer">
 
-                <div class="col-md-3">
+                <div class="col-md-3" ng-class="{'col-md-offset-6':!viewUploads}">
 
                     <h3>Select files</h3>
 
@@ -46,7 +46,7 @@
                   
                         <!-- Example: nv-file-drop="" uploader="{Object}" options="{Object}" filters="{String}" -->
                         <div nv-file-drop="" uploader="uploader" options="{ url: uploader.url }">
-                            <div nv-file-over="" uploader="uploader" over-class="another-file-over-class" class="well my-drop-zone" style="height:200px">
+                            <div nv-file-over="" uploader="uploader" over-class="another-file-over-class" class="well my-drop-zone" style="max-height:200px">
                                 Drop images here
                                 <h1><span class="glyphicon glyphicon-open-file"></span></h1>
                             </div>
@@ -54,11 +54,11 @@
                     </div>
 
                     <!-- Example: nv-file-select="" uploader="{Object}" options="{Object}" filters="{String}" -->
-                    <input type="file" nv-file-select="" uploader="uploader" multiple  /><br/>
+                    <input type="file" nv-file-select="" uploader="uploader" multiple  />
 
                 </div>
 
-                <div class="col-md-9" style="margin-bottom: 40px">
+                <div class="col-md-9" ng-class="{hidden:!viewUploads}" style="margin-bottom: 40px">
                     <h3>Upload your avatar</h3>
 
                     <table class="table">

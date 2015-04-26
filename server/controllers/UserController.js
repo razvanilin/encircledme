@@ -126,27 +126,40 @@ module.exports = function(app, route) {
             mkdir(__dirname + '/../uploads/' + req.params.username, function(err) {
                 if (err) console.error(err);
 
-                uploadPath = '/uploads/' + req.params.username + '/' + filename;
-                var stream = fs.createWriteStream(__dirname + '/../uploads/' + req.params.username + '/' + filename);
-                file.pipe(stream);
-                stream.on('close', function() {
-                    console.log('File ' + filename + ' is uploaded');
+                var hashDate = Date.now();
+                var fileExtension = filename.substring(filename.lastIndexOf('.'));
 
-                    // Update the database with the avatars paths
-                    User.findOne({
-                        username: req.params.username
-                    }, function(err, user) {
-                        if (err || user === null) {
-                            return res.status(404).send("User not found");
-                        }
+                // hash the filename
+                bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt) {
+                    if (err) return next(err);
 
-                        user.uploads.push(uploadPath);
-                        user.save(function(err) {
-                            if (err) {
-                                return res.status(400).send("Could not add image");
-                            } else {
-                                return res.status(200).send("Image added");
-                            }
+                    bcrypt.hash((hashDate+filename), salt, null, function(err, hash) {
+                        if (err) return next(err);
+                        filename = hash + fileExtension;
+
+                        uploadPath = '/uploads/' + req.params.username + '/' + filename;
+                        var stream = fs.createWriteStream(__dirname + '/../uploads/' + req.params.username + '/' + filename);
+                        file.pipe(stream);
+                        stream.on('close', function() {
+                            console.log('File ' + filename + ' is uploaded');
+
+                            // Update the database with the avatars paths
+                            User.findOne({
+                                username: req.params.username
+                            }, function(err, user) {
+                                if (err || user === null) {
+                                    return res.status(404).send("User not found");
+                                }
+
+                                user.uploads.push(uploadPath);
+                                user.save(function(err) {
+                                    if (err) {
+                                        return res.status(400).send("Could not add image");
+                                    } else {
+                                        return res.status(200).send("Image added");
+                                    }
+                                });
+                            });
                         });
                     });
                 });
