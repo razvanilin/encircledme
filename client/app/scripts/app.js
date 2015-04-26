@@ -16,7 +16,8 @@ angular
         'ngResource',
         'ngRoute',
         'restangular',
-        'angularFileUpload'
+        'angularFileUpload',
+        'ngImgCrop'
     ])
     .constant("CONFIG", {
         "API_HOST": "http://localhost:3000",

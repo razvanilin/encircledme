@@ -23,13 +23,13 @@ angular.module('clientApp')
                 $scope.user = profile;
 
                 $scope.changeAvatar = function(newAvatar) {
-                	$scope.user.newAvatar = newAvatar;
+                    $scope.user.newAvatar = newAvatar;
                     User.one($scope.user.username).customPUT($scope.user, 'avatar').then(function(data) {
                         $scope.avatarChangeStatus = 1;
                     }, function(response) {
                         $scope.avatarChangeStatus = 2;
                     });
-                    
+
                 }
             });
 
@@ -52,21 +52,60 @@ angular.module('clientApp')
                 }
             });
 
+            /**
+             * Show preview with cropping
+             */
+            uploader.onAfterAddingFile = function(item) {
+                // $scope.croppedImage = '';
+                $scope.viewUploads = true;
+                item.croppedImage = '';
+                var reader = new FileReader();
+                reader.onload = function(event) {
+                    $scope.$apply(function() {
+                        item.image = event.target.result;
+                    });
+                };
+                reader.readAsDataURL(item._file);
+            };
+
+            /**
+             * Upload Blob (cropped image) instead of file.
+             * @see
+             *   https://developer.mozilla.org/en-US/docs/Web/API/FormData
+             *   https://github.com/nervgh/angular-file-upload/issues/208
+             */
+            uploader.onBeforeUploadItem = function(item) {
+                var blob = dataURItoBlob(item.croppedImage);
+                item._file = blob;
+            };
+
+            /**
+             * Converts data uri to Blob. Necessary for uploading.
+             * @see
+             *   http://stackoverflow.com/questions/4998908/convert-data-uri-to-file-then-append-to-formdata
+             * @param  {String} dataURI
+             * @return {Blob}
+             */
+            var dataURItoBlob = function(dataURI) {
+                var binary = atob(dataURI.split(',')[1]);
+                var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+                var array = [];
+                for (var i = 0; i < binary.length; i++) {
+                    array.push(binary.charCodeAt(i));
+                }
+                return new Blob([new Uint8Array(array)], {
+                    type: mimeString
+                });
+            };
+
             // CALLBACKS
 
             uploader.onWhenAddingFileFailed = function(item /*{File|FileLikeObject}*/ , filter, options) {
                 console.info('onWhenAddingFileFailed', item, filter, options);
             };
-            uploader.onAfterAddingFile = function(fileItem) {
-                $scope.viewUploads = true;
-                console.info('onAfterAddingFile', fileItem);
-            };
             uploader.onAfterAddingAll = function(addedFileItems) {
                 console.info('onAfterAddingAll', addedFileItems);
-            };
-            uploader.onBeforeUploadItem = function(item) {
-                console.info('onBeforeUploadItem', item);
-            };
+            }; 
             uploader.onProgressItem = function(fileItem, progress) {
                 console.info('onProgressItem', fileItem, progress);
             };

@@ -6,6 +6,25 @@ body {
 	font-size: 15px;
 }
 
+.cropArea {
+        background: #E4E4E4;
+        overflow: hidden;
+        
+        height:200px;
+    }
+
+    /*img-crop {
+        display: block;
+        height: 100%;
+        overflow: hidden;
+        position: relative;
+        width: 100%;
+    }*/
+
+    img-crop canvas {
+        display: inline-block;
+    }
+
 .menu {
     position: absolute;
     cursor: pointer;

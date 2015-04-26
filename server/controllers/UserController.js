@@ -151,7 +151,7 @@ module.exports = function(app, route) {
             if (err || user === null) {
                 return res.status(404).send("User not found");
             }
-            //user.uploads = [];
+            user.uploads = [];
             if (user.uploads.length >= app.settings.maxImages) {
                 return res.status(403).send("Maximum number of images reached: " + app.settings.maxImages);
             }
