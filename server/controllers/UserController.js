@@ -4,6 +4,7 @@ var bcrypt = require('bcrypt-nodejs');
 var busboy = require('connect-busboy');
 var path = require('path');
 var fs = require('fs-extra');
+var mkdir = require('mkdirp');
 
 var SALT_WORK_FACTOR = 10;
 
@@ -121,13 +122,18 @@ module.exports = function(app, route) {
     }), function(req, res, next) {
         req.pipe(req.busboy);
         req.busboy.on('file', function(fieldname, file, filename) {
-            var stream = fs.createWriteStream(__dirname + '/../uploads/' + filename);
-            file.pipe(stream);
-            stream.on('close', function() {
-                console.log('File ' + filename + ' is uploaded');
-                res.json({
-                    filename: filename
+            mkdir(__dirname + '/../uploads/' + req.params.username, function(err) {
+                if (err) console.error(err);
+
+                var stream = fs.createWriteStream(__dirname + '/../uploads/'+req.params.username+ '/' + filename);
+                file.pipe(stream);
+                stream.on('close', function() {
+                    console.log('File ' + filename + ' is uploaded');
+                    res.json({
+                        filename: filename
+                    });
                 });
+
             });
         });
     });
