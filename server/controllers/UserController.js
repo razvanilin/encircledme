@@ -131,26 +131,23 @@ module.exports = function(app, route) {
                 file.pipe(stream);
                 stream.on('close', function() {
                     console.log('File ' + filename + ' is uploaded');
-                    /*res.json({
-                        filename: filename
-                    });*/
-                });
 
-                // Update the database with the avatars paths
-                User.findOne({
-                    username: req.params.username
-                }, function(err, user) {
-                    if (err || user === null) {
-                        return res.status(404).send("User not found");
-                    }
-
-                    user.uploads.push(uploadPath);
-                    user.save(function(err) {
-                        if (err) {
-                            return res.status(400).send("Could not add image");
-                        } else {
-                            return res.status(200).send("Image added");
+                    // Update the database with the avatars paths
+                    User.findOne({
+                        username: req.params.username
+                    }, function(err, user) {
+                        if (err || user === null) {
+                            return res.status(404).send("User not found");
                         }
+
+                        user.uploads.push(uploadPath);
+                        user.save(function(err) {
+                            if (err) {
+                                return res.status(400).send("Could not add image");
+                            } else {
+                                return res.status(200).send("Image added");
+                            }
+                        });
                     });
                 });
             });
