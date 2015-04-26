@@ -5,6 +5,7 @@ var busboy = require('connect-busboy');
 var path = require('path');
 var fs = require('fs-extra');
 var mkdir = require('mkdirp');
+var md5 = require('MD5');
 
 var SALT_WORK_FACTOR = 10;
 
@@ -128,9 +129,9 @@ module.exports = function(app, route) {
             if (err || user === null) {
                 return res.status(404).send("User not found");
             }
-
-            if (user.uploads.length > app.settings.maxImages) {
-                return res.status(403).send("Maximum number of images reached: "+app.settings.maxImages);
+            //user.uploads = [];
+            if (user.uploads.length >= app.settings.maxImages) {
+                return res.status(403).send("Maximum number of images reached: " + app.settings.maxImages);
             }
 
             req.pipe(req.busboy);
@@ -141,36 +142,29 @@ module.exports = function(app, route) {
                     var hashDate = Date.now();
                     var fileExtension = filename.substring(filename.lastIndexOf('.'));
 
-                    // hash the filename
-                    bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt) {
-                        if (err) return next(err);
+                    filename = md5(hashDate+filename)+fileExtension;
 
-                        bcrypt.hash((hashDate + filename), salt, null, function(err, hash) {
-                            if (err) return next(err);
-                            filename = hash + fileExtension;
+                    uploadPath = '/uploads/' + req.params.username + '/' + filename;
+                    var stream = fs.createWriteStream(__dirname + '/../uploads/' + req.params.username + '/' + filename);
+                    file.pipe(stream);
+                    stream.on('close', function() {
+                        console.log('File ' + filename + ' is uploaded');
 
-                            uploadPath = '/uploads/' + req.params.username + '/' + filename;
-                            var stream = fs.createWriteStream(__dirname + '/../uploads/' + req.params.username + '/' + filename);
-                            file.pipe(stream);
-                            stream.on('close', function() {
-                                console.log('File ' + filename + ' is uploaded');
+                        if (user.uploads.length >= app.settings.maxImages) {
+                            return res.status(403).send("Maximum number of images reached: " + app.settings.maxImages);
+                        }
 
-                                if (user.uploads.length > app.settings.maxImages) {
-                                    return res.status(403).send("Maximum number of images reached: "+app.settings.maxImages);
-                                }
-
-                                // Update the database with the avatars paths
-                                user.uploads.push(uploadPath);
-                                user.save(function(err) {
-                                    if (err) {
-                                        return res.status(400).send("Could not add image");
-                                    } else {
-                                        return res.status(200).send("Image added");
-                                    }
-                                });
-                            });
+                        // Update the database with the avatars paths
+                        user.uploads.push(uploadPath);
+                        user.save(function(err) {
+                            if (err) {
+                                return res.status(400).send("Could not add image");
+                            } else {
+                                return res.status(200).send("Image added");
+                            }
                         });
                     });
+
                 });
             });
         });

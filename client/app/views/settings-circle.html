@@ -28,7 +28,10 @@
 					<thead></thead>
 					<tbody>
 						<tr>
-							<td ng-repeat="upload in user.uploads" style="padding:5px;"><a ng-href="" class="thumbnail"><img ng-src="{{ host }}{{ upload }}" style="height:100px;"></a></td>
+							<td ng-repeat="upload in user.uploads" style="padding:5px;">
+								<a ng-href="" class="thumbnail"><img ng-src="{{ host }}{{ upload }}" style="height:100px;"></a>
+								<div><a class="btn btn-success" ng-href=""><span class="glyphicon glyphicon-ok"></span></a> <a class="btn btn-danger" ng-href=""><span class="glyphicon glyphicon-remove"></span></a></div>
+							</td>
 						</tr>
 					</tbody>
 				</table>
