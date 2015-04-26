@@ -37,26 +37,6 @@ angular
                 templateUrl: 'views/about.html',
                 controller: 'AboutCtrl'
             })
-            .when('/movies', {
-                templateUrl: 'views/movies.html',
-                controller: 'MoviesCtrl'
-            })
-            .when('/create/movie', {
-                templateUrl: 'views/movie-add.html',
-                controller: 'MovieAddCtrl'
-            })
-            .when('/movie/:id', {
-                templateUrl: 'views/movie-view.html',
-                controller: 'MovieViewCtrl'
-            })
-            .when('/movie/:id/delete', {
-                templateUrl: 'views/movie-delete.html',
-                controller: 'MovieDeleteCtrl'
-            })
-            .when('/movie/:id/edit', {
-                templateUrl: 'views/movie-edit.html',
-                controller: 'MovieEditCtrl'
-            })
             .when('/login', {
                 templateUrl: 'views/login.html',
                 controller: 'LoginCtrl'
@@ -92,16 +72,6 @@ angular
             .otherwise({
                 redirectTo: '/'
             });
-    })
-    .factory('MovieRestangular', function(Restangular) {
-        return Restangular.withConfig(function(RestangularConfigurer) {
-            RestangularConfigurer.setRestangularFields({
-                id: '_id'
-            });
-        });
-    })
-    .factory('Movie', function(MovieRestangular) {
-        return MovieRestangular.service('movie');
     })
     .factory('LoginRestangular', function(Restangular) {
         return Restangular.withConfig(function(RestangularConfigurer) {
