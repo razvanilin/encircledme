@@ -30,7 +30,8 @@ var UserSchema = new mongoose.Schema({
             type: String,
             default: 'Name'
         }
-    }
+    },
+    uploads: []
 });
 
 UserSchema.methods.comparePassword = function(candidatePassword, cb) {

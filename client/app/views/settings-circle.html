@@ -20,6 +20,22 @@
 			<h2>Edit your Circle</h2>
 		</div>
 
+		<div class="row top-buffer">
+		<div class="col-md-offset-3 col-md-9">
+			<h3>Your Avatars</h3>
+			<div class="panel panel-default" style="margin-left:10px;">
+				<table style="display:inline-block;">
+					<thead></thead>
+					<tbody>
+						<tr>
+							<td ng-repeat="upload in user.uploads" style="padding:5px;"><a ng-href="" class="thumbnail"><img ng-src="http://localhost:3000{{ upload }}" style="height:100px;"></a></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		</div>
+
 	<div class="row top-buffer">
 
                 <div class="col-md-3">
@@ -32,6 +48,7 @@
                         <div nv-file-drop="" uploader="uploader" options="{ url: '/foo' }">
                             <div nv-file-over="" uploader="uploader" over-class="another-file-over-class" class="well my-drop-zone" style="height:200px">
                                 Drop images here
+                                <h1><span class="glyphicon glyphicon-open-file"></span></h1>
                             </div>
                         </div>
                     </div>
@@ -42,7 +59,7 @@
                 </div>
 
                 <div class="col-md-9" style="margin-bottom: 40px">
-                    <h2>Upload your avatar</h2>
+                    <h3>Upload your avatar</h3>
 
                     <table class="table">
                         <thead>

@@ -8,6 +8,7 @@ var methodOverride = require('method-override');
 var _ = require('lodash');
 var cors = require('cors');
 var expressJwt = require('express-jwt');
+var path = require('path');
 
 // Create the application
 var app = express();
@@ -39,6 +40,8 @@ app.use('/hello', function(req, res, next) {
 	res.send('Hello World!');
 	next();
 });
+
+app.use("/uploads", express.static(path.join(__dirname, 'uploads')));
 
 /*app.use(function(req, res) {
     res.sendfile(__dirname + '/../client/app/index.html');

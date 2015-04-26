@@ -120,20 +120,39 @@ module.exports = function(app, route) {
     app.post('/user/:username/avatar', expressJwt({
         secret: app.settings.secret
     }), function(req, res, next) {
+        var uploadPath = "";
         req.pipe(req.busboy);
         req.busboy.on('file', function(fieldname, file, filename) {
             mkdir(__dirname + '/../uploads/' + req.params.username, function(err) {
                 if (err) console.error(err);
 
-                var stream = fs.createWriteStream(__dirname + '/../uploads/'+req.params.username+ '/' + filename);
+                uploadPath = '/uploads/' + req.params.username + '/' + filename;
+                var stream = fs.createWriteStream(__dirname + '/../uploads/' + req.params.username + '/' + filename);
                 file.pipe(stream);
                 stream.on('close', function() {
                     console.log('File ' + filename + ' is uploaded');
-                    res.json({
+                    /*res.json({
                         filename: filename
-                    });
+                    });*/
                 });
 
+                // Update the database with the avatars paths
+                User.findOne({
+                    username: req.params.username
+                }, function(err, user) {
+                    if (err || user === null) {
+                        return res.status(404).send("User not found");
+                    }
+
+                    user.uploads.push(uploadPath);
+                    user.save(function(err) {
+                        if (err) {
+                            return res.status(400).send("Could not add image");
+                        } else {
+                            return res.status(200).send("Image added");
+                        }
+                    });
+                });
             });
         });
     });
