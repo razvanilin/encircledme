@@ -10,6 +10,10 @@
 				<a ng-href="#/user/{{ menu.username }}/profile"><span class="glyphicon glyphicon-pencil"></span> Profile Settings</a>
 			</li>
 
+			<li role="presentation" ng-class="{active: viewCircle}">
+				<a ng-href="#/user/{{ menu.username }}/circle"><span class="glyphicon glyphicon-asterisk"></span> Circle Settings</a>
+			</li>
+
 			<li role="presentation" style="border-bottom: 1px solid #eee;padding-bottom:10px;" ng-class="{active: viewAccount}">
 				<a ng-href="#/user/{{ menu.username }}/account"><span class="glyphicon glyphicon-cog"></span> Account Settings</a>
 			</li>

@@ -15,7 +15,8 @@ angular
     .module('clientApp', [
         'ngResource',
         'ngRoute',
-        'restangular'
+        'restangular',
+        'angularFileUpload'
     ])
     .constant("CONFIG", {
         "API_HOST": "http://localhost:3000",
@@ -56,7 +57,7 @@ angular
                 templateUrl: 'views/edit-menu.html'
             })
 
-            // keep username one of the lasts routes in the app to avoid faulty routing
+            // keep username one of the last routes in the app to avoid faulty routing
             .when('/:username', {
                 templateUrl: 'views/user.html',
                 controller: 'UserCtrl'
@@ -68,6 +69,10 @@ angular
             .when('/user/:username/account', {
               templateUrl: 'views/account.html',
               controller: 'AccountCtrl'
+            })
+            .when('/user/:username/circle', {
+                templateUrl: 'views/settings-circle.html',
+                controller: 'SettingsCircleCtrl'
             })
             .otherwise({
                 redirectTo: '/'

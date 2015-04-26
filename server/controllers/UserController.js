@@ -1,6 +1,10 @@
 var restful = require('node-restful');
 var expressJwt = require('express-jwt');
 var bcrypt = require('bcrypt-nodejs');
+var busboy = require('connect-busboy');
+var path = require('path');
+var fs = require('fs-extra');
+
 var SALT_WORK_FACTOR = 10;
 
 module.exports = function(app, route) {
@@ -61,7 +65,9 @@ module.exports = function(app, route) {
 
 
     // Change password route
-    app.put('/user/:username/password', expressJwt({secret: app.settings.secret}), function(req, res, next) {
+    app.put('/user/:username/password', expressJwt({
+        secret: app.settings.secret
+    }), function(req, res, next) {
         var oldPassword = req.body.old;
         var newPassword = req.body.new;
         var username = req.params.username;
@@ -76,7 +82,7 @@ module.exports = function(app, route) {
             if (err || user === null) {
                 return res.status(404).send("User not found");
             }
-            
+
             user.comparePassword(oldPassword, function(isMatch) {
                 if (!isMatch) {
                     return res.status(401).send("Wrong password");
@@ -108,10 +114,22 @@ module.exports = function(app, route) {
         });
     });
 
-
+    app.use(busboy());
     // Avatar upload route
-    app.put('/user/:username/avatar', expressJwt({ secret: app.settings.secret }), function(req, res, next) {
-        var file = req.file;
+    app.post('/user/:username/avatar', expressJwt({
+        secret: app.settings.secret
+    }), function(req, res, next) {
+        req.pipe(req.busboy);
+        req.busboy.on('file', function(fieldname, file, filename) {
+            var stream = fs.createWriteStream(__dirname + '/../uploads/' + filename);
+            file.pipe(stream);
+            stream.on('close', function() {
+                console.log('File ' + filename + ' is uploaded');
+                res.json({
+                    filename: filename
+                });
+            });
+        });
     });
 
     // Return middleware
