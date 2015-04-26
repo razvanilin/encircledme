@@ -12,6 +12,7 @@ angular.module('clientApp')
         if (AuthenticationService.isLogged) {
             $scope.viewCircle = true;
             $scope.viewUploads = false;
+            $scope.error = false;
             $scope.host = CONFIG.API_HOST;
             $scope.user = {};
             var id = JSON.parse($window.sessionStorage.user).id;
@@ -64,6 +65,9 @@ angular.module('clientApp')
                 console.info('onSuccessItem', fileItem, response, status, headers);
             };
             uploader.onErrorItem = function(fileItem, response, status, headers) {
+            	if (status === 403) {
+            		$scope.error = response;
+            	}
                 console.info('onErrorItem', fileItem, response, status, headers);
             };
             uploader.onCancelItem = function(fileItem, response, status, headers) {

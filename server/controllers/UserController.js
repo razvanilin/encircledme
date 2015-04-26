@@ -121,36 +121,45 @@ module.exports = function(app, route) {
         secret: app.settings.secret
     }), function(req, res, next) {
         var uploadPath = "";
-        req.pipe(req.busboy);
-        req.busboy.on('file', function(fieldname, file, filename) {
-            mkdir(__dirname + '/../uploads/' + req.params.username, function(err) {
-                if (err) console.error(err);
 
-                var hashDate = Date.now();
-                var fileExtension = filename.substring(filename.lastIndexOf('.'));
+        User.findOne({
+            username: req.params.username
+        }, function(err, user) {
+            if (err || user === null) {
+                return res.status(404).send("User not found");
+            }
 
-                // hash the filename
-                bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt) {
-                    if (err) return next(err);
+            if (user.uploads.length > app.settings.maxImages) {
+                return res.status(403).send("Maximum number of images reached: "+app.settings.maxImages);
+            }
 
-                    bcrypt.hash((hashDate+filename), salt, null, function(err, hash) {
+            req.pipe(req.busboy);
+            req.busboy.on('file', function(fieldname, file, filename) {
+                mkdir(__dirname + '/../uploads/' + req.params.username, function(err) {
+                    if (err) console.error(err);
+
+                    var hashDate = Date.now();
+                    var fileExtension = filename.substring(filename.lastIndexOf('.'));
+
+                    // hash the filename
+                    bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt) {
                         if (err) return next(err);
-                        filename = hash + fileExtension;
 
-                        uploadPath = '/uploads/' + req.params.username + '/' + filename;
-                        var stream = fs.createWriteStream(__dirname + '/../uploads/' + req.params.username + '/' + filename);
-                        file.pipe(stream);
-                        stream.on('close', function() {
-                            console.log('File ' + filename + ' is uploaded');
+                        bcrypt.hash((hashDate + filename), salt, null, function(err, hash) {
+                            if (err) return next(err);
+                            filename = hash + fileExtension;
 
-                            // Update the database with the avatars paths
-                            User.findOne({
-                                username: req.params.username
-                            }, function(err, user) {
-                                if (err || user === null) {
-                                    return res.status(404).send("User not found");
+                            uploadPath = '/uploads/' + req.params.username + '/' + filename;
+                            var stream = fs.createWriteStream(__dirname + '/../uploads/' + req.params.username + '/' + filename);
+                            file.pipe(stream);
+                            stream.on('close', function() {
+                                console.log('File ' + filename + ' is uploaded');
+
+                                if (user.uploads.length > app.settings.maxImages) {
+                                    return res.status(403).send("Maximum number of images reached: "+app.settings.maxImages);
                                 }
 
+                                // Update the database with the avatars paths
                                 user.uploads.push(uploadPath);
                                 user.save(function(err) {
                                     if (err) {
