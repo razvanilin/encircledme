@@ -116,6 +116,28 @@ module.exports = function(app, route) {
         });
     });
 
+    // set new avatar
+    app.put('/user/:username/avatar', expressJwt({
+        secret: app.settings.secret
+    }), function(req, res, next) {
+        User.findOne({
+            username: req.params.username
+        }, function(err, user) {
+            if (err || user === null) {
+                return res.status(404).send("User not found");
+            }
+
+            user.profile.avatar = req.body.newAvatar;
+            user.save(function(err) {
+                if (err) {
+                    return res.status(400).send("Could not change avatar");
+                } else {
+                    return res.status(200).send("Avatar changed");
+                }
+            });
+        });
+    });
+
     app.use(busboy());
     // Avatar upload route
     app.post('/user/:username/avatar', expressJwt({
@@ -142,7 +164,7 @@ module.exports = function(app, route) {
                     var hashDate = Date.now();
                     var fileExtension = filename.substring(filename.lastIndexOf('.'));
 
-                    filename = md5(hashDate+filename)+fileExtension;
+                    filename = md5(hashDate + filename) + fileExtension;
 
                     uploadPath = '/uploads/' + req.params.username + '/' + filename;
                     var stream = fs.createWriteStream(__dirname + '/../uploads/' + req.params.username + '/' + filename);

@@ -13,14 +13,26 @@ angular.module('clientApp')
             $scope.viewCircle = true;
             $scope.viewUploads = false;
             $scope.error = false;
+            $scope.avatarChangeStatus = 0;
             $scope.host = CONFIG.API_HOST;
             $scope.user = {};
             var id = JSON.parse($window.sessionStorage.user).id;
             User.one(id).get().then(function(data, status, headers, config) {
                 var profile = data;
                 delete profile.password;
-                $scope.user = profile;   
+                $scope.user = profile;
+
+                $scope.changeAvatar = function(newAvatar) {
+                	$scope.user.newAvatar = newAvatar;
+                    User.one($scope.user.username).customPUT($scope.user, 'avatar').then(function(data) {
+                        $scope.avatarChangeStatus = 1;
+                    }, function(response) {
+                        $scope.avatarChangeStatus = 2;
+                    });
+                    
+                }
             });
+
 
             var url = CONFIG.API_HOST + "/user/" + JSON.parse($window.sessionStorage.user).username + "/avatar";
             var uploader = $scope.uploader = new FileUploader({
@@ -65,9 +77,9 @@ angular.module('clientApp')
                 console.info('onSuccessItem', fileItem, response, status, headers);
             };
             uploader.onErrorItem = function(fileItem, response, status, headers) {
-            	if (status === 403) {
-            		$scope.error = response;
-            	}
+                if (status === 403) {
+                    $scope.error = response;
+                }
                 console.info('onErrorItem', fileItem, response, status, headers);
             };
             uploader.onCancelItem = function(fileItem, response, status, headers) {

@@ -29,13 +29,15 @@
 					<tbody>
 						<tr>
 							<td ng-repeat="upload in user.uploads" style="padding:5px;">
-								<a ng-href="" class="thumbnail"><img ng-src="{{ host }}{{ upload }}" style="height:100px;"></a>
-								<div><a class="btn btn-success" ng-href=""><span class="glyphicon glyphicon-ok"></span></a> <a class="btn btn-danger" ng-href=""><span class="glyphicon glyphicon-remove"></span></a></div>
+								<a ng-href="" class="thumbnail" style="width:178px;"><img ng-src="{{ host }}{{ upload }}" style="height:100px;"></a>
+								<div><a class="btn btn-success" ng-href="" ng-click="changeAvatar(upload)"><span class="glyphicon glyphicon-ok"></span></a> <a class="btn btn-danger" ng-href=""><span class="glyphicon glyphicon-remove"></span></a></div>
 							</td>
 						</tr>
 					</tbody>
 				</table>
 			</div>
+			<div ng-if="avatarChangeStatus == 1" class="alert alert-success top-buffer" role="alert">Avatar Changed</div>
+			<div ng-if="avatarChangeStatus == 2" class="alert alert-success top-buffer" role="alert">Error changing the avatar</div>
 		</div>
 		</div>
 
