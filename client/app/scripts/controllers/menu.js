@@ -19,7 +19,7 @@ angular.module('clientApp')
             $scope.menu.loggedIn = true;
         } else {
             $scope.menu.username = "Guest";
-            $scope.menu.avatar = "default.png";
+            $scope.menu.avatar = "/uploads/default.png";
             $scope.menu.loggedIn = false;
         }
     });
