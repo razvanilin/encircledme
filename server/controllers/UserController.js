@@ -152,6 +152,12 @@ module.exports = function(app, route) {
 
                     var index = user.uploads.indexOf(req.body.newAvatar);
                     user.uploads.splice(index, 1);
+
+                    // set the default avatar if the current profile picture was removed
+                    if (user.profile.avatar == req.body.newAvatar) {
+                        user.profile.avatar = app.settings.defaultPicture;
+                    }
+
                     user.save(function(err) {
                         if (err) {
                             return res.status(400).send("Could not remove picture");

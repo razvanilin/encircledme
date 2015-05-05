@@ -26,6 +26,17 @@ angular.module('clientApp')
                     $scope.user.newAvatar = newAvatar;
                     $scope.user.requestType = requestType;
                     User.one($scope.user.username).customPUT($scope.user, 'avatar').then(function(data) {
+                        var user = JSON.parse($window.sessionStorage.user);
+
+                        if (requestType == "change") {
+                            user.avatar = newAvatar;
+                            $window.sessionStorage.user = JSON.stringify(user);
+                        } else if (requestType == "delete") {
+                        	if (user.avatar == newAvatar) {
+                        		user.avatar = '/uploads/default.png';
+                        		$window.sessionStorage.user = JSON.stringify(user);
+                        	}
+                        }
                         $scope.avatarChangeStatus = 1;
                     }, function(response) {
                         $scope.avatarChangeStatus = 2;
@@ -106,7 +117,7 @@ angular.module('clientApp')
             };
             uploader.onAfterAddingAll = function(addedFileItems) {
                 console.info('onAfterAddingAll', addedFileItems);
-            }; 
+            };
             uploader.onProgressItem = function(fileItem, progress) {
                 console.info('onProgressItem', fileItem, progress);
             };
