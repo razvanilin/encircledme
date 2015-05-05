@@ -21,7 +21,7 @@
 		</div>
 
 		<div class="row top-buffer">
-		<div class="col-md-offset-3 col-md-9">
+		<div class="col-md-offset-1 col-md-10">
 			<h3>Your Avatars</h3>
 			<div class="panel panel-default" style="margin-left:10px;">
 				<table style="display:inline-block;">
@@ -36,14 +36,15 @@
 					</tbody>
 				</table>
 			</div>
-			<div ng-if="avatarChangeStatus == 1" class="alert alert-success top-buffer" role="alert">Avatar Changed</div>
-			<div ng-if="avatarChangeStatus == 2" class="alert alert-success top-buffer" role="alert">Error changing the avatar</div>
+			<div ng-if="avatarChangeStatus == 1" class="alert alert-success top-buffer" role="alert">Picture changed</div>
+			<div ng-if="avatarChangeStatus == 2" class="alert alert-success top-buffer" role="alert">Picture removed</div>
+			<div ng-if="avatarChangeStatus == 3" class="alert alert-danger top-buffer" role="alert">There was an error with your request. Please try again later.</div>
 		</div>
 		</div>
 
 	<div class="row top-buffer">
 
-                <div class="col-md-3" ng-class="{'col-md-offset-6':!viewUploads}">
+                <div class="col-md-4" ng-class="{'col-md-offset-4':!viewUploads}">
 
                     <h3>Select files</h3>
 
@@ -63,7 +64,7 @@
 
                 </div>
 
-                <div class="col-md-9" ng-class="{hidden:!viewUploads}" style="margin-bottom: 40px">
+                <div class="col-md-8" ng-class="{hidden:!viewUploads}" style="margin-bottom: 40px">
                     <h3>Upload your avatar</h3>
 
                     <table class="table">

@@ -162,7 +162,7 @@ module.exports = function(app, route) {
                         if (err) {
                             return res.status(400).send("Could not remove picture");
                         } else {
-                            return res.status(200).send("Picture removed");
+                            return res.status(200).send(req.body.newAvatar);
                         }
                     });
 
@@ -213,7 +213,7 @@ module.exports = function(app, route) {
                             if (err) {
                                 return res.status(400).send("Could not add image");
                             } else {
-                                return res.status(200).send("Picture added");
+                                return res.status(200).send(uploadPath);
                             }
                         });
                     });

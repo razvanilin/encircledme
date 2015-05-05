@@ -21,6 +21,7 @@ angular
     ])
     .constant("CONFIG", {
         "API_HOST": "http://localhost:3000",
+        "API_UPLOADS": "/uploads"
     })
     .config(function($routeProvider, RestangularProvider, $httpProvider, $locationProvider, CONFIG) {
 

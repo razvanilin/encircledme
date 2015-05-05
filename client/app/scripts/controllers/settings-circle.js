@@ -31,15 +31,21 @@ angular.module('clientApp')
                         if (requestType == "change") {
                             user.avatar = newAvatar;
                             $window.sessionStorage.user = JSON.stringify(user);
+                            $scope.avatarChangeStatus = 1;
                         } else if (requestType == "delete") {
                         	if (user.avatar == newAvatar) {
                         		user.avatar = '/uploads/default.png';
                         		$window.sessionStorage.user = JSON.stringify(user);
                         	}
+                        	// delete the image from the the scope so it dissapears from the view
+                        	var deletedIndex = $scope.user.uploads.indexOf(data);
+                        	$scope.user.uploads.splice(deletedIndex, 1);
+
+                        	$scope.avatarChangeStatus = 2;
                         }
-                        $scope.avatarChangeStatus = 1;
+
                     }, function(response) {
-                        $scope.avatarChangeStatus = 2;
+                        $scope.avatarChangeStatus = 3;
                     });
 
                 };
@@ -113,37 +119,38 @@ angular.module('clientApp')
             // CALLBACKS
 
             uploader.onWhenAddingFileFailed = function(item /*{File|FileLikeObject}*/ , filter, options) {
-                console.info('onWhenAddingFileFailed', item, filter, options);
+                //console.info('onWhenAddingFileFailed', item, filter, options);
             };
             uploader.onAfterAddingAll = function(addedFileItems) {
-                console.info('onAfterAddingAll', addedFileItems);
+                //console.info('onAfterAddingAll', addedFileItems);
             };
             uploader.onProgressItem = function(fileItem, progress) {
-                console.info('onProgressItem', fileItem, progress);
+                //console.info('onProgressItem', fileItem, progress);
             };
             uploader.onProgressAll = function(progress) {
-                console.info('onProgressAll', progress);
+                //console.info('onProgressAll', progress);
             };
             uploader.onSuccessItem = function(fileItem, response, status, headers) {
-                console.info('onSuccessItem', fileItem, response, status, headers);
+            	$scope.user.uploads.push(response);
+                //console.info('onSuccessItem', fileItem, response, status, headers);
             };
             uploader.onErrorItem = function(fileItem, response, status, headers) {
                 if (status === 403) {
                     $scope.error = response;
                 }
-                console.info('onErrorItem', fileItem, response, status, headers);
+                //console.info('onErrorItem', fileItem, response, status, headers);
             };
             uploader.onCancelItem = function(fileItem, response, status, headers) {
-                console.info('onCancelItem', fileItem, response, status, headers);
+                //console.info('onCancelItem', fileItem, response, status, headers);
             };
             uploader.onCompleteItem = function(fileItem, response, status, headers) {
-                console.info('onCompleteItem', fileItem, response, status, headers);
+                //console.info('onCompleteItem', fileItem, response, status, headers);
             };
             uploader.onCompleteAll = function() {
-                console.info('onCompleteAll');
+                //console.info('onCompleteAll');
             };
 
-            console.info('uploader', uploader);
+            //console.info('uploader', uploader);
         } else {
             $location.path('/login');
         }
