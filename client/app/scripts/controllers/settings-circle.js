@@ -22,15 +22,16 @@ angular.module('clientApp')
                 delete profile.password;
                 $scope.user = profile;
 
-                $scope.changeAvatar = function(newAvatar) {
+                $scope.changeAvatar = function(newAvatar, requestType) {
                     $scope.user.newAvatar = newAvatar;
+                    $scope.user.requestType = requestType;
                     User.one($scope.user.username).customPUT($scope.user, 'avatar').then(function(data) {
                         $scope.avatarChangeStatus = 1;
                     }, function(response) {
                         $scope.avatarChangeStatus = 2;
                     });
 
-                }
+                };
             });
 
 

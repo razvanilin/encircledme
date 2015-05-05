@@ -11,6 +11,8 @@ var SALT_WORK_FACTOR = 10;
 
 module.exports = function(app, route) {
 
+    app.use(busboy());
+
     // Setup the controller for REST
     var User = restful.model(
             'user',
@@ -127,18 +129,42 @@ module.exports = function(app, route) {
                 return res.status(404).send("User not found");
             }
 
-            user.profile.avatar = req.body.newAvatar;
-            user.save(function(err) {
-                if (err) {
-                    return res.status(400).send("Could not change avatar");
-                } else {
-                    return res.status(200).send("Avatar changed");
-                }
-            });
+            if (user.uploads.indexOf(req.body.newAvatar) < 0) {
+                return res.status(404).send("Avatar not found on the server");
+            }
+
+            if (req.body.requestType == "change") {
+
+                user.profile.avatar = req.body.newAvatar;
+                user.save(function(err) {
+                    if (err) {
+                        return res.status(400).send("Could not change avatar");
+                    } else {
+                        return res.status(200).send("Avatar changed");
+                    }
+                });
+
+            // if type is delete, then delete the pic from the server and db
+            } else if (req.body.requestType == "delete") {
+                var file = __dirname + '/../' + req.body.newAvatar;
+                fs.unlink(file, function(err) {
+                    if (err) return res.status(400).send('picture could not be deleted');
+
+                    var index = user.uploads.indexOf(req.body.newAvatar);
+                    user.uploads.splice(index, 1);
+                    user.save(function(err) {
+                        if (err) {
+                            return res.status(400).send("Could not remove picture");
+                        } else {
+                            return res.status(200).send("Picture removed");
+                        }
+                    });
+
+                });
+            }
         });
     });
 
-    app.use(busboy());
     // Avatar upload route
     app.post('/user/:username/avatar', expressJwt({
         secret: app.settings.secret
@@ -151,9 +177,8 @@ module.exports = function(app, route) {
             if (err || user === null) {
                 return res.status(404).send("User not found");
             }
-            user.uploads = [];
             if (user.uploads.length >= app.settings.maxImages) {
-                return res.status(403).send("Maximum number of images reached: " + app.settings.maxImages);
+                return res.status(403).send("Maximum number of pictures reached: " + app.settings.maxImages);
             }
 
             req.pipe(req.busboy);
@@ -173,7 +198,7 @@ module.exports = function(app, route) {
                         console.log('File ' + filename + ' is uploaded');
 
                         if (user.uploads.length >= app.settings.maxImages) {
-                            return res.status(403).send("Maximum number of images reached: " + app.settings.maxImages);
+                            return res.status(403).send("Maximum number of pictures reached: " + app.settings.maxImages);
                         }
 
                         // Update the database with the avatars paths
@@ -182,7 +207,7 @@ module.exports = function(app, route) {
                             if (err) {
                                 return res.status(400).send("Could not add image");
                             } else {
-                                return res.status(200).send("Image added");
+                                return res.status(200).send("Picture added");
                             }
                         });
                     });

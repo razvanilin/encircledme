@@ -2,7 +2,7 @@
             .my-drop-zone { border: dotted 3px lightgray; }
             .nv-file-over { border: dotted 3px red; } /* Default class applied to drop zones on over */
             .another-file-over-class { border: dotted 3px green; }
-            html, body { height: 100%; }
+            /*html, body { height: 100%; }*/
             /*canvas {
                 background-color: #f3f3f3;
                 -webkit-box-shadow: 3px 3px 3px 0 #e3e3e3;
@@ -30,7 +30,7 @@
 						<tr>
 							<td ng-repeat="upload in user.uploads" style="padding:5px;">
 								<a ng-href="" class="thumbnail" style="width:178px;"><img ng-src="{{ host }}{{ upload }}" style="height:100px;"></a>
-								<div><a class="btn btn-success" ng-href="" ng-click="changeAvatar(upload)"><span class="glyphicon glyphicon-ok"></span></a> <a class="btn btn-danger" ng-href=""><span class="glyphicon glyphicon-remove"></span></a></div>
+								<div><a class="btn btn-success" ng-href="" ng-click="changeAvatar(upload, 'change')"><span class="glyphicon glyphicon-ok"></span></a> <a class="btn btn-danger" ng-href="" ng-click="changeAvatar(upload, 'delete')"><span class="glyphicon glyphicon-remove"></span></a></div>
 							</td>
 						</tr>
 					</tbody>
