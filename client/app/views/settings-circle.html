@@ -20,28 +20,6 @@
 			<h2>Edit your Circle</h2>
 		</div>
 
-		<!--div class="row top-buffer">
-		<div class="col-md-offset-1 col-md-10">
-			<h3>Your Avatars</h3>
-			<div class="panel panel-default" style="margin-left:10px;">
-				<table style="display:inline-block;">
-					<thead></thead>
-					<tbody>
-						<tr>
-							<td ng-repeat="upload in user.uploads" style="padding:5px;">
-								<a ng-href="" class="thumbnail" style="width:178px;"><img class="img-rounded" ng-src="{{ host }}{{ upload }}" style="height:100px;"></a>
-								<div><a class="btn btn-success" ng-href="" ng-click="changeAvatar(upload, 'change')"><span class="glyphicon glyphicon-ok"></span></a> <a class="btn btn-danger" ng-href="" ng-click="changeAvatar(upload, 'delete')"><span class="glyphicon glyphicon-remove"></span></a></div>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-			<div ng-if="avatarChangeStatus == 1" class="alert alert-success top-buffer" role="alert">Picture changed</div>
-			<div ng-if="avatarChangeStatus == 2" class="alert alert-success top-buffer" role="alert">Picture removed</div>
-			<div ng-if="avatarChangeStatus == 3" class="alert alert-danger top-buffer" role="alert">There was an error with your request. Please try again later.</div>
-		</div>
-		</div-->
-
 	<div class="row top-buffer">
 
                 <div class="col-md-offset-1 col-md-10">
@@ -80,7 +58,6 @@
         </div>
 
         <div class="row top-buffer">
-
                 <div class="col-md-offset-1 col-md-10" ng-show="uploader.queue.length > 0" style="margin-bottom: 40px">
                     <h3 id="upload">Upload your avatar</h3>
 

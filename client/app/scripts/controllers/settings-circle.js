@@ -14,9 +14,13 @@ angular.module('clientApp')
         if (AuthenticationService.isLogged) {
             $scope.scrollTo = function() {
                 setTimeout(function() {
-                    $location.hash("upload");
+                    var old = $location.hash();
+                    $location.hash('upload');
                     $anchorScroll();
-                }, 500);
+                    //reset to old to keep any additional routing logic from kicking in
+                    $location.hash(old);
+
+                });
             };
 
             $scope.viewCircle = true;
@@ -83,7 +87,7 @@ angular.module('clientApp')
              * Show preview with cropping
              */
             uploader.onAfterAddingFile = function(item) {
-            	$scope.avatarChangeStatus = 0;
+                $scope.avatarChangeStatus = 0;
                 // $scope.croppedImage = '';
                 $scope.scrollTo();
                 item.croppedImage = '';
@@ -136,8 +140,8 @@ angular.module('clientApp')
                 //console.info('onAfterAddingAll', addedFileItems);
             };
             uploader.onProgressItem = function(fileItem, progress) {
-            	$scope.avatarChangeStatus = 0;
-            	$scope.error = null;
+                $scope.avatarChangeStatus = 0;
+                $scope.error = null;
                 //console.info('onProgressItem', fileItem, progress);
             };
             uploader.onProgressAll = function(progress) {
