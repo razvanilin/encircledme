@@ -8,10 +8,18 @@
  * Controller of the clientApp
  */
 angular.module('clientApp')
-    .controller('SettingsCircleCtrl', function($scope, FileUploader, AuthenticationService, User, $location, CONFIG, $window) {
+    .controller('SettingsCircleCtrl', function(
+        $scope, FileUploader, AuthenticationService, User, $location, CONFIG, $window, $anchorScroll
+    ) {
         if (AuthenticationService.isLogged) {
+            $scope.scrollTo = function() {
+                setTimeout(function() {
+                    $location.hash("upload");
+                    $anchorScroll();
+                }, 500);
+            };
+
             $scope.viewCircle = true;
-            $scope.viewUploads = false;
             $scope.error = false;
             $scope.avatarChangeStatus = 0;
             $scope.host = CONFIG.API_HOST;
@@ -33,15 +41,15 @@ angular.module('clientApp')
                             $window.sessionStorage.user = JSON.stringify(user);
                             $scope.avatarChangeStatus = 1;
                         } else if (requestType == "delete") {
-                        	if (user.avatar == newAvatar) {
-                        		user.avatar = '/uploads/default.png';
-                        		$window.sessionStorage.user = JSON.stringify(user);
-                        	}
-                        	// delete the image from the the scope so it dissapears from the view
-                        	var deletedIndex = $scope.user.uploads.indexOf(data);
-                        	$scope.user.uploads.splice(deletedIndex, 1);
+                            if (user.avatar == newAvatar) {
+                                user.avatar = '/uploads/default.png';
+                                $window.sessionStorage.user = JSON.stringify(user);
+                            }
+                            // delete the image from the the scope so it dissapears from the view
+                            var deletedIndex = $scope.user.uploads.indexOf(data);
+                            $scope.user.uploads.splice(deletedIndex, 1);
 
-                        	$scope.avatarChangeStatus = 2;
+                            $scope.avatarChangeStatus = 2;
                         }
 
                     }, function(response) {
@@ -57,7 +65,8 @@ angular.module('clientApp')
                 url: url,
                 headers: {
                     'Authorization': 'Bearer ' + $window.sessionStorage.token
-                }
+                },
+                queueLimit: 1
             });
 
             // FILTERS
@@ -74,8 +83,9 @@ angular.module('clientApp')
              * Show preview with cropping
              */
             uploader.onAfterAddingFile = function(item) {
+            	$scope.avatarChangeStatus = 0;
                 // $scope.croppedImage = '';
-                $scope.viewUploads = true;
+                $scope.scrollTo();
                 item.croppedImage = '';
                 var reader = new FileReader();
                 reader.onload = function(event) {
@@ -122,16 +132,19 @@ angular.module('clientApp')
                 //console.info('onWhenAddingFileFailed', item, filter, options);
             };
             uploader.onAfterAddingAll = function(addedFileItems) {
+                $scope.scrollTo();
                 //console.info('onAfterAddingAll', addedFileItems);
             };
             uploader.onProgressItem = function(fileItem, progress) {
+            	$scope.avatarChangeStatus = 0;
+            	$scope.error = null;
                 //console.info('onProgressItem', fileItem, progress);
             };
             uploader.onProgressAll = function(progress) {
                 //console.info('onProgressAll', progress);
             };
             uploader.onSuccessItem = function(fileItem, response, status, headers) {
-            	$scope.user.uploads.push(response);
+                $scope.user.uploads.push(response);
                 //console.info('onSuccessItem', fileItem, response, status, headers);
             };
             uploader.onErrorItem = function(fileItem, response, status, headers) {

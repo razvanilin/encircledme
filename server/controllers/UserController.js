@@ -21,13 +21,15 @@ module.exports = function(app, route) {
         // uncomment this in production
         //.before('get', expressJwt({ secret: app.settings.secret }))
         .before('post', hash_password)
-        .before('put', expressJwt({
-            secret: app.settings.secret
-        }), checkForPassword);
+        .before('put', checkForPassword);
 
 
     function checkForPassword(req, res, next) {
         if (req.body.password) return res.status(400).send("Bad request");
+
+        expressJwt({
+            secret: app.settings.secret
+        });
 
         next();
     }
@@ -175,12 +177,14 @@ module.exports = function(app, route) {
     app.post('/user/:username/avatar', expressJwt({
         secret: app.settings.secret
     }), function(req, res, next) {
+
         var uploadPath = "";
 
         User.findOne({
             username: req.params.username
         }, function(err, user) {
             if (err || user === null) {
+                console.log("user");
                 return res.status(404).send("User not found");
             }
             if (user.uploads.length >= app.settings.maxImages) {

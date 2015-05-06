@@ -20,7 +20,7 @@
 			<h2>Edit your Circle</h2>
 		</div>
 
-		<div class="row top-buffer">
+		<!--div class="row top-buffer">
 		<div class="col-md-offset-1 col-md-10">
 			<h3>Your Avatars</h3>
 			<div class="panel panel-default" style="margin-left:10px;">
@@ -29,7 +29,7 @@
 					<tbody>
 						<tr>
 							<td ng-repeat="upload in user.uploads" style="padding:5px;">
-								<a ng-href="" class="thumbnail" style="width:178px;"><img ng-src="{{ host }}{{ upload }}" style="height:100px;"></a>
+								<a ng-href="" class="thumbnail" style="width:178px;"><img class="img-rounded" ng-src="{{ host }}{{ upload }}" style="height:100px;"></a>
 								<div><a class="btn btn-success" ng-href="" ng-click="changeAvatar(upload, 'change')"><span class="glyphicon glyphicon-ok"></span></a> <a class="btn btn-danger" ng-href="" ng-click="changeAvatar(upload, 'delete')"><span class="glyphicon glyphicon-remove"></span></a></div>
 							</td>
 						</tr>
@@ -40,104 +40,94 @@
 			<div ng-if="avatarChangeStatus == 2" class="alert alert-success top-buffer" role="alert">Picture removed</div>
 			<div ng-if="avatarChangeStatus == 3" class="alert alert-danger top-buffer" role="alert">There was an error with your request. Please try again later.</div>
 		</div>
-		</div>
+		</div-->
 
 	<div class="row top-buffer">
 
-                <div class="col-md-4" ng-class="{'col-md-offset-4':!viewUploads}">
+                <div class="col-md-offset-1 col-md-10">
 
-                    <h3>Select files</h3>
+                    <h3>Select or drop images here</h3>
 
                     <div ng-show="uploader.isHTML5">
                   
                         <!-- Example: nv-file-drop="" uploader="{Object}" options="{Object}" filters="{String}" -->
                         <div nv-file-drop="" uploader="uploader" options="{ url: uploader.url }">
                             <div nv-file-over="" uploader="uploader" over-class="another-file-over-class" class="well my-drop-zone" style="max-height:200px">
-                                Drop images here
-                                <h1><span class="glyphicon glyphicon-open-file"></span></h1>
+                                <table style="display:inline-block;">
+									<thead></thead>
+									<tbody>
+										<tr>
+											<td ng-repeat="upload in user.uploads" style="padding:5px;">
+												<a ng-href="" class="thumbnail" style="width:178px;"><img class="img-rounded" ng-src="{{ host }}{{ upload }}" style="height:100px;"></a>
+												<div><a class="btn btn-success" ng-href="" ng-click="changeAvatar(upload, 'change')"><span class="glyphicon glyphicon-ok"></span></a> <a class="btn btn-danger" ng-href="" ng-click="changeAvatar(upload, 'delete')"><span class="glyphicon glyphicon-remove"></span></a></div>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+                                <h1 ng-if="user.uploads.length == 0"><span class="glyphicon glyphicon-open-file"></span></h1>
                             </div>
                         </div>
                     </div>
 
                     <!-- Example: nv-file-select="" uploader="{Object}" options="{Object}" filters="{String}" -->
-                    <input type="file" nv-file-select="" uploader="uploader" multiple  />
+                    <input type="file" nv-file-select="" uploader="uploader"/>
+
+                    <div ng-show="avatarChangeStatus == 1" class="alert alert-success top-buffer" role="alert">Picture changed</div>
+					<div ng-show="avatarChangeStatus == 2" class="alert alert-success top-buffer" role="alert">Picture removed</div>
+					<div ng-show="avatarChangeStatus == 3" class="alert alert-danger top-buffer" role="alert">There was an error with your request. Please try again later.</div>
 
                 </div>
+        </div>
 
-                <div class="col-md-8" ng-class="{hidden:!viewUploads}" style="margin-bottom: 40px">
-                    <h3>Upload your avatar</h3>
+        <div class="row top-buffer">
 
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th width="50%">Name</th>
-                                <th ng-show="uploader.isHTML5">Size</th>
-                                <th ng-show="uploader.isHTML5">Progress</th>
-                                <th>Status</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="item in uploader.queue">
-                                <td style="text-align:left;">
-                                    <strong>{{ item.file.name }}</strong>
-                                    <!-- Image preview -->
-                                    <!--auto height-->
-                                    <!--<div ng-thumb="{ file: item.file, width: 100 }"></div>-->
-                                    <!--auto width-->
-                                    <!--div ng-show="uploader.isHTML5" ng-thumb="{ file: item._file, height: 100 }"></div-->
-                                    <div class="cropArea">
-			                          <img-crop image="item.image" result-image="item.croppedImage" result-image-size="500" ng-image-quality="1"></img-crop>
-			                        </div>
-			                        <div>Cropped Image:</div>
-			                        <div><img ng-src="{{item.croppedImage}}" style="height:200px;"/></div>
-                                    <!--fixed width and height -->
-                                    <!--<div ng-thumb="{ file: item.file, width: 100, height: 100 }"></div>-->
-                                </td>
-                                <td ng-show="uploader.isHTML5" nowrap>{{ item.file.size/1024/1024|number:2 }} MB</td>
-                                <td ng-show="uploader.isHTML5">
-                                    <div class="progress" style="margin-bottom: 0;">
-                                        <div class="progress-bar" role="progressbar" ng-style="{ 'width': item.progress + '%' }"></div>
-                                    </div>
-                                </td>
-                                <td class="text-center">
-                                    <span ng-show="item.isSuccess"><i class="glyphicon glyphicon-ok"></i></span>
-                                    <span ng-show="item.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span>
-                                    <span ng-show="item.isError"><i class="glyphicon glyphicon-remove"></i></span>
-                                </td>
-                                <td nowrap>
-                                    <button type="button" class="btn btn-success btn-xs" ng-click="item.upload()" ng-disabled="item.isReady || item.isUploading || item.isSuccess">
-                                        <span class="glyphicon glyphicon-upload"></span> Upload
-                                    </button>
-                                    <button type="button" class="btn btn-warning btn-xs" ng-click="item.cancel()" ng-disabled="!item.isUploading">
-                                        <span class="glyphicon glyphicon-ban-circle"></span> Cancel
-                                    </button>
-                                    <button type="button" class="btn btn-danger btn-xs" ng-click="item.remove()">
-                                        <span class="glyphicon glyphicon-trash"></span> Remove
-                                    </button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <div class="col-md-offset-1 col-md-10" ng-show="uploader.queue.length > 0" style="margin-bottom: 40px">
+                    <h3 id="upload">Upload your avatar</h3>
 
-                    <div>
-                        <div>
-                            Queue progress:
-                            <div class="progress" style="">
-                                <div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
-                            </div>
-                        </div>
-                        <button type="button" class="btn btn-success btn-s" ng-click="uploader.uploadAll()" ng-disabled="!uploader.getNotUploadedItems().length">
-                            <span class="glyphicon glyphicon-upload"></span> Upload all
-                        </button>
-                        <button type="button" class="btn btn-warning btn-s" ng-click="uploader.cancelAll()" ng-disabled="!uploader.isUploading">
-                            <span class="glyphicon glyphicon-ban-circle"></span> Cancel all
-                        </button>
-                        <button type="button" class="btn btn-danger btn-s" ng-click="uploader.clearQueue()" ng-disabled="!uploader.queue.length">
-                            <span class="glyphicon glyphicon-trash"></span> Remove all
-                        </button>
+                    <div ng-repeat="item in uploader.queue" class="panel panel-default text-center" style="padding-top:20px;">
+                    	<div class="row">
+	                    	<div class="col-md-offset-1 col-md-5">
+	                    		<strong>{{ item.file.name }}</strong>
+	                    		<div class="cropArea">
+				                    <img-crop image="item.image" result-image="item.croppedImage" result-image-size="500" ng-image-quality="1"></img-crop>
+				                </div>
+				                <p ng-show="uploader.isHTML5" nowrap>{{ item.file.size/1024/1024|number:2 }} MB</p>
+	                    	</div>
+	                    	<div class="col-md-6">
+	                    		<div>Cropped Image:</div>
+				                <div><img ng-src="{{item.croppedImage}}" style="height:200px;"/></div>
+	                    	</div>
+                    	</div>
+
+                    	<div class="row" ng-show="uploader.isHTML5">
+                    		<div class="btn-group" role="group">
+                    			<button type="button" class="btn btn-success" ng-click="item.upload()" ng-disabled="item.isReady || item.isUploading || item.isSuccess">
+				                    <span class="glyphicon glyphicon-upload"></span> Upload
+				                </button>
+				                <button type="button" class="btn btn-warning" ng-click="item.cancel()" ng-disabled="!item.isUploading">
+				                    <span class="glyphicon glyphicon-ban-circle"></span> Cancel
+				                </button>
+				                <button type="button" class="btn btn-danger" ng-click="item.remove()">
+				                    <span class="glyphicon glyphicon-trash"></span> Remove
+				                </button>
+				                <h2 style="display:table-row">
+					                <span ng-show="item.isSuccess"><i class="glyphicon glyphicon-ok"></i></span>
+					                <span ng-show="item.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span>
+					                <span ng-show="item.isError"><i class="glyphicon glyphicon-remove"></i></span>
+				                </h2>
+                    		</div>
+                    		<div class="progress" style="margin-top:10px;margin-left:auto;margin-right:auto;width:50%;">
+				                    <div class="progress-bar" ng-class="{'progress-bar-success':item.isSuccess, 'progress-bar-warning':isCancel, 'progress-bar-danger':isError}" role="progressbar" ng-style="{ 'width': item.progress + '%' }"></div>
+				                </div>
+
+                    		<!--div class="text-center">
+				                <span ng-show="item.isSuccess"><i class="glyphicon glyphicon-ok"></i></span>
+				                <span ng-show="item.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span>
+				                <span ng-show="item.isError"><i class="glyphicon glyphicon-remove"></i></span>
+				            </div-->
+				            <div ng-show="error" class="alert alert-danger" role="alert" style="width:50%;margin-left:auto;margin-right:auto;margin-top:10px;">{{ error }}</div>
+                    	</div>
                     </div>
-                    <div ng-if="error" class="alert alert-danger top-buffer" role="alert">{{ error }}</div>
 
                 </div>
 
