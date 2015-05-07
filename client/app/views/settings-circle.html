@@ -109,6 +109,48 @@
                 </div>
 
             </div>
+
+            <!-- SOCIAL LINKS SETUP -->
+            <div class="row">
+            	<h3>Edit your Social Links</h3>
+            </div>
+
+            <div class="row">
+            	<form role="form" class="form-horizontal top-buffer">
+
+				  <div class="form-group" ng-repeat="social in user.profile.social">
+				  	<div class="col-md-offset-2 col-sm-4">
+					  	<input type="text" class="form-control" id="inputOld" placeholder="Social Link" value="{{social.link}}">
+				  	</div>
+				  	<div class="col-sm-2">
+				  		<select class="form-control">
+				  			<option value="instagram">Instagram</option>
+				  			<option value="facebook">Facebook</option>
+				  			<option value="google">Google Plus</option>
+				  			<option value="linkedin">LinkedIn</option>
+				  			<option value="flickr">Flickr</option>
+				  			<option value="github">GitHub</option>
+				  			<option value="youtube">Youtube</option>
+				  			<option value="twitter">Twitter</option>
+				  		</select>
+				  	</div>
+				  	<div class="col-sm-2">
+				  		<select class="form-control">
+				  			<option value="top">Top</option>
+				  			<option value="top-right">Top-Right</option>
+				  			<option value="top-left">Top-Left</option>
+				  			<option value="right">Right</option>
+				  			<option value="left">Left</option>
+				  			<option value="bottom">Bottom</option>
+				  			<option value="bottom-right">Bottom-Right</option>
+				  			<option value="bottom-left">Bottom-Left</option>
+				  			<option value="centre">Centre</option>				  			
+				  		</select>
+				  	</div>
+				  </div>
+
+				</form>
+            </div>
         </div>
     </div>
 
