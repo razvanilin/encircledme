@@ -149,6 +149,7 @@ angular.module('clientApp')
             };
             uploader.onSuccessItem = function(fileItem, response, status, headers) {
                 $scope.user.uploads.push(response);
+                uploader.queue.length = 0;
                 //console.info('onSuccessItem', fileItem, response, status, headers);
             };
             uploader.onErrorItem = function(fileItem, response, status, headers) {
