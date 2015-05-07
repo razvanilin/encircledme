@@ -1,4 +1,4 @@
-@import url(http://fonts.googleapis.com/css?family=Josefin+Sans:600&subset=latin,latin-ext);
+@import url(http://fonts.social-rightapis.com/css?family=Josefin+Sans:600&subset=latin,latin-ext);
 
 body {
 	text-align: center;
@@ -103,40 +103,40 @@ body {
 	width: 50px;
 	height: 50px;
 }
-.facebook {
+.social-top-right {
 	opacity: 0.5;
 	z-index: -1;
 }
-.instagram {
+.social-top {
 	opacity: 0.5;
 	z-index: -1;
 }
-.twitter {
+.social-top-left {
 	opacity: 0.5;
 	z-index: -1;
 }
-.github {
+.social-bottom-right {
 	opacity: 0.5;
 	z-index: -1;
 }
-.flickr {
+.social-bottom {
 	opacity: 0.5;
 	z-index: -1;
 }
-.linkedin {
+.social-bottom-left {
 	opacity: 0.5;
 	z-index: -1;
 }
-.youtube {
+.social-left {
 	opacity: 0.5;
 	z-index: -1;
 }
-.google {
+.social-right {
 	opacity: 0.5;
 	z-index: -1;
 }
 
-.email {
+.social-centre {
 	opacity: 0;
 	z-index: 99;
 }
@@ -185,130 +185,130 @@ body {
     width: 50px;
     height: 50px;
 }
-.email {
+.social-centre {
     transform: translate(-125px, 20px) rotateX(90deg);
     transition: all .5s ease;
 }
-.email.active {
+.social-centre.active {
     opacity: 1;
     z-index: 99;
     transform: translate(-125px, 20px) scale(1.2);
     transition: all 1s ease;
 }
-.email:hover {
+.social-centre:hover {
     transform: translate(-125px, 20px) scale(1.5);
     transition: all .5s ease;
 }
-.instagram {
+.social-top {
     transform: translate(-125px, -20px);
     transition: all 1s ease;
 }
-.instagram.active {
+.social-top.active {
     opacity: 1;
     z-index: 1;
     transform: translate(-125px, -70px);
     transition: all 1s ease;
 }
-.instagram:hover {
+.social-top:hover {
     opacity: 1;
     transform: translate(-125px, -70px) scale(1.2);
     transition: all .5s ease;
 }
-.flickr {
+.social-bottom {
     transform: translate(-125px, 175px);
     transition: all 1s ease;
 }
-.flickr.active {
+.social-bottom.active {
     z-index: 1;
     opacity: 1;
     transform: translate(-125px, 225px);
     transition: all 1s ease;
 }
-.flickr.active:hover {
+.social-bottom.active:hover {
     transform: translate(-125px, 225px) scale(1.2);
     transition: all .5s ease;
 }
-.facebook {
+.social-top-right {
     transform: translate(-50px, 10px) rotate(45deg);
     transition: all 1s ease;
 }
-.facebook.active {
+.social-top-right.active {
     opacity: 1;
     z-index: 1;
     transform: translate(0, 0);
     transition: all 1s ease;
 }
-.facebook.active:hover {
+.social-top-right.active:hover {
     transform: translate(0, 0) scale(1.2);
     transition: all .5s ease;
 }
-.google {
+.social-right {
     transform: translate(-25px, 70px) rotate(90deg);
     transition: all 1s ease;
 }
-.google.active {
+.social-right.active {
     opacity: 1;
     z-index: 1;
     transform: translate(25px, 70px);
     transition: all 1s ease;
 }
-.google.active:hover {
+.social-right.active:hover {
     transform: translate(25px, 70px) scale(1.2);
     transition: all .5s ease;
 }
-.github {
+.social-bottom-right {
     transform: translate(-50px, 140px) rotate(135deg);
     transition: all 1s ease;
 }
-.github.active {
+.social-bottom-right.active {
     opacity: 1;
     z-index: 1;
     transform: translate(0, 150px);
     transition: all 1s ease;
 }
-.github.active:hover {
+.social-bottom-right.active:hover {
     transform: translate(0, 150px) scale(1.2);
     transition: all .5s ease;
 }
-.twitter {
+.social-top-left {
     transform: translate(-200px, 10px) rotate(-45deg);
     transition: all 1s ease;
 }
-.twitter.active {
+.social-top-left.active {
     opacity: 1;
     z-index: 1;
     transform: translate(-250px, 0);
     transform: all 1s ease;
 }
-.twitter.active:hover {
+.social-top-left.active:hover {
     transform: translate(-250px, 0) scale(1.2);
     transition: all .5s ease;
 }
-.youtube {
+.social-left {
     transform: translate(-225px, 70px) rotate(-90deg);
     transition: all 1s ease;
 }
-.youtube.active {
+.social-left.active {
     opacity: 1;
     z-index: 1;
     transform: translate(-275px, 70px);
     transition: all 1s ease;
 }
-.youtube.active:hover {
+.social-left.active:hover {
     transform: translate(-275px, 70px) scale(1.2);
     transition: all .5s ease;
 }
-.linkedin {
+.social-bottom-left {
     transform: translate(-200px, 140px) rotate(-135deg);
     transition: all 1s ease;
 }
-.linkedin.active {
+.social-bottom-left.active {
     opacity: 1;
     z-index: 1;
     transform: translate(-250px, 150px);
     transition: all 1s ease;
 }
-.linkedin.active:hover {
+.social-bottom-left.active:hover {
     transform: translate(-250px, 150px) scale(1.2);
     transition: all .5s ease;
 }
@@ -329,130 +329,130 @@ body {
     width: 75px;
     height: 75px;
 }
-.email {
+.social-centre {
     transform: translate(-187px, 30px) rotateX(90deg);
     transition: all .5s ease;
 }
-.email.active {
+.social-centre.active {
     opacity: 1;
     z-index: 99;
     transform: translate(-187px, 30px) scale(1.2);
     transition: all 1s ease;
 }
-.email:hover {
+.social-centre:hover {
     transform: translate(-187px, 30px) scale(1.5);
     transition: all .5s ease;
 }
-.instagram {
+.social-top {
     transform: translate(-187px, -30px);
     transition: all 1s ease;
 }
-.instagram.active {
+.social-top.active {
     opacity: 1;
     z-index: 1;
     transform: translate(-187px, -105px);
     transition: all 1s ease;
 }
-.instagram:hover {
+.social-top:hover {
     opacity: 1;
     transform: translate(-187px, -105px) scale(1.2);
     transition: all .5s ease;
 }
-.flickr {
+.social-bottom {
     transform: translate(-187px, 262px);
     transition: all 1s ease;
 }
-.flickr.active {
+.social-bottom.active {
     z-index: 1;
     opacity: 1;
     transform: translate(-187px, 337px);
     transition: all 1s ease;
 }
-.flickr.active:hover {
+.social-bottom.active:hover {
     transform: translate(-187px, 337px) scale(1.2);
     transition: all .5s ease;
 }
-.facebook {
+.social-top-right {
     transform: translate(-75px, 15px) rotate(45deg);
     transition: all 1s ease;
 }
-.facebook.active {
+.social-top-right.active {
     opacity: 1;
     z-index: 1;
     transform: translate(0, 0);
     transition: all 1s ease;
 }
-.facebook.active:hover {
+.social-top-right.active:hover {
     transform: translate(0, 0) scale(1.2);
     transition: all .5s ease;
 }
-.google {
+.social-right {
     transform: translate(-37px, 105px) rotate(90deg);
     transition: all 1s ease;
 }
-.google.active {
+.social-right.active {
     opacity: 1;
     z-index: 1;
     transform: translate(37px, 105px);
     transition: all 1s ease;
 }
-.google.active:hover {
+.social-right.active:hover {
     transform: translate(37px, 105px) scale(1.2);
     transition: all .5s ease;
 }
-.github {
+.social-bottom-right {
     transform: translate(-75px, 210px) rotate(135deg);
     transition: all 1s ease;
 }
-.github.active {
+.social-bottom-right.active {
     opacity: 1;
     z-index: 1;
     transform: translate(0, 225px);
     transition: all 1s ease;
 }
-.github.active:hover {
+.social-bottom-right.active:hover {
     transform: translate(0, 225px) scale(1.2);
     transition: all .5s ease;
 }
-.twitter {
+.social-top-left {
     transform: translate(-300px, 15px) rotate(-45deg);
     transition: all 1s ease;
 }
-.twitter.active {
+.social-top-left.active {
     opacity: 1;
     z-index: 1;
     transform: translate(-375px, 0);
     transform: all 1s ease;
 }
-.twitter.active:hover {
+.social-top-left.active:hover {
     transform: translate(-375px, 0) scale(1.2);
     transition: all .5s ease;
 }
-.youtube {
+.social-left {
     transform: translate(-337px, 105px) rotate(-90deg);
     transition: all 1s ease;
 }
-.youtube.active {
+.social-left.active {
     opacity: 1;
     z-index: 1;
     transform: translate(-412px, 105px);
     transition: all 1s ease;
 }
-.youtube.active:hover {
+.social-left.active:hover {
     transform: translate(-412px, 105px) scale(1.2);
     transition: all .5s ease;
 }
-.linkedin {
+.social-bottom-left {
     transform: translate(-300px, 210px) rotate(-135deg);
     transition: all 1s ease;
 }
-.linkedin.active {
+.social-bottom-left.active {
     opacity: 1;
     z-index: 1;
     transform: translate(-375px, 225px);
     transition: all 1s ease;
 }
-.linkedin.active:hover {
+.social-bottom-left.active:hover {
     transform: translate(-375px, 225px) scale(1.2);
     transition: all .5s ease;
 }
@@ -474,130 +474,130 @@ body {
     width: 100px;
     height: 100px;
 }
-.email {
+.social-centre {
     transform: translate(-250px, 40px) rotateX(90deg);
     transition: all .5s ease;
 }
-.email.active {
+.social-centre.active {
     opacity: 1;
     z-index: 99;
     transform: translate(-250px, 40px) scale(1.2);
     transition: all 1s ease;
 }
-.email:hover {
+.social-centre:hover {
     transform: translate(-250px, 40px) scale(1.5);
     transition: all .5s ease;
 }
-.instagram {
+.social-top {
     transform: translate(-250px, -40px);
     transition: all 1s ease;
 }
-.instagram.active {
+.social-top.active {
     opacity: 1;
     z-index: 1;
     transform: translate(-250px, -140px);
     transition: all 1s ease;
 }
-.instagram:hover {
+.social-top:hover {
     opacity: 1;
     transform: translate(-250px, -140px) scale(1.2);
     transition: all .5s ease;
 }
-.flickr {
+.social-bottom {
     transform: translate(-250px, 350px);
     transition: all 1s ease;
 }
-.flickr.active {
+.social-bottom.active {
     z-index: 1;
     opacity: 1;
     transform: translate(-250px, 450px);
     transition: all 1s ease;
 }
-.flickr.active:hover {
+.social-bottom.active:hover {
     transform: translate(-250px, 450px) scale(1.2);
     transition: all .5s ease;
 }
-.facebook {
+.social-top-right {
     transform: translate(-100px, 20px) rotate(45deg);
     transition: all 1s ease;
 }
-.facebook.active {
+.social-top-right.active {
     opacity: 1;
     z-index: 1;
     transform: translate(0, 0);
     transition: all 1s ease;
 }
-.facebook.active:hover {
+.social-top-right.active:hover {
     transform: translate(0, 0) scale(1.2);
     transition: all .5s ease;
 }
-.google {
+.social-right {
     transform: translate(-50px, 140px) rotate(90deg);
     transition: all 1s ease;
 }
-.google.active {
+.social-right.active {
     opacity: 1;
     z-index: 1;
     transform: translate(50px, 140px);
     transition: all 1s ease;
 }
-.google.active:hover {
+.social-right.active:hover {
     transform: translate(50px, 140px) scale(1.2);
     transition: all .5s ease;
 }
-.github {
+.social-bottom-right {
     transform: translate(-100px, 280px) rotate(135deg);
     transition: all 1s ease;
 }
-.github.active {
+.social-bottom-right.active {
     opacity: 1;
     z-index: 1;
     transform: translate(0, 300px);
     transition: all 1s ease;
 }
-.github.active:hover {
+.social-bottom-right.active:hover {
     transform: translate(0, 300px) scale(1.2);
     transition: all .5s ease;
 }
-.twitter {
+.social-top-left {
     transform: translate(-400px, 20px) rotate(-45deg);
     transition: all 1s ease;
 }
-.twitter.active {
+.social-top-left.active {
     opacity: 1;
     z-index: 1;
     transform: translate(-500px, 0);
     transform: all 1s ease;
 }
-.twitter.active:hover {
+.social-top-left.active:hover {
     transform: translate(-500px, 0) scale(1.2);
     transition: all .5s ease;
 }
-.youtube {
+.social-left {
     transform: translate(-450px, 140px) rotate(-90deg);
     transition: all 1s ease;
 }
-.youtube.active {
+.social-left.active {
     opacity: 1;
     z-index: 1;
     transform: translate(-550px, 140px);
     transition: all 1s ease;
 }
-.youtube.active:hover {
+.social-left.active:hover {
     transform: translate(-550px, 140px) scale(1.2);
     transition: all .5s ease;
 }
-.linkedin {
+.social-bottom-left {
     transform: translate(-400px, 280px) rotate(-135deg);
     transition: all 1s ease;
 }
-.linkedin.active {
+.social-bottom-left.active {
     opacity: 1;
     z-index: 1;
     transform: translate(-500px, 300px);
     transition: all 1s ease;
 }
-.linkedin.active:hover {
+.social-bottom-left.active:hover {
     transform: translate(-500px, 300px) scale(1.2);
     transition: all .5s ease;
 }
