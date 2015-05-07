@@ -33,39 +33,48 @@ var UserSchema = new mongoose.Schema({
         social: {
             top: {
                 network: {type: String, default: 'instagram'},
-                link: {type: String, default: 'http://instagram.com/'}
+                link: {type: String, default: 'http://instagram.com/'},
+                logo: {type: String, default: '/uploads/instagram.png'}
             },
             topLeft: {
                 network: {type: String, default: 'twitter'},
-                link: {type:String, default: 'http://twitter.com/'}
+                link: {type:String, default: 'http://twitter.com/'},
+                logo: {type: String, default: '/uploads/twitter.png'}
             },
             topRight: {
                 network: {type:String, default: 'facebook'},
-                link: {type:String, default: 'http://facebook.com/'}
+                link: {type:String, default: 'http://facebook.com/'},
+                logo: {type: String, default: '/uploads/facebook.png'}
             },
             left: {
                 network: {type:String, default: 'youtube'},
-                link: {type:String, default: 'http://youtube.com/'}
+                link: {type:String, default: 'http://youtube.com/'},
+                logo: {type: String, default: '/uploads/youtube.png'}
             },
             right: {
                 network: {type:String, default: 'google'},
-                link: {type:String, default: 'http://plus.google.com/'}
+                link: {type:String, default: 'http://plus.google.com/'},
+                logo: {type: String, default: '/uploads/google.png'}
             },
             bottom: {
                 network: {type:String, default: 'flickr'},
-                link: {type:String, default: 'http://flickr.com/'}
+                link: {type:String, default: 'http://flickr.com/'},
+                logo: {type: String, default: '/uploads/flickr.png'}
             },
             bottomLeft: {
                 network: {type:String, default: 'github'},
-                link: {type:String, default: 'http://github.com'}
+                link: {type:String, default: 'http://github.com'},
+                logo: {type: String, default: '/uploads/github.png'}
             },
             bottomRight: {
                 network: {type:String, default: 'linkedin'},
-                link: {type:String, default: 'http://linkedin.com'}
+                link: {type:String, default: 'http://linkedin.com'},
+                logo: {type: String, default: '/uploads/linkedin.png'}
             },
             centre: {
                 network: {type:String, default: 'email'},
-                link: {type:String, default: 'user@email.com'}
+                link: {type:String, default: 'user@email.com'},
+                logo: {type: String, default: '/uploads/email.png'}
             }
         }
     },

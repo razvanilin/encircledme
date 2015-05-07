@@ -26,15 +26,23 @@
 			<div class="row  top-buffer-medium hidden-xs"></div>
 			<div class="row">
 				<img ng-src="{{ host }}{{ user.avatar }}" class="avatar img-circle" id="avatar">
-				<img src="images/facebook-icon1.png" class="social-img social-top-right" onclick="if ($(this).hasClass('active')) window.open('https://www.facebook.com/razvanilin');" title="Facebook">
-				<img src="images/twitter-icon1.png" class="social-img social-top-left" onclick="if ($(this).hasClass('active'))window.open('https://twitter.com/razvanilin');" title="Twitter">
-				<img src="images/flickr-icon1.png" class="social-img social-bottom" onclick="if ($(this).hasClass('active'))window.open('https://www.flickr.com/photos/125513418@N05/');" title="Flickr">
-				<img src="images/google-plus-icon1.png" class="social-img social-right" onclick="if ($(this).hasClass('active'))window.open('https://plus.google.com/u/0/+RăzvanIlin');" title="Google Plus">
-				<img src="images/instagram-icon1.png" class="social-img social-top" onclick="if ($(this).hasClass('active'))window.open('https://instagram.com/razvanilin/');" title="Instagram">
-				<img src="images/linkedin-icon1.png" class="social-img social-bottom-right" onclick="if ($(this).hasClass('active'))window.open('https://uk.linkedin.com/in/razvanilin');" title="Linkedin">
-				<img src="images/github-icon1.png" class="social-img social-bottom-left" onclick="if ($(this).hasClass('active'))window.open('https://github.com/razvanilin');" title="GitHub">
-				<img src="images/youtube-icon1.png" class="social-img social-left" onclick="if ($(this).hasClass('active'))window.open('https://www.youtube.com/channel/UCpR2Pg6NVk3g0eWEfIgQmWA');" title="Youtube">
-				<img src="images/email-icon.png" class="social-img social-centre" title="Send Message">
+				<img src="{{ host }}{{ user.social.topRight.logo }}" class="social-img social-top-right" onclick="if ($(this).hasClass('active')) window.open('https://www.facebook.com/razvanilin');" title="Facebook">
+
+				<img src="{{ host }}{{ user.social.topLeft.logo }}" class="social-img social-top-left" onclick="if ($(this).hasClass('active'))window.open('https://twitter.com/razvanilin');" title="Twitter">
+
+				<img src="{{ host }}{{ user.social.bottom.logo }}" class="social-img social-bottom" onclick="if ($(this).hasClass('active'))window.open('https://www.flickr.com/photos/125513418@N05/');" title="Flickr">
+
+				<img src="{{ host }}{{ user.social.right.logo }}" class="social-img social-right" onclick="if ($(this).hasClass('active'))window.open('https://plus.google.com/u/0/+RăzvanIlin');" title="Google Plus">
+
+				<img src="{{ host }}{{ user.social.top.logo }}" class="social-img social-top" onclick="if ($(this).hasClass('active'))window.open('https://instagram.com/razvanilin/');" title="Instagram">
+
+				<img src="{{ host }}{{ user.social.bottomRight.logo }}" class="social-img social-bottom-right" onclick="if ($(this).hasClass('active'))window.open('https://uk.linkedin.com/in/razvanilin');" title="Linkedin">
+
+				<img src="{{ host }}{{ user.social.bottomLeft.logo }}" class="social-img social-bottom-left" onclick="if ($(this).hasClass('active'))window.open('https://github.com/razvanilin');" title="GitHub">
+
+				<img src="{{ host }}{{ user.social.left.logo }}" class="social-img social-left" onclick="if ($(this).hasClass('active'))window.open('https://www.youtube.com/channel/UCpR2Pg6NVk3g0eWEfIgQmWA');" title="Youtube">
+
+				<img src="{{ host }}{{ user.social.centre.logo }}" class="social-img social-centre" title="Send Message">
 
 			</div>
 		
