@@ -2,14 +2,22 @@
 
 /**
  * @ngdoc function
- * @name clientApp.controller:SettingsCircleCtrl
+ * @name clientApp.controller:PictureSettingsCtrl
  * @description
- * # SettingsCircleCtrl
+ * # PictureSettingsCtrl
  * Controller of the clientApp
  */
 angular.module('clientApp')
-    .controller('SettingsCircleCtrl', function(
-        $scope, FileUploader, AuthenticationService, User, $location, CONFIG, $window, $anchorScroll
+    .controller('PictureSettingsCtrl', function(
+        $scope, 
+        FileUploader, 
+        AuthenticationService, 
+        User, 
+        $location, 
+        CONFIG, 
+        $window, 
+        $anchorScroll,
+        ProfileService
     ) {
         if (AuthenticationService.isLogged) {
             $scope.scrollTo = function() {
@@ -33,6 +41,8 @@ angular.module('clientApp')
                 var profile = data;
                 delete profile.password;
                 $scope.user = profile;
+                // save the profile in the ProfileService for other controllers to use it
+                ProfileService.profile = profile;
 
                 $scope.changeAvatar = function(newAvatar, requestType) {
                     $scope.user.newAvatar = newAvatar;

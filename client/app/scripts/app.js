@@ -59,11 +59,11 @@ angular
                 templateUrl: 'views/edit-menu.html'
             })
 
-        // keep username one of the last routes in the app to avoid faulty routing
-        .when('/:username', {
-            templateUrl: 'views/user.html',
-            controller: 'UserCtrl'
-        })
+            // keep username one of the last routes in the app to avoid faulty routing
+            .when('/:username', {
+                templateUrl: 'views/user.html',
+                controller: 'UserCtrl'
+            })
             .when('/user/:username/profile', {
                 templateUrl: 'views/profile.html',
                 controller: 'ProfileCtrl'
@@ -72,9 +72,13 @@ angular
                 templateUrl: 'views/account.html',
                 controller: 'AccountCtrl'
             })
-            .when('/user/:username/circle', {
-                templateUrl: 'views/settings-circle.html',
-                controller: 'SettingsCircleCtrl'
+            .when('/user/:username/picture', {
+                templateUrl: 'views/picture-settings.html',
+                controller: 'PictureSettingsCtrl'
+            })
+            .when('/user/:username/networks', {
+                templateUrl: 'views/social-links.html',
+                controller: 'SocialLinksCtrl'
             })
             .otherwise({
                 redirectTo: '/'
@@ -160,8 +164,14 @@ angular
                     return $q.reject(response);
                 }
             };
-        }
-)
+    })
+    .factory('ProfileService', function() {
+        var profile = {
+            profile: {}
+        };
+
+        return profile;
+    })
     .directive('youtube', function() {
         return {
             restrict: 'E',

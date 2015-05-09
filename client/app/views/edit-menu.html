@@ -11,7 +11,11 @@
 			</li>
 
 			<li role="presentation" ng-class="{active: viewCircle}">
-				<a ng-href="#/user/{{ menu.username }}/circle"><span class="glyphicon glyphicon-asterisk"></span> Circle Settings</a>
+				<a ng-href="#/user/{{ menu.username }}/picture"><span class="glyphicon glyphicon-picture"></span> Profile Picture</a>
+			</li>
+
+			<li role="presentation" ng-class="{active: viewNetworks}">
+				<a ng-href="#/user/{{ menu.username }}/networks"><span class="glyphicon glyphicon-link"></span> Your Networks</a>
 			</li>
 
 			<li role="presentation" style="border-bottom: 1px solid #eee;padding-bottom:10px;" ng-class="{active: viewAccount}">
