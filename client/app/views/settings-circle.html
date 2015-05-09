@@ -13,7 +13,7 @@
                 margin: 6px 0 0 6px;
             }*/
         </style>
-<div class="row">
+<div class="row" style="margin-bottom:50px;">
 	<ng-include src="'views/edit-menu.html'"></ng-include>
 	<div class="col-md-9">
 		<div class="row">
@@ -119,11 +119,11 @@
             	<form role="form" class="form-horizontal top-buffer">
 
 				  <div class="form-group" ng-repeat="social in user.profile.social">
-				  	<div class="col-md-offset-2 col-sm-4">
+				  	<div class="col-md-offset-1 col-sm-4">
 					  	<input type="text" class="form-control" id="inputOld" placeholder="Social Link" value="{{social.link}}">
 				  	</div>
-				  	<div class="col-sm-2">
-				  		<select class="form-control">
+				  	<div class="col-sm-3">
+				  		<select class="form-control" ng-model="social.network">
 				  			<option value="instagram">Instagram</option>
 				  			<option value="facebook">Facebook</option>
 				  			<option value="google">Google Plus</option>
@@ -132,24 +132,33 @@
 				  			<option value="github">GitHub</option>
 				  			<option value="youtube">Youtube</option>
 				  			<option value="twitter">Twitter</option>
+				  			<option value="email">Email</option>
 				  		</select>
 				  	</div>
 				  	<div class="col-sm-2">
-				  		<select class="form-control">
+				  		<select class="form-control" ng-model="social.position">
 				  			<option value="top">Top</option>
-				  			<option value="top-right">Top-Right</option>
-				  			<option value="top-left">Top-Left</option>
+				  			<option value="topRight">Top-Right</option>
+				  			<option value="topLeft">Top-Left</option>
 				  			<option value="right">Right</option>
 				  			<option value="left">Left</option>
 				  			<option value="bottom">Bottom</option>
-				  			<option value="bottom-right">Bottom-Right</option>
-				  			<option value="bottom-left">Bottom-Left</option>
+				  			<option value="bottomRight">Bottom-Right</option>
+				  			<option value="bottomLeft">Bottom-Left</option>
 				  			<option value="centre">Centre</option>				  			
 				  		</select>
+				  	</div>
+
+				  	<div class="col-sm-1">
+				  		<button class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></button>
 				  	</div>
 				  </div>
 
 				</form>
+            </div>
+            <hr/>
+            <div class="row">
+            	<button class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> Add a new network</button>
             </div>
         </div>
     </div>
