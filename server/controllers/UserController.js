@@ -27,6 +27,8 @@ module.exports = function(app, route) {
     function checkForPassword(req, res, next) {
         if (req.body.password) return res.status(400).send("Bad request");
 
+        console.log(req.body.social);
+
         expressJwt({
             secret: app.settings.secret
         });
@@ -223,6 +225,26 @@ module.exports = function(app, route) {
                     });
 
                 });
+            });
+        });
+    });
+
+    // Update networks
+    app.put('/user/:username/network', expressJwt({secret: app.settings.secret}), function(req, res, next) {
+        User.findOne({
+            username: req.params.username
+        }, function(err, user) {
+            if (err || user === null) {
+                return res.status(404).send("User not found");
+            }
+
+            user.profile.social = req.body.social;
+            user.save(function(err) {
+                if (err) {
+                    return res.status(400).send("could not update user");
+                } else {
+                    return res.status(200).send("network updated");
+                }
             });
         });
     });

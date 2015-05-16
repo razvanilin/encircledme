@@ -26,21 +26,21 @@
 			<div class="row  top-buffer-medium hidden-xs"></div>
 			<div class="row">
 				<img ng-src="{{ host }}{{ user.avatar }}" class="avatar img-circle" id="avatar">
-				<img src="{{ host }}{{ user.social.topRight.logo }}" class="social-img social-top-right" onclick="if ($(this).hasClass('active')) window.open('https://www.facebook.com/razvanilin');" title="Facebook">
+				<img src="{{ host }}{{ user.social.topRight.logo }}" class="social-img social-top-right" ng-click="accessNetwork(user.social.topRight.link)" title="{{user.social.topRight.network}}">
 
-				<img src="{{ host }}{{ user.social.topLeft.logo }}" class="social-img social-top-left" onclick="if ($(this).hasClass('active'))window.open('https://twitter.com/razvanilin');" title="Twitter">
+				<img src="{{ host }}{{ user.social.topLeft.logo }}" class="social-img social-top-left" ng-click="accessNetwork(user.social.topLeft.link)" title="{{user.social.topLeft.network}}">
 
-				<img src="{{ host }}{{ user.social.bottom.logo }}" class="social-img social-bottom" onclick="if ($(this).hasClass('active'))window.open('https://www.flickr.com/photos/125513418@N05/');" title="Flickr">
+				<img src="{{ host }}{{ user.social.bottom.logo }}" class="social-img social-bottom" ng-click="accessNetwork(user.social.bottom.link)" title="{{user.social.bottom.network}}">
 
-				<img src="{{ host }}{{ user.social.right.logo }}" class="social-img social-right" onclick="if ($(this).hasClass('active'))window.open('https://plus.google.com/u/0/+RăzvanIlin');" title="Google Plus">
+				<img src="{{ host }}{{ user.social.right.logo }}" class="social-img social-right" ng-click="accessNetwork(user.social.right.link)" title="{{user.social.right.network}}">
 
-				<img src="{{ host }}{{ user.social.top.logo }}" class="social-img social-top" onclick="if ($(this).hasClass('active'))window.open('https://instagram.com/razvanilin/');" title="Instagram">
+				<img src="{{ host }}{{ user.social.top.logo }}" class="social-img social-top" ng-click="accessNetwork(user.social.top.link)" title="{{user.social.top.network}}">
 
-				<img src="{{ host }}{{ user.social.bottomRight.logo }}" class="social-img social-bottom-right" onclick="if ($(this).hasClass('active'))window.open('https://uk.linkedin.com/in/razvanilin');" title="Linkedin">
+				<img src="{{ host }}{{ user.social.bottomRight.logo }}" class="social-img social-bottom-right" ng-click="accessNetwork(user.social.bottomRight.link)" title="{{user.social.bottomRight.network}}">
 
-				<img src="{{ host }}{{ user.social.bottomLeft.logo }}" class="social-img social-bottom-left" onclick="if ($(this).hasClass('active'))window.open('https://github.com/razvanilin');" title="GitHub">
+				<img src="{{ host }}{{ user.social.bottomLeft.logo }}" class="social-img social-bottom-left" ng-click="accessNetwork(user.social.bottomLeft.link)" title="{{user.social.bottomLeft.network}}">
 
-				<img src="{{ host }}{{ user.social.left.logo }}" class="social-img social-left" onclick="if ($(this).hasClass('active'))window.open('https://www.youtube.com/channel/UCpR2Pg6NVk3g0eWEfIgQmWA');" title="Youtube">
+				<img src="{{ host }}{{ user.social.left.logo }}" class="social-img social-left" ng-click="accessNetwork(user.social.left.link)" title="{{user.social.left.network}}">
 
 				<img src="{{ host }}{{ user.social.centre.logo }}" class="social-img social-centre" title="Send Message">
 
@@ -48,52 +48,52 @@
 		
 		<script>
 			$(document).ready(function() {
-	$("#avatar").click(function() {
-		$("#avatar").toggleClass("unfocused");
-		$(".social-img").toggleClass("active");
-	});
-	/*$("body:not(#avatar)").click(function() {
-		$("#avatar").removeClass("unfocused");
-		$(".social-img").removeClass("active");
-	});
-	$("#avatar").click(function() {
-		$("#avatar").toggleClass("unfocused");
-		$(".social-img").toggleClass("active");
-	});*/
+				$("#avatar").click(function() {
+					$("#avatar").toggleClass("unfocused");
+					$(".social-img").toggleClass("active");
+				});
+				/*$("body:not(#avatar)").click(function() {
+					$("#avatar").removeClass("unfocused");
+					$(".social-img").removeClass("active");
+				});
+				$("#avatar").click(function() {
+					$("#avatar").toggleClass("unfocused");
+					$(".social-img").toggleClass("active");
+				});*/
 
-	$(".message-window form").submit(function(event) {
-		event.preventDefault();
+				$(".message-window form").submit(function(event) {
+					event.preventDefault();
 
-		var formData = {'email': $(this).find("#email").val(), 'message': $(this).find("#message").val()};
+					var formData = {'email': $(this).find("#email").val(), 'message': $(this).find("#message").val()};
 
-		$("#message-feedback").html("<strong>Hang on,</strong> the owl is sending the message");
-		$("#message-feedback").attr("class", "alert alert-info");
+					$("#message-feedback").html("<strong>Hang on,</strong> the owl is sending the message");
+					$("#message-feedback").attr("class", "alert alert-info");
 
-		$.ajax({
-			url: "landing/message.php",
-			type: "POST",
-			data: formData,
-			success: function(data) {
-				data = JSON.parse(data);
-				$("#message-feedback").html(data['message']);
-				if (data['type'] == "success") {
-					$("#message-feedback").attr("class", "alert alert-success");
-				} else {
-					$("#message-feedback").attr("class", "alert alert-danger");
-				}
-			},
-			error: function(data) {
-				console.log(data);
-			}
-		});
-	});
+					$.ajax({
+						url: "landing/message.php",
+						type: "POST",
+						data: formData,
+						success: function(data) {
+							data = JSON.parse(data);
+							$("#message-feedback").html(data['message']);
+							if (data['type'] == "success") {
+								$("#message-feedback").attr("class", "alert alert-success");
+							} else {
+								$("#message-feedback").attr("class", "alert alert-danger");
+							}
+						},
+						error: function(data) {
+							console.log(data);
+						}
+					});
+				});
 
-	$(".message-window #close-message").click(function() {
-		$(".message-window").removeClass("active");
-	});
+				$(".message-window #close-message").click(function() {
+					$(".message-window").removeClass("active");
+				});
 
-	$("img.email").click(function() {
-		$(".message-window").toggleClass('active');
-	});
-});
+				$("img.email").click(function() {
+					$(".message-window").toggleClass('active');
+				});
+			});
 		</script>

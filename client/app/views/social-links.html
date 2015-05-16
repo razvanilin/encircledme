@@ -10,7 +10,7 @@
         <!-- SOCIAL LINKS SETUP -->
         <div class="row" ng-controller="SocialLinksCtrl">
             <div class="row">
-                <h3>Manage your Networks</h3>
+                <h3 id="manageNetworks">Manage your Networks</h3>
             </div>
 
             <div class="row">
@@ -64,7 +64,7 @@
                     </div>
                   </div>
 
-                  <div ng-if="password.success" class="alert alert-success" role="alert"><strong>Great! </strong> Password Changed</div>
+                  <div ng-if="viewEditError" class="alert alert-danger" role="alert"><strong>Oups! </strong> Something went wrong :(</div>
                 </form>
             </div>
 

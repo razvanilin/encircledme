@@ -8,7 +8,7 @@
  * Controller of the clientApp
  */
 angular.module('clientApp')
-  .controller('UserCtrl', function ($scope, $routeParams, User, CONFIG) {
+  .controller('UserCtrl', function ($scope, $routeParams, User, CONFIG, $window) {
     $scope.user = {};
     $scope.host = CONFIG.API_HOST;
     $scope.user.username = $routeParams.username;
@@ -17,4 +17,8 @@ angular.module('clientApp')
             $scope.user = data;
             console.log($scope.user);
         });
+
+    $scope.accessNetwork = function(network) {
+    	$window.open(network);
+    };
   });

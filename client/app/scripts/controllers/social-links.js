@@ -12,12 +12,14 @@ angular.module('clientApp')
         $scope.viewNetworks = true;
         $scope.isMaxNetworks = false;
         $scope.viewEdit = false;
+        $scope.viewEditError = false;
 
         $scope.profile = {};
         $scope.selectedNetwork = {};
 
-        var id = JSON.parse($window.sessionStorage.user).username;
-        User.one(id).get().then(function(data) {
+        var username = JSON.parse($window.sessionStorage.user).username;
+        var id = JSON.parse($window.sessionStorage.user).id;
+        User.one(username).get().then(function(data) {
             console.log(data);
             $scope.profile = data;
         }, function(response) {
@@ -26,8 +28,8 @@ angular.module('clientApp')
 
         $scope.beginEdit = function(position) {
 
-        	$scope.selectedNetwork = $scope.profile.social[position];
-        	console.log($scope.selectedNetwork);
+            $scope.selectedNetwork = $scope.profile.social[position];
+            console.log($scope.selectedNetwork);
 
             $scope.viewEdit = true;
             setTimeout(function() {
@@ -41,8 +43,28 @@ angular.module('clientApp')
         };
 
         $scope.editNetwork = function() {
-        	$scope.profile.social[$scope.selectedNetwork.position] = $scope.selectedNetwork;
-        	console.log($scope.profile.social[$scope.selectedNetwork.position]);
+            $scope.profile.social[$scope.selectedNetwork.position] = $scope.selectedNetwork;
+            console.log($scope.profile.social[$scope.selectedNetwork.position]);
+
+            User.one(username).customPUT($scope.profile, 'network').then(function(data) {
+                console.info(data);
+
+                $scope.viewEdit = false;
+
+                // scroll back to the top of the page
+                setTimeout(function() {
+                    var old = $location.hash();
+                    $location.hash('manageNetworks');
+                    $anchorScroll();
+                    //reset to old to keep any additional routing logic from kicking in
+                    $location.hash(old);
+
+                });
+
+            }, function(response) {
+                console.error(response);
+                $scope.viewEditError = true;
+            });
         };
 
         $scope.addNetwork = function() {
