@@ -10,11 +10,11 @@
         <!-- SOCIAL LINKS SETUP -->
         <div class="row" ng-controller="SocialLinksCtrl">
             <div class="row">
-                <h3>Edit your Social Links</h3>
+                <h3>Manage your Networks</h3>
             </div>
 
             <div class="row">
-                <form role="form" class="form-horizontal top-buffer">
+                <!--form role="form" class="form-horizontal top-buffer">
 
                   <div class="form-group" ng-repeat="social in profile.social">
                     <div class="col-md-offset-1 col-sm-4">
@@ -47,12 +47,33 @@
                         </select>
                     </div>
 
-                    <div class="col-sm-1">
-                        <button class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></button>
+                    <div class="col-sm-2">
+                        <button class="btn btn-info" title="Edit"><span class="glyphicon glyphicon-pencil"></span></button>
+                        <button class="btn btn-danger" title="Remove"><span class="glyphicon glyphicon-remove"></span></button>
                     </div>
                   </div>
 
-                </form>
+                </form-->
+                <div class="col-md-offset-1 col-md-11">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Network</th><th>Link</th><th>Position</th><th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody style="text-align:left;">
+                        <tr ng-repeat="social in profile.social">
+                            <td><div class="col-md-2">{{ social.network }}</div></td>
+                            <td>{{ social.link }}</td>
+                            <td>{{ social.position }}</td>
+                            <td>
+                                <button class="btn btn-info" title="Edit"><span class="glyphicon glyphicon-pencil"></span></button>
+                                <button class="btn btn-danger" title="Remove"><span class="glyphicon glyphicon-remove"></span></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                </div>
             </div>
             <hr/>
             <div class="row">

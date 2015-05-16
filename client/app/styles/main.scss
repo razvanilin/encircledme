@@ -3,6 +3,8 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 @import "bootstrap-sass-official/assets/stylesheets/_bootstrap.scss";
 // endbower
 
+@import url(http://fonts.googleapis.com/css?family=Josefin+Sans:600&subset=latin,latin-ext);
+
 .browsehappy {
   margin: 0.2em 0;
   background: #ccc;
@@ -88,4 +90,610 @@ body {
   .jumbotron {
     border-bottom: 0;
   }
+}
+
+
+/**** FUNCTIONS ****/
+
+body {
+  text-align: center;
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 15px;
+}
+
+.cropArea {
+        overflow: hidden;
+        
+        height:200px;
+    }
+
+    /*img-crop {
+        display: block;
+        height: 100%;
+        overflow: hidden;
+        position: relative;
+        width: 100%;
+    }*/
+
+    img-crop canvas {
+        display: inline-block;
+    }
+
+.menu {
+    position: absolute;
+    cursor: pointer;
+    left:74%;
+    top:6%;
+}
+
+.menu .profile {
+    width: 35px;
+    height: 35px;
+}
+
+.menu .menu-items {
+    opacity: 0;
+    transform: translate(0px, 90px) rotateX(90deg);
+    transition: all .5s ease;
+}
+
+.menu .menu-items.active {
+    opacity: 1;
+    transform: translate(0px, 90px) rotateX(0deg);
+    transition: all .5s ease;
+}
+
+
+.avatar {
+  position:relative;
+  cursor: pointer;
+  z-index: 99;
+  width: 200px;
+  height: 200px;
+  transition: all 1s ease;
+}
+
+
+.avatar.unfocused {
+  opacity: 0.5;
+  z-index: 1;
+  transition: all 1s ease;
+}
+
+@media screen and (orientation:portrait) {
+  .top-buffer {
+    margin-top:80px;
+  }
+}
+@media screen and (orientation:landscape) {
+  .top-buffer {
+    margin-top: 50px;
+  }
+}
+
+
+.top-buffer-small {
+  margin-top: 50px;
+}
+
+.top-buffer-medium {
+  margin-top: 100px;
+}
+
+.top-buffer-large {
+  margin-top: 150px;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height:60px;
+  }
+
+
+.social-img {
+  cursor: pointer;
+  position:absolute;
+  width: 50px;
+  height: 50px;
+}
+.social-top-right {
+  opacity: 0.5;
+  z-index: -1;
+}
+.social-top {
+  opacity: 0.5;
+  z-index: -1;
+}
+.social-top-left {
+  opacity: 0.5;
+  z-index: -1;
+}
+.social-bottom-right {
+  opacity: 0.5;
+  z-index: -1;
+}
+.social-bottom {
+  opacity: 0.5;
+  z-index: -1;
+}
+.social-bottom-left {
+  opacity: 0.5;
+  z-index: -1;
+}
+.social-left {
+  opacity: 0.5;
+  z-index: -1;
+}
+.social-right {
+  opacity: 0.5;
+  z-index: -1;
+}
+
+.social-centre {
+  opacity: 0;
+  z-index: 99;
+}
+
+.message-window {
+  position:absolute;
+  opacity: 0;
+  width: 0px;
+  height: 0px;
+  left: 25%;
+  background: white;
+  box-shadow: 0 0 10px black;
+  border-radius: 20px;
+  padding: 20px;
+  z-index: 9999;
+  overflow: hidden;
+  transition: all 1s ease;
+}
+.message-window.active {
+  opacity: 1;
+  width: 50%;
+  height: 60%;
+  max-height: 70%;
+  overflow: visible;
+  transition: all 1s ease;
+  
+}
+.message-window textarea {
+  width:100%;
+  max-width: 100%;
+  height: 50%;
+  max-height: 55%;
+  font-size: 22px;
+}
+
+
+@media (min-width:0px) and (max-width:1599px) {
+    .top-buffer-medium {
+    margin-top: 100px;
+}
+.avatar {
+    width: 200px;
+    height: 200px;
+}
+.social-img {
+    width: 50px;
+    height: 50px;
+}
+.social-centre {
+    transform: translate(-125px, 20px) rotateX(90deg);
+    transition: all .5s ease;
+}
+.social-centre.active {
+    opacity: 1;
+    z-index: 99;
+    transform: translate(-125px, 20px) scale(1.2);
+    transition: all 1s ease;
+}
+.social-centre:hover {
+    transform: translate(-125px, 20px) scale(1.5);
+    transition: all .5s ease;
+}
+.social-top {
+    transform: translate(-125px, -20px);
+    transition: all 1s ease;
+}
+.social-top.active {
+    opacity: 1;
+    z-index: 1;
+    transform: translate(-125px, -70px);
+    transition: all 1s ease;
+}
+.social-top:hover {
+    opacity: 1;
+    transform: translate(-125px, -70px) scale(1.2);
+    transition: all .5s ease;
+}
+.social-bottom {
+    transform: translate(-125px, 175px);
+    transition: all 1s ease;
+}
+.social-bottom.active {
+    z-index: 1;
+    opacity: 1;
+    transform: translate(-125px, 225px);
+    transition: all 1s ease;
+}
+.social-bottom.active:hover {
+    transform: translate(-125px, 225px) scale(1.2);
+    transition: all .5s ease;
+}
+.social-top-right {
+    transform: translate(-50px, 10px) rotate(45deg);
+    transition: all 1s ease;
+}
+.social-top-right.active {
+    opacity: 1;
+    z-index: 1;
+    transform: translate(0, 0);
+    transition: all 1s ease;
+}
+.social-top-right.active:hover {
+    transform: translate(0, 0) scale(1.2);
+    transition: all .5s ease;
+}
+.social-right {
+    transform: translate(-25px, 70px) rotate(90deg);
+    transition: all 1s ease;
+}
+.social-right.active {
+    opacity: 1;
+    z-index: 1;
+    transform: translate(25px, 70px);
+    transition: all 1s ease;
+}
+.social-right.active:hover {
+    transform: translate(25px, 70px) scale(1.2);
+    transition: all .5s ease;
+}
+.social-bottom-right {
+    transform: translate(-50px, 140px) rotate(135deg);
+    transition: all 1s ease;
+}
+.social-bottom-right.active {
+    opacity: 1;
+    z-index: 1;
+    transform: translate(0, 150px);
+    transition: all 1s ease;
+}
+.social-bottom-right.active:hover {
+    transform: translate(0, 150px) scale(1.2);
+    transition: all .5s ease;
+}
+.social-top-left {
+    transform: translate(-200px, 10px) rotate(-45deg);
+    transition: all 1s ease;
+}
+.social-top-left.active {
+    opacity: 1;
+    z-index: 1;
+    transform: translate(-250px, 0);
+    transform: all 1s ease;
+}
+.social-top-left.active:hover {
+    transform: translate(-250px, 0) scale(1.2);
+    transition: all .5s ease;
+}
+.social-left {
+    transform: translate(-225px, 70px) rotate(-90deg);
+    transition: all 1s ease;
+}
+.social-left.active {
+    opacity: 1;
+    z-index: 1;
+    transform: translate(-275px, 70px);
+    transition: all 1s ease;
+}
+.social-left.active:hover {
+    transform: translate(-275px, 70px) scale(1.2);
+    transition: all .5s ease;
+}
+.social-bottom-left {
+    transform: translate(-200px, 140px) rotate(-135deg);
+    transition: all 1s ease;
+}
+.social-bottom-left.active {
+    opacity: 1;
+    z-index: 1;
+    transform: translate(-250px, 150px);
+    transition: all 1s ease;
+}
+.social-bottom-left.active:hover {
+    transform: translate(-250px, 150px) scale(1.2);
+    transition: all .5s ease;
+}
+}@media (min-width:1600px) and (max-width:1899px) {
+
+  h1 {
+    font-size: 250%;
+  }
+
+    .top-buffer-medium {
+    margin-top: 125px;
+}
+.avatar {
+    width: 300px;
+    height: 300px;
+}
+.social-img {
+    width: 75px;
+    height: 75px;
+}
+.social-centre {
+    transform: translate(-187px, 30px) rotateX(90deg);
+    transition: all .5s ease;
+}
+.social-centre.active {
+    opacity: 1;
+    z-index: 99;
+    transform: translate(-187px, 30px) scale(1.2);
+    transition: all 1s ease;
+}
+.social-centre:hover {
+    transform: translate(-187px, 30px) scale(1.5);
+    transition: all .5s ease;
+}
+.social-top {
+    transform: translate(-187px, -30px);
+    transition: all 1s ease;
+}
+.social-top.active {
+    opacity: 1;
+    z-index: 1;
+    transform: translate(-187px, -105px);
+    transition: all 1s ease;
+}
+.social-top:hover {
+    opacity: 1;
+    transform: translate(-187px, -105px) scale(1.2);
+    transition: all .5s ease;
+}
+.social-bottom {
+    transform: translate(-187px, 262px);
+    transition: all 1s ease;
+}
+.social-bottom.active {
+    z-index: 1;
+    opacity: 1;
+    transform: translate(-187px, 337px);
+    transition: all 1s ease;
+}
+.social-bottom.active:hover {
+    transform: translate(-187px, 337px) scale(1.2);
+    transition: all .5s ease;
+}
+.social-top-right {
+    transform: translate(-75px, 15px) rotate(45deg);
+    transition: all 1s ease;
+}
+.social-top-right.active {
+    opacity: 1;
+    z-index: 1;
+    transform: translate(0, 0);
+    transition: all 1s ease;
+}
+.social-top-right.active:hover {
+    transform: translate(0, 0) scale(1.2);
+    transition: all .5s ease;
+}
+.social-right {
+    transform: translate(-37px, 105px) rotate(90deg);
+    transition: all 1s ease;
+}
+.social-right.active {
+    opacity: 1;
+    z-index: 1;
+    transform: translate(37px, 105px);
+    transition: all 1s ease;
+}
+.social-right.active:hover {
+    transform: translate(37px, 105px) scale(1.2);
+    transition: all .5s ease;
+}
+.social-bottom-right {
+    transform: translate(-75px, 210px) rotate(135deg);
+    transition: all 1s ease;
+}
+.social-bottom-right.active {
+    opacity: 1;
+    z-index: 1;
+    transform: translate(0, 225px);
+    transition: all 1s ease;
+}
+.social-bottom-right.active:hover {
+    transform: translate(0, 225px) scale(1.2);
+    transition: all .5s ease;
+}
+.social-top-left {
+    transform: translate(-300px, 15px) rotate(-45deg);
+    transition: all 1s ease;
+}
+.social-top-left.active {
+    opacity: 1;
+    z-index: 1;
+    transform: translate(-375px, 0);
+    transform: all 1s ease;
+}
+.social-top-left.active:hover {
+    transform: translate(-375px, 0) scale(1.2);
+    transition: all .5s ease;
+}
+.social-left {
+    transform: translate(-337px, 105px) rotate(-90deg);
+    transition: all 1s ease;
+}
+.social-left.active {
+    opacity: 1;
+    z-index: 1;
+    transform: translate(-412px, 105px);
+    transition: all 1s ease;
+}
+.social-left.active:hover {
+    transform: translate(-412px, 105px) scale(1.2);
+    transition: all .5s ease;
+}
+.social-bottom-left {
+    transform: translate(-300px, 210px) rotate(-135deg);
+    transition: all 1s ease;
+}
+.social-bottom-left.active {
+    opacity: 1;
+    z-index: 1;
+    transform: translate(-375px, 225px);
+    transition: all 1s ease;
+}
+.social-bottom-left.active:hover {
+    transform: translate(-375px, 225px) scale(1.2);
+    transition: all .5s ease;
+}
+}
+@media (min-width:1900px) {
+
+  h1 {
+    font-size: 300%;
+  }
+
+    .top-buffer-medium {
+    margin-top: 115px;
+}
+.avatar {
+    width: 400px;
+    height: 400px;
+}
+.social-img {
+    width: 100px;
+    height: 100px;
+}
+.social-centre {
+    transform: translate(-250px, 40px) rotateX(90deg);
+    transition: all .5s ease;
+}
+.social-centre.active {
+    opacity: 1;
+    z-index: 99;
+    transform: translate(-250px, 40px) scale(1.2);
+    transition: all 1s ease;
+}
+.social-centre:hover {
+    transform: translate(-250px, 40px) scale(1.5);
+    transition: all .5s ease;
+}
+.social-top {
+    transform: translate(-250px, -40px);
+    transition: all 1s ease;
+}
+.social-top.active {
+    opacity: 1;
+    z-index: 1;
+    transform: translate(-250px, -140px);
+    transition: all 1s ease;
+}
+.social-top:hover {
+    opacity: 1;
+    transform: translate(-250px, -140px) scale(1.2);
+    transition: all .5s ease;
+}
+.social-bottom {
+    transform: translate(-250px, 350px);
+    transition: all 1s ease;
+}
+.social-bottom.active {
+    z-index: 1;
+    opacity: 1;
+    transform: translate(-250px, 450px);
+    transition: all 1s ease;
+}
+.social-bottom.active:hover {
+    transform: translate(-250px, 450px) scale(1.2);
+    transition: all .5s ease;
+}
+.social-top-right {
+    transform: translate(-100px, 20px) rotate(45deg);
+    transition: all 1s ease;
+}
+.social-top-right.active {
+    opacity: 1;
+    z-index: 1;
+    transform: translate(0, 0);
+    transition: all 1s ease;
+}
+.social-top-right.active:hover {
+    transform: translate(0, 0) scale(1.2);
+    transition: all .5s ease;
+}
+.social-right {
+    transform: translate(-50px, 140px) rotate(90deg);
+    transition: all 1s ease;
+}
+.social-right.active {
+    opacity: 1;
+    z-index: 1;
+    transform: translate(50px, 140px);
+    transition: all 1s ease;
+}
+.social-right.active:hover {
+    transform: translate(50px, 140px) scale(1.2);
+    transition: all .5s ease;
+}
+.social-bottom-right {
+    transform: translate(-100px, 280px) rotate(135deg);
+    transition: all 1s ease;
+}
+.social-bottom-right.active {
+    opacity: 1;
+    z-index: 1;
+    transform: translate(0, 300px);
+    transition: all 1s ease;
+}
+.social-bottom-right.active:hover {
+    transform: translate(0, 300px) scale(1.2);
+    transition: all .5s ease;
+}
+.social-top-left {
+    transform: translate(-400px, 20px) rotate(-45deg);
+    transition: all 1s ease;
+}
+.social-top-left.active {
+    opacity: 1;
+    z-index: 1;
+    transform: translate(-500px, 0);
+    transform: all 1s ease;
+}
+.social-top-left.active:hover {
+    transform: translate(-500px, 0) scale(1.2);
+    transition: all .5s ease;
+}
+.social-left {
+    transform: translate(-450px, 140px) rotate(-90deg);
+    transition: all 1s ease;
+}
+.social-left.active {
+    opacity: 1;
+    z-index: 1;
+    transform: translate(-550px, 140px);
+    transition: all 1s ease;
+}
+.social-left.active:hover {
+    transform: translate(-550px, 140px) scale(1.2);
+    transition: all .5s ease;
+}
+.social-bottom-left {
+    transform: translate(-400px, 280px) rotate(-135deg);
+    transition: all 1s ease;
+}
+.social-bottom-left.active {
+    opacity: 1;
+    z-index: 1;
+    transform: translate(-500px, 300px);
+    transition: all 1s ease;
+}
+.social-bottom-left.active:hover {
+    transform: translate(-500px, 300px) scale(1.2);
+    transition: all .5s ease;
+}
 }
