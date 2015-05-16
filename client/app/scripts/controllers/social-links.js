@@ -8,7 +8,15 @@
  * Controller of the clientApp
  */
 angular.module('clientApp')
-    .controller('SocialLinksCtrl', function($scope, $window, User, CONFIG, $location, $anchorScroll, AuthenticationService) {
+    .controller('SocialLinksCtrl', function(
+        $scope,
+        $window,
+        User,
+        CONFIG,
+        $location,
+        $anchorScroll,
+        AuthenticationService,
+        FileUploader) {
 
         if (AuthenticationService.isLogged) {
             $scope.viewNetworks = true;
@@ -18,6 +26,36 @@ angular.module('clientApp')
 
             $scope.profile = {};
             $scope.selectedNetwork = {};
+            $scope.host = CONFIG.API_HOST;
+
+            var uploader = $scope.uploader = new FileUploader({
+                url: '',
+                headers: {
+                    'Authorization': 'Bearer ' + $window.sessionStorage.token
+                },
+                queueLimit: 1
+            });
+
+            // FILTERS
+
+            uploader.filters.push({
+                name: 'imageFilter',
+                fn: function(item /*{File|FileLikeObject}*/ , options) {
+                    var type = '|' + item.type.slice(item.type.lastIndexOf('/') + 1) + '|';
+                    return '|jpg|png|jpeg|bmp|gif|'.indexOf(type) !== -1;
+                }
+            });
+
+            uploader.onAfterAddingFile = function(item) {
+                console.info(item);
+                item.upload();
+            };
+
+            uploader.onSuccessItem = function(fileItem, response, status, headers) {
+                $scope.selectedNetwork.logo = response;
+                uploader.queue.length = 0;
+                //console.info('onSuccessItem', fileItem, response, status, headers);
+            };
 
             var username = JSON.parse($window.sessionStorage.user).username;
             var id = JSON.parse($window.sessionStorage.user).id;
@@ -42,6 +80,11 @@ angular.module('clientApp')
                     $location.hash(old);
 
                 });
+
+                // LOGO UPLOADS
+
+                var url = CONFIG.API_HOST + "/user/" + JSON.parse($window.sessionStorage.user).username + "/network/" + position;
+                uploader.url = url;
             };
 
             $scope.editNetwork = function() {
@@ -84,8 +127,10 @@ angular.module('clientApp')
                     console.error(response);
                 });
             };
+
+
         } else {
-        	$location.path('login');
+            $location.path('login');
         }
 
     });

@@ -244,7 +244,7 @@ module.exports = function(app, route) {
      * Network pictures upload route
      */
 
-    app.post('/user/:username/network', expressJwt({
+    app.post('/user/:username/network/:position', expressJwt({
         secret: app.settings.secret
     }), function(req, res, next) {
 
@@ -257,13 +257,23 @@ module.exports = function(app, route) {
                 console.log("user");
                 return res.status(404).send("User not found");
             }
-            if (user.uploads.length >= app.settings.maxImages) {
-                return res.status(403).send("Maximum number of pictures reached: " + app.settings.maxImages);
-            }
 
+            // Only one upload per network is allowed
+            // check to see if there was an upload already and delete it
+            // if the network icon path has the username inside it, that means there is an upload already there
+            if (user.profile.social[req.params.position].logo.indexOf(user.username) > -1) {
+                console.log('file exists');
+                var existingLogo = __dirname + '/../' + user.profile.social[req.params.position].logo;
+                fs.unlink(existingLogo, function(err) {
+                    if (err) return res.status(400).send('Logo could not be deleted');
+                    console.log('file deleted');
+                });
+            } 
+
+            // create a folder inside the user directory and upload the new file there
             req.pipe(req.busboy);
             req.busboy.on('file', function(fieldname, file, filename) {
-                mkdir(__dirname + '/../uploads/' + req.user.username, function(err) {
+                mkdir(__dirname + '/../uploads/' + req.user.username + '/networks', function(err) {
                     if (err) console.error(err);
 
                     var hashDate = Date.now();
@@ -271,18 +281,14 @@ module.exports = function(app, route) {
 
                     filename = md5(hashDate + filename) + fileExtension;
 
-                    uploadPath = '/uploads/' + req.params.username + '/' + filename;
-                    var stream = fs.createWriteStream(__dirname + '/../uploads/' + req.params.username + '/' + filename);
+                    uploadPath = '/uploads/' + req.user.username + '/networks/' + filename;
+                    var stream = fs.createWriteStream(__dirname + '/..' + uploadPath);
                     file.pipe(stream);
                     stream.on('close', function() {
                         console.log('File ' + filename + ' is uploaded');
 
-                        if (user.uploads.length >= app.settings.maxImages) {
-                            return res.status(403).send("Maximum number of pictures reached: " + app.settings.maxImages);
-                        }
-
                         // Update the database with the avatars paths
-                        user.uploads.push(uploadPath);
+                        user.profile.social[req.params.position].logo = uploadPath;
                         user.save(function(err) {
                             if (err) {
                                 return res.status(400).send("Could not add image");

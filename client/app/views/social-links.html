@@ -42,30 +42,54 @@
                 <div class="row">
                     <h2>Edit the '{{ selectedNetwork.position }}' Network</h2>
                 </div>
+                <div class="col-md-8">
+                    <form role="form" class="form-horizontal top-buffer">
+                      <div class="form-group">
+                        <label for="inputNetwork" class="col-sm-4 control-label">Network Name</label>
+                        <div class="col-sm-4">
+                            <input type="text" ng-model="selectedNetwork.network" class="form-control" id="inputNetwork" placeholder="Network Name" required>
+                        </div>
+                      </div>
 
-                <form role="form" class="form-horizontal top-buffer">
-                  <div class="form-group">
-                    <label for="inputNetwork" class="col-sm-4 control-label">Network Name</label>
-                    <div class="col-sm-4">
-                        <input type="text" ng-model="selectedNetwork.network" class="form-control" id="inputNetwork" placeholder="Network Name" required>
+                      <div class="form-group">
+                        <label for="inputLink" class="col-sm-4 control-label">URL</label>
+                        <div class="col-sm-4">
+                            <input type="text" ng-model="selectedNetwork.link" class="form-control" id="inputUrl" placeholder="Network URL" required>
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                        <div class="col-sm-offset-4 col-sm-4">
+                          <button type="submit" class="btn btn-lg btn-default" ng-click="editNetwork()">Finish</button>
+                        </div>
+                      </div>
+
+                      <div ng-if="viewEditError" class="alert alert-danger" role="alert"><strong>Oups! </strong> Something went wrong :(</div>
+                    </form>
+                </div>
+                <div class="col-md-4">
+                    <div ng-show="uploader.isHTML5" class="top-buffer-small">
+                    <p>Upload new logo</p>
+                    <!-- Example: nv-file-drop="" uploader="{Object}" options="{Object}" filters="{String}" -->
+                    <div nv-file-drop="" uploader="uploader" options="{ url: uploader.url }">
+                        <div nv-file-over="" uploader="uploader" over-class="another-file-over-class" class="well my-drop-zone" style="max-height:100px">
+                            <table style="display:inline-block;">
+                                <thead></thead>
+                                <tbody>
+                                    <tr>
+                                        <td style="padding:5px;">
+                                            <a ng-href="" class="thumbnail"><img class="img-rounded" ng-src="{{ host }}{{ selectedNetwork.logo }}" style="height:50px;"></a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
-                  </div>
+                </div>
 
-                  <div class="form-group">
-                    <label for="inputLink" class="col-sm-4 control-label">URL</label>
-                    <div class="col-sm-4">
-                        <input type="text" ng-model="selectedNetwork.link" class="form-control" id="inputUrl" placeholder="Network URL" required>
-                    </div>
-                  </div>
-
-                  <div class="form-group">
-                    <div class="col-sm-offset-4 col-sm-4">
-                      <button type="submit" class="btn btn-lg btn-default" ng-click="editNetwork()">Finish</button>
-                    </div>
-                  </div>
-
-                  <div ng-if="viewEditError" class="alert alert-danger" role="alert"><strong>Oups! </strong> Something went wrong :(</div>
-                </form>
+                <!-- Example: nv-file-select="" uploader="{Object}" options="{Object}" filters="{String}" -->
+                <input type="file" nv-file-select="" uploader="uploader"/>
+                </div>
             </div>
 
         </div> <!-- END SOCIAL LINKS SETUP -->
