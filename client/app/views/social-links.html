@@ -14,60 +14,22 @@
             </div>
 
             <div class="row">
-                <!--form role="form" class="form-horizontal top-buffer">
-
-                  <div class="form-group" ng-repeat="social in profile.social">
-                    <div class="col-md-offset-1 col-sm-4">
-                        <input type="text" class="form-control" id="inputOld" placeholder="Social Link" value="{{social.link}}">
-                    </div>
-                    <div class="col-sm-3">
-                        <select class="form-control" ng-model="social.network">
-                            <option value="instagram">Instagram</option>
-                            <option value="facebook">Facebook</option>
-                            <option value="google">Google Plus</option>
-                            <option value="linkedin">LinkedIn</option>
-                            <option value="flickr">Flickr</option>
-                            <option value="github">GitHub</option>
-                            <option value="youtube">Youtube</option>
-                            <option value="twitter">Twitter</option>
-                            <option value="email">Email</option>
-                        </select>
-                    </div>
-                    <div class="col-sm-2">
-                        <select class="form-control" ng-model="social.position">
-                            <option value="top">Top</option>
-                            <option value="topRight">Top-Right</option>
-                            <option value="topLeft">Top-Left</option>
-                            <option value="right">Right</option>
-                            <option value="left">Left</option>
-                            <option value="bottom">Bottom</option>
-                            <option value="bottomRight">Bottom-Right</option>
-                            <option value="bottomLeft">Bottom-Left</option>
-                            <option value="centre">Centre</option>                          
-                        </select>
-                    </div>
-
-                    <div class="col-sm-2">
-                        <button class="btn btn-info" title="Edit"><span class="glyphicon glyphicon-pencil"></span></button>
-                        <button class="btn btn-danger" title="Remove"><span class="glyphicon glyphicon-remove"></span></button>
-                    </div>
-                  </div>
-
-                </form-->
+                
                 <div class="col-md-offset-1 col-md-11">
                 <table class="table">
                     <thead>
                         <tr>
-                            <th>Network</th><th>Link</th><th>Position</th><th>Actions</th>
+                            <th>Network</th><th>Link</th><th>Position</th><th>Status</th><th>Actions</th>
                         </tr>
                     </thead>
                     <tbody style="text-align:left;">
                         <tr ng-repeat="social in profile.social">
                             <td><div class="col-md-2">{{ social.network }}</div></td>
-                            <td>{{ social.link }}</td>
+                            <td style="max-width:200px;overflow:hidden;">{{ social.link }}</td>
                             <td>{{ social.position }}</td>
+                            <td><toggle-switch ng-model="social.active"><toggle-switch></td>
                             <td>
-                                <button class="btn btn-info" title="Edit"><span class="glyphicon glyphicon-pencil"></span></button>
+                                <button class="btn btn-info" title="Edit" ng-click="beginEdit(social.position)"><span class="glyphicon glyphicon-pencil"></span></button>
                                 <button class="btn btn-danger" title="Remove"><span class="glyphicon glyphicon-remove"></span></button>
                             </td>
                         </tr>
@@ -76,9 +38,36 @@
                 </div>
             </div>
             <hr/>
-            <div class="row">
-                <button class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> Add a new network</button>
+            <div id="editNetwork" ng-show="viewEdit" class="row">
+                <div class="row">
+                    <h2>Edit the '{{ selectedNetwork.position }}' Network</h2>
+                </div>
+
+                <form role="form" class="form-horizontal top-buffer">
+                  <div class="form-group">
+                    <label for="inputNetwork" class="col-sm-4 control-label">Network Name</label>
+                    <div class="col-sm-4">
+                        <input type="text" ng-model="selectedNetwork.network" class="form-control" id="inputNetwork" placeholder="Network Name" required>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="inputLink" class="col-sm-4 control-label">URL</label>
+                    <div class="col-sm-4">
+                        <input type="text" ng-model="selectedNetwork.link" class="form-control" id="inputUrl" placeholder="Network URL" required>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <div class="col-sm-offset-4 col-sm-4">
+                      <button type="submit" class="btn btn-lg btn-default" ng-click="editNetwork()">Finish</button>
+                    </div>
+                  </div>
+
+                  <div ng-if="password.success" class="alert alert-success" role="alert"><strong>Great! </strong> Password Changed</div>
+                </form>
             </div>
+
         </div> <!-- END SOCIAL LINKS SETUP -->
     </div>
 </div>

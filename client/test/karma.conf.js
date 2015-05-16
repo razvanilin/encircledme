@@ -29,6 +29,7 @@ module.exports = function(config) {
       'bower_components/restangular/dist/restangular.js',
       'bower_components/angular-file-upload/angular-file-upload.js',
       'bower_components/ngImgCrop/compile/minified/ng-img-crop.js',
+      'bower_components/angular-toggle-switch/angular-toggle-switch.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       'app/scripts/**/*.js',

@@ -17,11 +17,13 @@ angular
         'ngRoute',
         'restangular',
         'angularFileUpload',
-        'ngImgCrop'
+        'ngImgCrop',
+        'toggle-switch'
     ])
     .constant("CONFIG", {
         "API_HOST": "http://localhost:3000",
-        "API_UPLOADS": "/uploads"
+        "API_UPLOADS": "/uploads",
+        "MAX_NETWORKS": 9
     })
     .config(function($routeProvider, RestangularProvider, $httpProvider, $locationProvider, CONFIG) {
 
