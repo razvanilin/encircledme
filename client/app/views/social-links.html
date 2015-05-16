@@ -27,7 +27,7 @@
                             <td><div class="col-md-2">{{ social.network }}</div></td>
                             <td style="max-width:200px;overflow:hidden;">{{ social.link }}</td>
                             <td>{{ social.position }}</td>
-                            <td><toggle-switch ng-model="social.active" ng-change="test()"><toggle-switch></td>
+                            <td><toggle-switch ng-model="social.active" ng-change="changeStatus()"><toggle-switch></td>
                             <td>
                                 <button class="btn btn-info" title="Edit" ng-click="beginEdit(social.position)"><span class="glyphicon glyphicon-pencil"></span></button>
                                 <button class="btn btn-danger" title="Remove"><span class="glyphicon glyphicon-remove"></span></button>

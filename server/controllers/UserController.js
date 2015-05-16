@@ -72,13 +72,17 @@ module.exports = function(app, route) {
     });
 
 
-    // Change password route
+    /*
+     * Change password route
+     */
     app.put('/user/:username/password', expressJwt({
         secret: app.settings.secret
     }), function(req, res, next) {
+        //console.log(req.user.profile);
+
         var oldPassword = req.body.old;
         var newPassword = req.body.new;
-        var username = req.params.username;
+        var username = req.user.username;
 
         if (oldPassword == '' || newPassword == '' || username == '') {
             return res.status(400).send('Bad Request');
@@ -122,12 +126,15 @@ module.exports = function(app, route) {
         });
     });
 
-    // set new avatar
+
+    /*
+     * set new avatar
+     */
     app.put('/user/:username/avatar', expressJwt({
         secret: app.settings.secret
     }), function(req, res, next) {
         User.findOne({
-            username: req.params.username
+            username: req.user.username
         }, function(err, user) {
             if (err || user === null) {
                 return res.status(404).send("User not found");
@@ -175,7 +182,11 @@ module.exports = function(app, route) {
         });
     });
 
-    // Avatar upload route
+    
+    /*
+     * Avatar upload route
+     */
+
     app.post('/user/:username/avatar', expressJwt({
         secret: app.settings.secret
     }), function(req, res, next) {
@@ -183,7 +194,7 @@ module.exports = function(app, route) {
         var uploadPath = "";
 
         User.findOne({
-            username: req.params.username
+            username: req.user.username
         }, function(err, user) {
             if (err || user === null) {
                 console.log("user");
@@ -195,7 +206,64 @@ module.exports = function(app, route) {
 
             req.pipe(req.busboy);
             req.busboy.on('file', function(fieldname, file, filename) {
-                mkdir(__dirname + '/../uploads/' + req.params.username, function(err) {
+                mkdir(__dirname + '/../uploads/' + req.user.username, function(err) {
+                    if (err) console.error(err);
+
+                    var hashDate = Date.now();
+                    var fileExtension = filename.substring(filename.lastIndexOf('.'));
+
+                    filename = md5(hashDate + filename) + fileExtension;
+
+                    uploadPath = '/uploads/' + req.user.username + '/' + filename;
+                    var stream = fs.createWriteStream(__dirname + '/../uploads/' + req.user.username + '/' + filename);
+                    file.pipe(stream);
+                    stream.on('close', function() {
+                        console.log('File ' + filename + ' is uploaded');
+
+                        if (user.uploads.length >= app.settings.maxImages) {
+                            return res.status(403).send("Maximum number of pictures reached: " + app.settings.maxImages);
+                        }
+
+                        // Update the database with the avatars paths
+                        user.uploads.push(uploadPath);
+                        user.save(function(err) {
+                            if (err) {
+                                return res.status(400).send("Could not add image");
+                            } else {
+                                return res.status(200).send(uploadPath);
+                            }
+                        });
+                    });
+
+                });
+            });
+        });
+    });
+
+    /*
+     * Network pictures upload route
+     */
+
+    app.post('/user/:username/network', expressJwt({
+        secret: app.settings.secret
+    }), function(req, res, next) {
+
+        var uploadPath = "";
+
+        User.findOne({
+            username: req.user.username
+        }, function(err, user) {
+            if (err || user === null) {
+                console.log("user");
+                return res.status(404).send("User not found");
+            }
+            if (user.uploads.length >= app.settings.maxImages) {
+                return res.status(403).send("Maximum number of pictures reached: " + app.settings.maxImages);
+            }
+
+            req.pipe(req.busboy);
+            req.busboy.on('file', function(fieldname, file, filename) {
+                mkdir(__dirname + '/../uploads/' + req.user.username, function(err) {
                     if (err) console.error(err);
 
                     var hashDate = Date.now();
@@ -229,10 +297,13 @@ module.exports = function(app, route) {
         });
     });
 
-    // Update networks
+
+    /*
+     * Update networks
+     */
     app.put('/user/:username/network', expressJwt({secret: app.settings.secret}), function(req, res, next) {
         User.findOne({
-            username: req.params.username
+            username: req.user.username
         }, function(err, user) {
             if (err || user === null) {
                 return res.status(404).send("User not found");

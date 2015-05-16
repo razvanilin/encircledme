@@ -76,7 +76,7 @@ angular.module('clientApp')
                 }
             };
 
-            $scope.test = function() {
+            $scope.changeStatus = function() {
                 User.one(username).customPUT($scope.profile, 'network').then(function(data) {
                     console.info(data);
 
