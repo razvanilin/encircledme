@@ -143,6 +143,11 @@ body {
     transition: all .5s ease;
 }
 
+.toggle-switch {
+  border: none;
+  min-width: 0px;
+  border-radius: 5px;
+}
 
 .avatar {
   position:relative;

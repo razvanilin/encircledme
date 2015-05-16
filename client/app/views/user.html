@@ -26,23 +26,23 @@
 			<div class="row  top-buffer-medium hidden-xs"></div>
 			<div class="row">
 				<img ng-src="{{ host }}{{ user.avatar }}" class="avatar img-circle" id="avatar">
-				<img src="{{ host }}{{ user.social.topRight.logo }}" class="social-img social-top-right" ng-click="accessNetwork(user.social.topRight.link)" title="{{user.social.topRight.network}}">
+				<img ng-show="user.social.topRight.active" src="{{ host }}{{ user.social.topRight.logo }}" class="social-img social-top-right" ng-click="accessNetwork(user.social.topRight.link)" title="{{user.social.topRight.network}}">
 
-				<img src="{{ host }}{{ user.social.topLeft.logo }}" class="social-img social-top-left" ng-click="accessNetwork(user.social.topLeft.link)" title="{{user.social.topLeft.network}}">
+				<img ng-show="user.social.topLeft.active" src="{{ host }}{{ user.social.topLeft.logo }}" class="social-img social-top-left" ng-click="accessNetwork(user.social.topLeft.link)" title="{{user.social.topLeft.network}}">
 
-				<img src="{{ host }}{{ user.social.bottom.logo }}" class="social-img social-bottom" ng-click="accessNetwork(user.social.bottom.link)" title="{{user.social.bottom.network}}">
+				<img ng-show="user.social.bottom.active" src="{{ host }}{{ user.social.bottom.logo }}" class="social-img social-bottom" ng-click="accessNetwork(user.social.bottom.link)" title="{{user.social.bottom.network}}">
 
-				<img src="{{ host }}{{ user.social.right.logo }}" class="social-img social-right" ng-click="accessNetwork(user.social.right.link)" title="{{user.social.right.network}}">
+				<img ng-show="user.social.right.active" src="{{ host }}{{ user.social.right.logo }}" class="social-img social-right" ng-click="accessNetwork(user.social.right.link)" title="{{user.social.right.network}}">
 
-				<img src="{{ host }}{{ user.social.top.logo }}" class="social-img social-top" ng-click="accessNetwork(user.social.top.link)" title="{{user.social.top.network}}">
+				<img ng-show="user.social.top.active" src="{{ host }}{{ user.social.top.logo }}" class="social-img social-top" ng-click="accessNetwork(user.social.top.link)" title="{{user.social.top.network}}">
 
-				<img src="{{ host }}{{ user.social.bottomRight.logo }}" class="social-img social-bottom-right" ng-click="accessNetwork(user.social.bottomRight.link)" title="{{user.social.bottomRight.network}}">
+				<img ng-show="user.social.bottomRight.active" src="{{ host }}{{ user.social.bottomRight.logo }}" class="social-img social-bottom-right" ng-click="accessNetwork(user.social.bottomRight.link)" title="{{user.social.bottomRight.network}}">
 
-				<img src="{{ host }}{{ user.social.bottomLeft.logo }}" class="social-img social-bottom-left" ng-click="accessNetwork(user.social.bottomLeft.link)" title="{{user.social.bottomLeft.network}}">
+				<img ng-show="user.social.bottomLeft.active" src="{{ host }}{{ user.social.bottomLeft.logo }}" class="social-img social-bottom-left" ng-click="accessNetwork(user.social.bottomLeft.link)" title="{{user.social.bottomLeft.network}}">
 
-				<img src="{{ host }}{{ user.social.left.logo }}" class="social-img social-left" ng-click="accessNetwork(user.social.left.link)" title="{{user.social.left.network}}">
+				<img ng-show="user.social.left.active" src="{{ host }}{{ user.social.left.logo }}" class="social-img social-left" ng-click="accessNetwork(user.social.left.link)" title="{{user.social.left.network}}">
 
-				<img src="{{ host }}{{ user.social.centre.logo }}" class="social-img social-centre" title="Send Message">
+				<img ng-show="user.social.centre.active" src="{{ host }}{{ user.social.centre.logo }}" class="social-img social-centre" title="Send Message">
 
 			</div>
 		
