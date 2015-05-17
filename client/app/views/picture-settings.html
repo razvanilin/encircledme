@@ -21,18 +21,12 @@
 	          
 	                <!-- Example: nv-file-drop="" uploader="{Object}" options="{Object}" filters="{String}" -->
 	                <div nv-file-drop="" uploader="uploader" options="{ url: uploader.url }">
-	                    <div nv-file-over="" uploader="uploader" over-class="another-file-over-class" class="well my-drop-zone" style="max-height:200px">
-	                        <table style="display:inline-block;">
-								<thead></thead>
-								<tbody>
-									<tr>
-										<td ng-repeat="upload in user.uploads" style="padding:5px;">
-											<a ng-href="" class="thumbnail" style="width:178px;"><img class="img-rounded" ng-src="{{ host }}{{ upload }}" style="height:100px;"></a>
+	                    <div nv-file-over="" uploader="uploader" over-class="another-file-over-class" class="row well my-drop-zone">
+	                       
+										<div class="col-md-4" ng-repeat="upload in user.uploads" style="margin-bottom:10px;">
+											<a ng-href="" class="thumbnail" style="margin-bottom:10px"><img class="img-rounded" ng-src="{{ host }}{{ upload }}" style="height:100px;"></a>
 											<div><a class="btn btn-success" ng-href="" ng-click="changeAvatar(upload, 'change')"><span class="glyphicon glyphicon-ok"></span></a> <a class="btn btn-danger" ng-href="" ng-click="changeAvatar(upload, 'delete')"><span class="glyphicon glyphicon-remove"></span></a></div>
-										</td>
-									</tr>
-								</tbody>
-							</table>
+										</div>
 	                        <h1 ng-if="user.uploads.length == 0"><span class="glyphicon glyphicon-open-file"></span></h1>
 	                    </div>
 	                </div>

@@ -126,13 +126,13 @@ body {
 
 .menu .menu-items {
     opacity: 0;
-    transform: translate(0px, 90px) rotateX(90deg);
+    transform: translate(0px, 10px) rotateX(90deg);
     transition: all .5s ease;
 }
 
 .menu .menu-items.active {
     opacity: 1;
-    transform: translate(0px, 90px) rotateX(0deg);
+    transform: translate(0px, 10px) rotateX(0deg);
     transition: all .5s ease;
 }
 

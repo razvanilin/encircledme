@@ -8,7 +8,7 @@
     <ng-include src="'views/edit-menu.html'"></ng-include>
     <div class="col-md-9">
         <!-- SOCIAL LINKS SETUP -->
-        <div class="row" ng-controller="SocialLinksCtrl">
+        <div class="row">
             <div class="row">
                 <h3 id="manageNetworks">Manage your Networks</h3>
             </div>
@@ -16,32 +16,34 @@
             <div class="row">
                 
                 <div class="col-md-offset-1 col-md-11">
-                <table class="table">
+                <table class="table" style="table-layout:fixed;">
                     <thead>
                         <tr>
-                            <th>Network</th><th>Link</th><th>Position</th><th>Status</th><th>Actions</th>
+                            <th>Network</th><th class="hidden-xs">Link</th><th>Position</th><th>Status</th><th>Edit</th>
                         </tr>
                     </thead>
                     <tbody style="text-align:left;">
                         <tr ng-repeat="social in profile.social">
-                            <td><div class="col-md-2">{{ social.network }}</div></td>
-                            <td style="max-width:200px;overflow:hidden;">{{ social.link }}</td>
-                            <td>{{ social.position }}</td>
-                            <td><toggle-switch ng-model="social.active" ng-change="changeStatus()"><toggle-switch></td>
-                            <td>
+                            <td nowrap style="text-overflow: ellipsis;overflow: hidden;"><div class="col-md-2">{{ social.network }}</div></td>
+                            <td class="hidden-xs" style="max-width:200px;overflow:hidden;text-overflow: ellipsis;" nowrap>{{ social.link }}</td>
+                            <td nowrap style="text-overflow: ellipsis;overflow: hidden;">{{ social.position }}</td>
+                            <td nowrap style="text-overflow: ellipsis;overflow: hidden;"><toggle-switch ng-model="social.active" ng-change="changeStatus()"><toggle-switch></td>
+                            <td nowrap style="text-overflow: ellipsis;overflow: hidden;">
                                 <button class="btn btn-info" title="Edit" ng-click="beginEdit(social.position)"><span class="glyphicon glyphicon-pencil"></span></button>
-                                <button class="btn btn-danger" title="Remove"><span class="glyphicon glyphicon-remove"></span></button>
                             </td>
                         </tr>
                     </tbody>
                 </table>
                 </div>
             </div>
-            <div id="editNetwork" ng-show="viewEdit" class="row">
-                <div class="row">
-                    <h2>Edit the '{{ selectedNetwork.position }}' Network</h2>
-                </div>
+            
+
+        </div> <!-- END SOCIAL LINKS SETUP -->
+        <div id="editNetwork" ng-show="viewEdit" class="row">
                 <div class="col-md-8">
+                    <div class="row">
+                        <h3>Edit the '{{ selectedNetwork.position }}' Network</h3>
+                    </div>
                     <form role="form" class="form-horizontal top-buffer">
                       <div class="form-group">
                         <label for="inputNetwork" class="col-sm-4 control-label">Network Name</label>
@@ -68,29 +70,27 @@
                 </div>
                 <div class="col-md-4">
                     <div ng-show="uploader.isHTML5" class="top-buffer-small">
-                    <p>Upload new logo</p>
-                    <!-- Example: nv-file-drop="" uploader="{Object}" options="{Object}" filters="{String}" -->
-                    <div nv-file-drop="" uploader="uploader" options="{ url: uploader.url }">
-                        <div nv-file-over="" uploader="uploader" over-class="another-file-over-class" class="well my-drop-zone" style="max-height:100px">
-                            <table style="display:inline-block;">
-                                <thead></thead>
-                                <tbody>
-                                    <tr>
-                                        <td style="padding:5px;">
-                                            <a ng-href="" class="thumbnail"><img class="img-rounded" ng-src="{{ host }}{{ selectedNetwork.logo }}" style="height:50px;"></a>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                        <p>Upload new logo</p>
+                        <!-- Example: nv-file-drop="" uploader="{Object}" options="{Object}" filters="{String}" -->
+                        <div nv-file-drop="" uploader="uploader" options="{ url: uploader.url }">
+                            <div nv-file-over="" uploader="uploader" over-class="another-file-over-class" class="well my-drop-zone" style="max-height:100px">
+                                <table style="display:inline-block;">
+                                    <thead></thead>
+                                    <tbody>
+                                        <tr>
+                                            <td style="padding:5px;">
+                                                <a ng-href="" class="thumbnail"><img class="img-rounded" ng-src="{{ host }}{{ selectedNetwork.logo }}" style="height:50px;"></a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- Example: nv-file-select="" uploader="{Object}" options="{Object}" filters="{String}" -->
-                <input type="file" nv-file-select="" uploader="uploader"/>
+                    <!-- Example: nv-file-select="" uploader="{Object}" options="{Object}" filters="{String}" -->
+                    <input type="file" nv-file-select="" uploader="uploader"/>
                 </div>
             </div>
-
-        </div> <!-- END SOCIAL LINKS SETUP -->
     </div>
 </div>
