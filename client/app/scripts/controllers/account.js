@@ -10,10 +10,12 @@
 angular.module('clientApp')
   .controller('AccountCtrl', function ($scope, $window, $routeParams, $location, User, AuthenticationService) {
     $scope.viewAccount = true;
+    $scope.accountLoad = true;
     $scope.password = {};
     if (AuthenticationService.isLogged) {
         var id = JSON.parse($window.sessionStorage.user).id;
         User.one(id).get().then(function(data, status, headers, config) {
+        	$scope.accountLoad = false;
             var profile = data;
             delete profile.password;
 
@@ -26,6 +28,7 @@ angular.module('clientApp')
            
 
             $scope.changePassword = function() {
+            	$scope.loading = true;
                 if ($scope.password.new != $scope.password.newConfirm) {
                     $scope.password.error.new = true;
                 } else {
@@ -34,8 +37,10 @@ angular.module('clientApp')
 
                 if (!$scope.password.error.new && $scope.password.new.length > 0) {
                     User.one($scope.password.username).customPUT($scope.password, 'password').then(function(data, status){      
+                        $scope.loading = false;
                         $scope.password.success = true;
                     }, function(response) {
+                    	$scope.loading = false;
                     	if (response.status === 401) {
                             $scope.password.error.old = true;
                             $scope.password.success	= false;

@@ -7,19 +7,19 @@
 			</li>
 
 			<li role="presentation" ng-class="{active: viewProfile}">
-				<a ng-href="#/user/{{ menu.username }}/profile"><span class="glyphicon glyphicon-pencil"></span> Profile Settings</a>
+				<a ng-href="#/user/{{ menu.username }}/profile"><span class="glyphicon glyphicon-pencil"></span> Profile Settings <span ng-show="profileLoad" class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span></a>
 			</li>
 
 			<li role="presentation" ng-class="{active: viewCircle}">
-				<a ng-href="#/user/{{ menu.username }}/picture"><span class="glyphicon glyphicon-picture"></span> Profile Picture</a>
+				<a ng-href="#/user/{{ menu.username }}/picture"><span class="glyphicon glyphicon-picture"></span> Profile Picture <span ng-show="pictureLoad" class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span></a>
 			</li>
 
 			<li role="presentation" ng-class="{active: viewNetworks}">
-				<a ng-href="#/user/{{ menu.username }}/networks"><span class="glyphicon glyphicon-link"></span> Your Networks</a>
+				<a ng-href="#/user/{{ menu.username }}/networks"><span class="glyphicon glyphicon-link"></span> Your Networks <span ng-show="networkLoad" class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span></a>
 			</li>
 
 			<li role="presentation" style="border-bottom: 1px solid #eee;padding-bottom:10px;" ng-class="{active: viewAccount}">
-				<a ng-href="#/user/{{ menu.username }}/account"><span class="glyphicon glyphicon-cog"></span> Account Settings</a>
+				<a ng-href="#/user/{{ menu.username }}/account"><span class="glyphicon glyphicon-cog"></span> Account Settings <span ng-show="accountLoad" class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span></a>
 			</li>
 
 			<li role="presentation">

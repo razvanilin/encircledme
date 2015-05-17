@@ -16,8 +16,12 @@ angular.module('clientApp')
             $scope.viewSignup = true;
             $scope.user = {};
             $scope.saveUser = function() {
+                $scope.loading = true;
                 User.post($scope.user).then(function() {
                     $location.path('/login');
+                }, function(response) {
+                    $scope.message = response.data;
+                    $scope.loading = false;
                 });
             };
         }

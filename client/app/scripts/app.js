@@ -58,9 +58,6 @@ angular
             .when('/404', {
                 templateUrl: '404.html'
             })
-            .when('/test', {
-                templateUrl: 'views/edit-menu.html'
-            })
 
             // keep username one of the last routes in the app to avoid faulty routing
             .when('/:username', {

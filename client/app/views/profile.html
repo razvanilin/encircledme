@@ -29,9 +29,11 @@
 
 		  <div class="form-group">
 		    <div class="col-sm-offset-4 col-sm-4">
-		      <button type="submit" ng-click="saveProfile()" class="btn btn-default">Save Profile</button>
+		      <button type="submit" ng-click="saveProfile()" class="btn btn-default"><span ng-show="loading" class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Save Profile</button>
 		    </div>
 		  </div>
+		  <div ng-show="success" class="alert alert-success" role="alert">{{ success }}</div>
+		  <div ng-show="error" class="alert alert-danger" role="alert">{{error}}</div>
 		</form>
 	</div>
 </div>

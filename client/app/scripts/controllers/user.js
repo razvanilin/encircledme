@@ -12,8 +12,10 @@ angular.module('clientApp')
     $scope.user = {};
     $scope.host = CONFIG.API_HOST;
     $scope.user.username = $routeParams.username;
+    $scope.loading = true;
     User.one($routeParams.username).get()
         .then(function(data) {
+            $scope.loading = false;
             $scope.user = data;
             console.log($scope.user);
         });

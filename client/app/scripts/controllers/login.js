@@ -17,7 +17,9 @@ angular.module('clientApp')
         $scope.login = {};
         $scope.message = '';
         $scope.logIn = function() {
+            $scope.loading = true;
             Login.post($scope.login).then(function(data, status, headers, config) {
+                    $scope.loading = false;
                     $window.sessionStorage.token = data.token;
                     $window.sessionStorage.user = JSON.stringify(data.user);
                     AuthenticationService.isLogged = true;
@@ -28,6 +30,7 @@ angular.module('clientApp')
                     $location.path(username);
                 },
                 function(response) {
+                    $scope.loading = false;
                     //console.log(response.data, response.status);
                     delete $window.sessionStorage.token;
                     delete $window.sessionStorage.user;

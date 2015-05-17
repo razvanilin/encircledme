@@ -30,7 +30,7 @@ angular.module('clientApp')
 
                 });
             };
-
+            $scope.pictureLoad = true;
             $scope.viewCircle = true;
             $scope.error = false;
             $scope.avatarChangeStatus = 0;
@@ -38,6 +38,7 @@ angular.module('clientApp')
             $scope.user = {};
             var id = JSON.parse($window.sessionStorage.user).id;
             User.one(id).get().then(function(data, status, headers, config) {
+                $scope.pictureLoad = false;
                 var profile = data;
                 delete profile.password;
                 $scope.user = profile;

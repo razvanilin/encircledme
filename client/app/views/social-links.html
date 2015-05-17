@@ -37,7 +37,6 @@
                 </table>
                 </div>
             </div>
-            <hr/>
             <div id="editNetwork" ng-show="viewEdit" class="row">
                 <div class="row">
                     <h2>Edit the '{{ selectedNetwork.position }}' Network</h2>
@@ -60,7 +59,7 @@
 
                       <div class="form-group">
                         <div class="col-sm-offset-4 col-sm-4">
-                          <button type="submit" class="btn btn-lg btn-default" ng-click="editNetwork()">Finish</button>
+                          <button type="submit" class="btn btn-lg btn-default" ng-click="editNetwork()"><span ng-show="loading" class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Finish</button>
                         </div>
                       </div>
 

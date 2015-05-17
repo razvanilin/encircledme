@@ -64,8 +64,11 @@ module.exports = function(app, route) {
         User.findOne({
             username: req.params.username
         }, function(err, data) {
-            if (err || data === null)
+            if (err || data === null) {
+                console.log(err);
+                console.log(data);
                 return res.status(404).send("User not found");
+            }
             else
                 res.send(data.profile);
         });

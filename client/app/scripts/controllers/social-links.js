@@ -19,6 +19,7 @@ angular.module('clientApp')
         FileUploader) {
 
         if (AuthenticationService.isLogged) {
+        	$scope.networkLoad = true;
             $scope.viewNetworks = true;
             $scope.isMaxNetworks = false;
             $scope.viewEdit = false;
@@ -60,6 +61,7 @@ angular.module('clientApp')
             var username = JSON.parse($window.sessionStorage.user).username;
             var id = JSON.parse($window.sessionStorage.user).id;
             User.one(username).get().then(function(data) {
+            	$scope.networkLoad = false;
                 console.log(data);
                 $scope.profile = data;
             }, function(response) {
@@ -88,10 +90,12 @@ angular.module('clientApp')
             };
 
             $scope.editNetwork = function() {
+            	$scope.loading = true;
                 $scope.profile.social[$scope.selectedNetwork.position] = $scope.selectedNetwork;
                 console.log($scope.profile.social[$scope.selectedNetwork.position]);
 
                 User.one(username).customPUT($scope.profile, 'network').then(function(data) {
+                    $scope.loading = false;
                     console.info(data);
 
                     $scope.viewEdit = false;

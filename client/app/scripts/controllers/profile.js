@@ -10,17 +10,24 @@
 angular.module('clientApp')
   .controller('ProfileCtrl', function ($scope, $routeParams, User, AuthenticationService, $location, $window) {
     $scope.viewProfile = true;
+    $scope.mainLoad = true;
     $scope.profile = {};
     if (AuthenticationService.isLogged) {
         var id = JSON.parse($window.sessionStorage.user).id;
         User.one(id).get().then(function(data, status, headers, config) {
+            $scope.mainLoad = false;
             var profile = data;
             delete profile.password;
             $scope.profile = profile;
 
             $scope.saveProfile = function() {
+                $scope.loading = true;
                 $scope.profile.save().then(function() {
-                    $location.path($routeParams.username);
+                    $scope.loading = false;
+                    $scope.success = "Great! Your profile was updated.";
+                }, function(response) {
+                    $scope.loading = false;
+                    $scope.error = response.data;
                 });
             };
         });
