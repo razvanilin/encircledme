@@ -9,7 +9,8 @@
     "restangular": "~1.5.1",
     "angular-file-upload": "~1.1.5",
     "ngImgCrop": "~0.3.2",
-    "angular-toggle-switch": "~1.3.0"
+    "angular-toggle-switch": "~1.3.0",
+    "ng-autofocus": "hiebj/ng-autofocus"
   },
   "devDependencies": {
     "angular-mocks": "^1.3.0"

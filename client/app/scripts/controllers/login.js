@@ -13,7 +13,7 @@ angular.module('clientApp')
         if (AuthenticationService.isLogged) {
             $location.path(JSON.parse($window.sessionStorage.user).username);
         }
-
+        $scope.viewLogin = true;
         $scope.login = {};
         $scope.message = '';
         $scope.logIn = function() {

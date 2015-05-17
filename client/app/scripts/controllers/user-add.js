@@ -13,6 +13,7 @@ angular.module('clientApp')
             $location.path(JSON.parse($window.sessionStorage.user).username);
             return;
         } else {
+            $scope.viewSignup = true;
             $scope.user = {};
             $scope.saveUser = function() {
                 User.post($scope.user).then(function() {

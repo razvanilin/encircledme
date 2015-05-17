@@ -1,4 +1,4 @@
-<ng-include src="'views/menu.html'"></ng-include>
+<!--ng-include src="'views/menu.html'"></ng-include>
 <div class="jumbotron">
 <div class="row">
 	<h3 class="lead">Become EnCircled</h3>
@@ -31,4 +31,38 @@
 	  </div>
 	</form>
 </div>
+</div-->
+
+<ng-include src="'views/guest-menu.html'"></ng-include>
+
+<div class="row top-buffer">
+	<h2>Become EnCircled</h2>
+</div>
+
+<div class="row top-buffer-small">
+	<form role="form" class="form-horizontal">
+	  <div class="form-group">
+	    <label for="inputUsername" class="col-sm-offset-2 col-sm-2 control-label">Username</label>
+	    <div class="col-sm-4">
+	      <input type="text" ng-model="user.username" class="form-control" id="inputUsername" placeholder="Username" autofocus>
+	    </div>
+	  </div>
+	  <div class="form-group">
+	    <label for="inputPassword3" class="col-sm-offset-2 col-sm-2 control-label">Password</label>
+	    <div class="col-sm-4">
+	      <input type="password" ng-model="user.password" class="form-control" id="inputPassword3" placeholder="Password">
+	    </div>
+	  </div>
+	  <div class="form-group">
+	    <label for="inputEmail" class="col-sm-offset-2 col-sm-2 control-label">Email</label>
+	    <div class="col-sm-4">
+	      <input type="email" ng-model="user.email" class="form-control" id="inputEmail" placeholder="Email">
+	    </div>
+	  </div>
+	  <div class="form-group">
+	    <div>
+	      <button type="submit" ng-click="saveUser()" class="btn btn-lg btn-default">Sign Up</button>
+	    </div>
+	  </div>
+	</form>
 </div>

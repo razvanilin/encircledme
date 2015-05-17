@@ -18,7 +18,8 @@ angular
         'restangular',
         'angularFileUpload',
         'ngImgCrop',
-        'toggle-switch'
+        'toggle-switch',
+        'autofocus'
     ])
     .constant("CONFIG", {
         "API_HOST": "http://localhost:3000",
