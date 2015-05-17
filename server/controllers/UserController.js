@@ -100,7 +100,7 @@ module.exports = function(app, route) {
 
             user.comparePassword(oldPassword, function(isMatch) {
                 if (!isMatch) {
-                    return res.status(401).send("Wrong password");
+                    return res.status(400).send("Wrong password");
                 }
 
                 // if everything is fine, assign the new password to the password field

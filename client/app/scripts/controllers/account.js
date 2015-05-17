@@ -29,6 +29,8 @@ angular.module('clientApp')
 
             $scope.changePassword = function() {
             	$scope.loading = true;
+            	$scope.password.error.old = false;
+            	$scope.password.success	= false;
                 if ($scope.password.new != $scope.password.newConfirm) {
                     $scope.password.error.new = true;
                 } else {
@@ -41,7 +43,7 @@ angular.module('clientApp')
                         $scope.password.success = true;
                     }, function(response) {
                     	$scope.loading = false;
-                    	if (response.status === 401) {
+                    	if (response.status === 400) {
                             $scope.password.error.old = true;
                             $scope.password.success	= false;
                         }
