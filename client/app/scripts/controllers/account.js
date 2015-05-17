@@ -41,6 +41,9 @@ angular.module('clientApp')
                     User.one($scope.password.username).customPUT($scope.password, 'password').then(function(data, status){      
                         $scope.loading = false;
                         $scope.password.success = true;
+                        $scope.password.old = "";
+                        $scope.password.new = "";
+                        $scope.password.newConfirm = "";
                     }, function(response) {
                     	$scope.loading = false;
                     	if (response.status === 400) {
