@@ -48,14 +48,23 @@ angular.module('clientApp')
             });
 
             uploader.onAfterAddingFile = function(item) {
+            	$scope.logoLoading = true;
                 console.info(item);
                 item.upload();
             };
 
             uploader.onSuccessItem = function(fileItem, response, status, headers) {
                 $scope.selectedNetwork.logo = response;
+                $scope.logoLoading = false;
+                $scope.logoSuccess = true;
+                $scope.logoError = false;
                 uploader.queue.length = 0;
                 //console.info('onSuccessItem', fileItem, response, status, headers);
+            };
+            uploader.onErrorItem = function(fileItem, response, status, headers) {
+                $scope.logoError = true;
+                $scope.logoSuccess = false;
+                $scope.logoLoading = false;
             };
 
             var username = JSON.parse($window.sessionStorage.user).username;
@@ -69,6 +78,8 @@ angular.module('clientApp')
             });
 
             $scope.beginEdit = function(position) {
+            	$scope.logoSuccess = false;
+            	$scope.logoError = false;
 
                 $scope.selectedNetwork = $scope.profile.social[position];
                 console.log($scope.selectedNetwork);

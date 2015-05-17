@@ -90,6 +90,9 @@
 
                     <!-- Example: nv-file-select="" uploader="{Object}" options="{Object}" filters="{String}" -->
                     <input type="file" nv-file-select="" uploader="uploader"/>
+                    <h3><span ng-show="logoLoading" class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span></h3>
+                    <div ng-show="logoSuccess" class="alert alert-success" role="alert">New logo was uploaded.</div>
+                    <div ng-show="logoError" class="alert alert-danger" role="alert">Logo upload failed.</div>
                 </div>
             </div>
     </div>
