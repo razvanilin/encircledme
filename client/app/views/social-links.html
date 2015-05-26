@@ -7,16 +7,17 @@
 <div class="row" style="margin-bottom:50px;">
     <ng-include src="'views/edit-menu.html'"></ng-include>
     <div class="col-md-9">
-        <!-- SOCIAL LINKS SETUP -->
-        <div class="row">
-            <div class="row">
-                <h3 id="manageNetworks">Manage your Networks</h3>
-            </div>
 
-            <div class="row">
-                
-                <div class="col-md-offset-1 col-md-11">
-                <table class="table" style="table-layout:fixed;">
+        <div class="row">
+            <h2>Manage your Networks</h2>
+        </div>
+
+        <!-- SOCIAL LINKS SETUP -->
+        <div id="manageNetworks" class="row top-buffer">
+            
+            <div class="col-md-offset-1 col-md-11 table-responsive">
+
+                <table class="table">
                     <thead>
                         <tr>
                             <th>Network</th><th class="hidden-xs">Link</th><th>Position</th><th>Status</th><th>Edit</th>
@@ -24,20 +25,19 @@
                     </thead>
                     <tbody style="text-align:left;">
                         <tr ng-repeat="social in profile.social">
-                            <td nowrap style="text-overflow: ellipsis;overflow: hidden;"><div class="col-md-2">{{ social.network }}</div></td>
-                            <td class="hidden-xs" style="max-width:200px;overflow:hidden;text-overflow: ellipsis;" nowrap>{{ social.link }}</td>
-                            <td nowrap style="text-overflow: ellipsis;overflow: hidden;">{{ social.position }}</td>
-                            <td nowrap style="text-overflow: ellipsis;overflow: hidden;"><toggle-switch ng-model="social.active" ng-change="changeStatus()"><toggle-switch></td>
-                            <td nowrap style="text-overflow: ellipsis;overflow: hidden;">
+                            <td><div class="col-md-2">{{ social.network }}</div></td>
+                            <td class="hidden-xs" style="max-width:200px;overflow:hidden;">{{ social.link }}</td>
+                            <td>{{ social.position }}</td>
+                            <td><toggle-switch ng-model="social.active" ng-change="changeStatus()"></toggle-switch></td>
+                            <td>
                                 <button class="btn btn-info" title="Edit" ng-click="beginEdit(social.position)"><span class="glyphicon glyphicon-pencil"></span></button>
                             </td>
                         </tr>
                     </tbody>
                 </table>
-                </div>
-            </div>
-            
 
+            </div>
+           
         </div> <!-- END SOCIAL LINKS SETUP -->
         <div id="editNetwork" ng-show="viewEdit" class="row">
                 <div class="col-md-8">

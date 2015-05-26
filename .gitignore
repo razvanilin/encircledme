@@ -3,7 +3,7 @@ client/.tmp
 client/bower_components
 client/npm-debug.log
 client/Gruntfile.js
-server/saleNow.sublime-project
+encircledme.sublime-project
 server/sftp-config.json
 server/node_modules
 server/npm-debug.log
