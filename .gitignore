@@ -4,6 +4,7 @@ client/bower_components
 client/npm-debug.log
 client/Gruntfile.js
 encircledme.sublime-project
+encircledme.sublime-workspace
 server/sftp-config.json
 server/node_modules
 server/npm-debug.log
