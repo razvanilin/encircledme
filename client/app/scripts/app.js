@@ -22,7 +22,7 @@ angular
         'autofocus'
     ])
     .constant("CONFIG", {
-        "API_HOST": "http://127.0.0.1:3000",
+        "API_HOST": "http://127.0.0.1:3000/apiv0",
         "API_UPLOADS": "/uploads",
         "MAX_NETWORKS": 9
     })

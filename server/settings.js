@@ -4,5 +4,5 @@ module.exports = {
 	secret: 'place-your-key-here',
 	maxImages: 3,
 	defaultPicture: '/uploads/default.png',
-	
+	apiRoute: '/apiv0'
 };

@@ -15,7 +15,7 @@ module.exports = function(app, route) {
     var User = mongoose.model('User', app.models.user);
 
     // Create the middleware
-    app.post('/login', function(req, res) {
+    app.post(app.settings.apiRoute+'/login', function(req, res) {
         var username = req.body.username || '';
         var password = req.body.password || '';
 
@@ -157,7 +157,7 @@ module.exports = function(app, route) {
         })(req, res, next);
     });*/
 
-    app.get('/logout', function(req, res) {
+    app.get(app.settings.apiRoute+'/logout', function(req, res) {
         req.logout();
         res.send("Log out");
     });

@@ -59,7 +59,7 @@ module.exports = function(app, route) {
     User.register(app, route);
 
     // Get the user profile
-    app.get('/user/:username', function(req, res, next) {
+    app.get(app.settings.apiRoute+'/user/:username', function(req, res, next) {
         console.log(req.params.username);
         User.findOne({
             username: req.params.username
@@ -78,7 +78,7 @@ module.exports = function(app, route) {
     /*
      * Change password route
      */
-    app.put('/user/:username/password', expressJwt({
+    app.put(app.settings.apiRoute+'/user/:username/password', expressJwt({
         secret: app.settings.secret
     }), function(req, res, next) {
         //console.log(req.user.profile);
@@ -133,7 +133,7 @@ module.exports = function(app, route) {
     /*
      * set new avatar
      */
-    app.put('/user/:username/avatar', expressJwt({
+    app.put(app.settings.apiRoute+'/user/:username/avatar', expressJwt({
         secret: app.settings.secret
     }), function(req, res, next) {
         User.findOne({
@@ -190,7 +190,7 @@ module.exports = function(app, route) {
      * Avatar upload route
      */
 
-    app.post('/user/:username/avatar', expressJwt({
+    app.post(app.settings.apiRoute+'/user/:username/avatar', expressJwt({
         secret: app.settings.secret
     }), function(req, res, next) {
 
@@ -247,7 +247,7 @@ module.exports = function(app, route) {
      * Network pictures upload route
      */
 
-    app.post('/user/:username/network/:position', expressJwt({
+    app.post(app.settings.apiRoute+'/user/:username/network/:position', expressJwt({
         secret: app.settings.secret
     }), function(req, res, next) {
 
@@ -310,7 +310,7 @@ module.exports = function(app, route) {
     /*
      * Update networks
      */
-    app.put('/user/:username/network', expressJwt({secret: app.settings.secret}), function(req, res, next) {
+    app.put(app.settings.apiRoute+'/user/:username/network', expressJwt({secret: app.settings.secret}), function(req, res, next) {
         User.findOne({
             username: req.user.username
         }, function(err, user) {

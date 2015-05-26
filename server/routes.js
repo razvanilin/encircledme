@@ -1,4 +1,7 @@
-module.exports = {
-	'/user' : require('./controllers/UserController'),
-	'/login' : require('./controllers/LoginController')
-};
+var config = require('./settings');
+
+var routes = {};
+routes[config.apiRoute+'/user'] = require('./controllers/UserController');
+routes[config.apiRoute+'/login'] = require('./controllers/LoginController');
+
+module.exports = routes;
