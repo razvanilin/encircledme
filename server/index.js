@@ -9,6 +9,7 @@ var _ = require('lodash');
 var cors = require('cors');
 var expressJwt = require('express-jwt');
 var path = require('path');
+var pjson = require('./package.json');
 
 // Create the application
 var app = express();
@@ -29,9 +30,8 @@ app.use(session({
 // CORS Support
 app.use(cors());
 
-app.use('/hello', function(req, res, next) {
-	res.send('Hello World!');
-	next();
+app.get(app.settings.apiRoute+'/version', function(req, res, next) {
+	return res.send(pjson.version);
 });
 
 app.use(app.settings.apiRoute+"/uploads", express.static(path.join(__dirname, 'uploads')));
