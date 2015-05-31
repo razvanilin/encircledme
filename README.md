@@ -1,6 +1,12 @@
 # Encircled Me #
 
-A web app that allows users to create their own contact page with links to social media. Sample: [razvanilin.com](http://razvanilin.com/)
+A web app that allows users to create their own contact page with links to social media or other websites.
+
+### The app is now live here: [encircled.me](http://encircled.me/) ##
+* Give it a try 
+* Keep in mind that this is not a stable version and most important of all - it's not secure
+* Don't use passwords that you use for other accounts (e.g. online banking)
+* Feel free to open issues or send pull requests
 
 ## Dev Environment Set-Up ##
 
