@@ -1,9 +1,14 @@
 <div class="row">
 	
-		<div class="btn-group">
-		<a class="btn btn-default" ng-href="#/" ng-class="{'active':viewHome}">Home</a>
-		<a class="btn btn-info" ng-href="#/login" ng-class="{'active':viewLogin}">Login</a>
-		<a class="btn btn-success" ng-href="#/signup" ng-class="{'active':viewSignup}">Signup</a>
-		</div>
+		<!--div class="btn-group">
+			<a class="" ng-href="#/" ng-class="{'active':viewHome}">Home</a>
+			<a class="" ng-href="#/login" ng-class="{'active':viewLogin}">Login</a>
+			<a class="" ng-href="#/signup" ng-class="{'active':viewSignup}">Signup</a>
+		</div-->
+		<ul class="nav nav-pills" style="display:inline-block;">
+			<li role="presentation" ng-class="{'active':viewHome}"><a class="" ng-href="#/" >Home</a></li>
+			<li role="presentation" ng-class="{'active':viewLogin}"><a class="" ng-href="#/login">Login</a></li>
+			<li role="presentation" ng-class="{'active':viewSignup}"><a class="" ng-href="#/signup">Signup</a></li>
+		</ul>
 	
 </div>
