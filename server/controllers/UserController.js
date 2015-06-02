@@ -19,10 +19,30 @@ module.exports = function(app, route) {
             app.models.user
         ).methods(['get', 'put', 'post', 'delete'])
         // uncomment this in production
-        //.before('get', expressJwt({ secret: app.settings.secret }))
+        .before('get', checkGetAdmin)
         .before('post', hash_password)
-        .before('put', checkForPassword);
+        .before('put', checkForPassword)
+        .before('delete', checkDeleteAdmin);
 
+
+    function checkGetAdmin(req, res, next) {
+        if (req.params.id && req.user._id == req.params.id) {
+            return next();
+        } else if (req.user.isAdmin) {
+            return next();
+        } else {
+            return res.status(401).send("Action not permitted for your user role");
+        }
+
+    }
+
+    function checkDeleteAdmin(req, res, next) {
+        if (req.user.isAdmin) {
+            next();
+        } else {
+            return res.status(401).send("Action not authorized");
+        }
+    }
 
     function checkForPassword(req, res, next) {
         if (req.body.password) return res.status(400).send("Bad request");
@@ -50,13 +70,23 @@ module.exports = function(app, route) {
             bcrypt.hash(req.body.password, salt, null, function(err, hash) {
                 if (err) return next(err);
                 req.body.password = hash;
-                next();
+                // temporary - app.post below
+                    User.collection.insert(req.body, function(error, user) {
+                        console.log(user);
+                        return res.status(200).send("User created");
+                    });
+                // ----
+                // next();
             });
         });
     }
 
     // Register this endpoint with the application
     User.register(app, route);
+
+    // temporary route
+    // TODO: find a way to disable the token authorisation on POST /user only
+    app.post(app.settings.apiRoute+'/user/signup', hash_password);
 
     // Get the user profile
     app.get(app.settings.apiRoute+'/user/:username', function(req, res, next) {
@@ -327,6 +357,70 @@ module.exports = function(app, route) {
                 }
             });
         });
+    });
+
+    /*
+     *  Route used for setting the application admin
+     *  When there are no admin on the application any registered user can use this route to make himself an admin
+     *  This should be run by the application administrator
+     */
+    app.put(app.settings.apiRoute+'/user/admin/main', expressJwt({secret:app.settings.secret}), function(req, res, next) {
+        
+        // first check to see if there are no admins
+        User.findOne({
+            isAdmin: true
+        }, function(err, user) {
+            if (err || user === null) {
+                // there are no admin ... proceed
+            } else {
+                // this route cannot assign a new admin
+                return res.status(400).send('An admin was already set');
+            }
+        });
+
+        // in case there are no admin, proceed with identifying the registered user and change their role
+        User.findOne({
+            username: req.user.username
+        }, function(err, user) {
+            if (err) return res.status(404).send("User not found");
+            user.isAdmin = true;
+            user.save(function(er) {
+                if (er) {
+                    return res.status(400).send("Could not update user");
+                } else {
+                    return res.status(200).send("User role updated");
+                }
+            });
+        });
+    });
+
+    /*
+     *  Update user role - works like a toggle
+     *  Admin rights needed
+     */
+    app.put(app.settings.apiRoute+'/user/admin/:username', function(req, res, next) {
+        if (req.user.isAdmin) {
+            // an extra check to make sure users can't demote themselves
+            // done to avoid the use case where there are no more admins in the DB
+            if (req.user.username == req.params.username) {
+                return res.status(400).send("You can't demote yourself");
+            }
+
+            User.findOne({
+                username: req.params.username
+            }, function(err, user) {
+                user.isAdmin = !user.isAdmin;
+                user.save(function(er) {
+                    if (er) {
+                        return res.status(400).send("Could not update user");
+                    } else {
+                        return res.status(200).send("User role changed");
+                    }
+                });
+            });
+        } else {
+            return res.status(401).send("You need to be an admin to perform this action");
+        }
     });
 
     // Return middleware

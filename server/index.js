@@ -49,7 +49,15 @@ mongoose.connection.once('open', function() {
 
 	// Load the routes
 	var routes = require('./routes');
-	//app.use(expressJwt({ secret: app.settings.secret}).unless({path: ['/','/login', '/user/:username']}));
+	app.use(expressJwt({ secret: app.settings.secret})
+		.unless({
+			path: [
+			'/', 
+			app.settings.apiRoute+'/login', 
+			app.settings.apiRoute+'/user/:username', 
+			app.settings.apiRoute+'/user/signup']}
+		)
+	);
 
 	_.each(routes, function(controller, route) {
 		app.use(route, controller(app, route));

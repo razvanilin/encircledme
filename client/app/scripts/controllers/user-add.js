@@ -17,7 +17,7 @@ angular.module('clientApp')
             $scope.user = {};
             $scope.saveUser = function() {
                 $scope.loading = true;
-                User.post($scope.user).then(function() {
+                User.one('signup').customPOST($scope.user).then(function() {
                     $location.path('/login');
                 }, function(response) {
                     $scope.message = response.data;
