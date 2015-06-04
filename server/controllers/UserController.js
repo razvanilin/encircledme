@@ -19,9 +19,11 @@ module.exports = function(app, route) {
     /*
      * GET account details of all users (ADMIN)
      */
-    app.get(app.settings.apiRoute+'/user', expressJwt({secret: app.settings.secret}), 
+    app.get(app.settings.apiRoute + '/user', expressJwt({
+            secret: app.settings.secret
+        }),
         function(req, res, next) {
-            if (req.user.isAdmin ) {
+            if (req.user.isAdmin) {
                 User.find({}, function(err, users) {
                     return res.status(200).send(users);
                 });
@@ -33,7 +35,9 @@ module.exports = function(app, route) {
     /*
      *  GET account details from one id
      */
-    app.get(app.settings.apiRoute+'/user/:id', expressJwt({secret: app.settings.secret}), 
+    app.get(app.settings.apiRoute + '/user/:id', expressJwt({
+            secret: app.settings.secret
+        }),
         function(req, res, next) {
             if (req.user.isAdmin || req.user._id == req.params.id) {
                 User.findOne({
@@ -50,10 +54,10 @@ module.exports = function(app, route) {
 
     // temporary route
     // TODO: find a way to disable the token authorisation on POST /user only
-    app.post(app.settings.apiRoute+'/user/signup', hash_password);
+    app.post(app.settings.apiRoute + '/user/signup', hash_password);
 
     // Get the user profile
-    app.get(app.settings.apiRoute+'/user/:username/profile', function(req, res, next) {
+    app.get(app.settings.apiRoute + '/user/:username/profile', function(req, res, next) {
         console.log(req.params.username);
         User.findOne({
             username: req.params.username
@@ -62,8 +66,7 @@ module.exports = function(app, route) {
                 console.log(err);
                 console.log(data);
                 return res.status(404).send("User not found");
-            }
-            else
+            } else
                 res.send(data.profile);
         });
     });
@@ -71,7 +74,9 @@ module.exports = function(app, route) {
     /*
      * Change public information
      */
-    app.put(app.settings.apiRoute+'/user/:id', expressJwt({secret: app.settings.secret}), 
+    app.put(app.settings.apiRoute + '/user/:id', expressJwt({
+            secret: app.settings.secret
+        }),
         function(req, res, next) {
             if (req.user._id == req.params.id) {
                 User.findOne({
@@ -97,7 +102,7 @@ module.exports = function(app, route) {
     /*
      * Change password route
      */
-    app.put(app.settings.apiRoute+'/user/:username/password', expressJwt({
+    app.put(app.settings.apiRoute + '/user/:username/password', expressJwt({
         secret: app.settings.secret
     }), function(req, res, next) {
         //console.log(req.user.profile);
@@ -152,7 +157,7 @@ module.exports = function(app, route) {
     /*
      * set new avatar
      */
-    app.put(app.settings.apiRoute+'/user/:username/avatar', expressJwt({
+    app.put(app.settings.apiRoute + '/user/:username/avatar', expressJwt({
         secret: app.settings.secret
     }), function(req, res, next) {
         User.findOne({
@@ -177,7 +182,7 @@ module.exports = function(app, route) {
                     }
                 });
 
-            // if type is delete, then delete the pic from the server and db
+                // if type is delete, then delete the pic from the server and db
             } else if (req.body.requestType == "delete") {
                 var file = __dirname + '/../' + req.body.newAvatar;
                 fs.unlink(file, function(err) {
@@ -204,12 +209,12 @@ module.exports = function(app, route) {
         });
     });
 
-    
+
     /*
      * Avatar upload route
      */
 
-    app.post(app.settings.apiRoute+'/user/:username/avatar', expressJwt({
+    app.post(app.settings.apiRoute + '/user/:username/avatar', expressJwt({
         secret: app.settings.secret
     }), function(req, res, next) {
 
@@ -266,7 +271,7 @@ module.exports = function(app, route) {
      * Network pictures upload route
      */
 
-    app.post(app.settings.apiRoute+'/user/:username/network/:position', expressJwt({
+    app.post(app.settings.apiRoute + '/user/:username/network/:position', expressJwt({
         secret: app.settings.secret
     }), function(req, res, next) {
 
@@ -290,7 +295,7 @@ module.exports = function(app, route) {
                     if (err) return res.status(400).send('Logo could not be deleted');
                     console.log('file deleted');
                 });
-            } 
+            }
 
             // create a folder inside the user directory and upload the new file there
             req.pipe(req.busboy);
@@ -329,7 +334,9 @@ module.exports = function(app, route) {
     /*
      * Update networks
      */
-    app.put(app.settings.apiRoute+'/user/:username/network', expressJwt({secret: app.settings.secret}), function(req, res, next) {
+    app.put(app.settings.apiRoute + '/user/:username/network', expressJwt({
+        secret: app.settings.secret
+    }), function(req, res, next) {
         User.findOne({
             username: req.user.username
         }, function(err, user) {
@@ -353,33 +360,33 @@ module.exports = function(app, route) {
      *  When there are no admin on the application any registered user can use this route to make himself an admin
      *  This should be run by the application administrator
      */
-    app.put(app.settings.apiRoute+'/user/admin/main', expressJwt({secret:app.settings.secret}), function(req, res, next) {
-        
+    app.put(app.settings.apiRoute + '/user/admin/main', expressJwt({
+        secret: app.settings.secret
+    }), function(req, res, next) {
+        var adminSet = false;
         // first check to see if there are no admins
         User.findOne({
             isAdmin: true
         }, function(err, user) {
             if (err || user === null) {
-                // there are no admin ... proceed
+                // there are no admins ... proceed
+                User.findOne({
+                    username: req.user.username
+                }, function(er, admin) {
+                    if (err) return res.status(404).send("User not found");
+                    admin.isAdmin = true;
+                    admin.save(function(error) {
+                        if (error) {
+                            return res.status(400).send("Could not update user");
+                        } else {
+                            return res.status(200).send("User role updated");
+                        }
+                    });
+                });
             } else {
                 // this route cannot assign a new admin
                 return res.status(400).send('An admin was already set');
             }
-        });
-
-        // in case there are no admin, proceed with identifying the registered user and change their role
-        User.findOne({
-            username: req.user.username
-        }, function(err, user) {
-            if (err) return res.status(404).send("User not found");
-            user.isAdmin = true;
-            user.save(function(er) {
-                if (er) {
-                    return res.status(400).send("Could not update user");
-                } else {
-                    return res.status(200).send("User role updated");
-                }
-            });
         });
     });
 
@@ -387,7 +394,7 @@ module.exports = function(app, route) {
      *  Update user role - works like a toggle
      *  Admin rights needed
      */
-    app.put(app.settings.apiRoute+'/user/admin/:username', function(req, res, next) {
+    app.put(app.settings.apiRoute + '/user/admin/:username', function(req, res, next) {
         if (req.user.isAdmin) {
             // an extra check to make sure users can't demote themselves
             // done to avoid the use case where there are no more admins in the DB
@@ -415,11 +422,11 @@ module.exports = function(app, route) {
     /*
      *  DELETE a single user - ADMIN
      */
-    app.delete(app.settings.apiRoute+'/user/:id', function(req, res, next){
+    app.delete(app.settings.apiRoute + '/user/:id', function(req, res, next) {
         if (req.user.isAdmin) {
             // not allowing the users to delete themselves
             if (req.params.id == req.user._id) return res.status(400).send("Users not allowed to delete themselves");
-            
+
             User.remove({
                 _id: req.params.id
             }, function(err) {
@@ -468,10 +475,10 @@ module.exports = function(app, route) {
                 if (err) return next(err);
                 req.body.password = hash;
                 // temporary - app.post below
-                    User.collection.insert(req.body, function(error, user) {
-                        console.log(user);
-                        return res.status(200).send("User created");
-                    });
+                User.collection.insert(req.body, function(error, user) {
+                    console.log(user);
+                    return res.status(200).send("User created");
+                });
                 // ----
                 // next();
             });
