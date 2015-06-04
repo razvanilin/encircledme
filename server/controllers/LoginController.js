@@ -1,4 +1,3 @@
-var restful = require('node-restful');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 //var RememberMeStrategy = require('passport-remember-me').Strategy;

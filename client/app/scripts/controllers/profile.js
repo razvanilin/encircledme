@@ -17,7 +17,6 @@ angular.module('clientApp')
         User.one(id).get().then(function(data, status, headers, config) {
             $scope.mainLoad = false;
             var profile = data;
-            delete profile.password;
             $scope.profile = profile;
 
             $scope.saveProfile = function() {

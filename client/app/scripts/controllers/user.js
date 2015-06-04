@@ -13,7 +13,7 @@ angular.module('clientApp')
     $scope.host = CONFIG.API_HOST;
     $scope.user.username = $routeParams.username;
     $scope.loading = true;
-    User.one($routeParams.username).get()
+    User.one($routeParams.username).customGET('profile')
         .then(function(data) {
             $scope.loading = false;
             $scope.user = data;

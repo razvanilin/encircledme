@@ -1,4 +1,4 @@
-var restful = require('node-restful');
+var mongoose = require('mongoose');
 var expressJwt = require('express-jwt');
 var bcrypt = require('bcrypt-nodejs');
 var busboy = require('connect-busboy');
@@ -14,82 +14,46 @@ module.exports = function(app, route) {
     app.use(busboy());
 
     // Setup the controller for REST
-    var User = restful.model(
-            'user',
-            app.models.user
-        ).methods(['get', 'put', 'post', 'delete'])
-        // uncomment this in production
-        .before('get', checkGetAdmin)
-        .before('post', hash_password)
-        .before('put', checkForPassword)
-        .before('delete', checkDeleteAdmin);
+    var User = mongoose.model('user', app.models.user);
 
-
-    function checkGetAdmin(req, res, next) {
-        if (req.params.id && req.user._id == req.params.id) {
-            return next();
-        } else if (req.user.isAdmin) {
-            return next();
-        } else {
-            return res.status(401).send("Action not permitted for your user role");
-        }
-
-    }
-
-    function checkDeleteAdmin(req, res, next) {
-        if (req.user.isAdmin) {
-            next();
-        } else {
-            return res.status(401).send("Action not authorized");
-        }
-    }
-
-    function checkForPassword(req, res, next) {
-        if (req.body.password) return res.status(400).send("Bad request");
-
-        console.log(req.body.social);
-
-        expressJwt({
-            secret: app.settings.secret
+    /*
+     * GET account details of all users (ADMIN)
+     */
+    app.get(app.settings.apiRoute+'/user', expressJwt({secret: app.settings.secret}), 
+        function(req, res, next) {
+            if (req.user.isAdmin ) {
+                User.find({}, function(err, users) {
+                    return res.status(200).send(users);
+                });
+            } else {
+                return res.status(401).send("Action not authorized.");
+            }
         });
 
-        next();
-    }
+    /*
+     *  GET account details from one id
+     */
+    app.get(app.settings.apiRoute+'/user/:id', expressJwt({secret: app.settings.secret}), 
+        function(req, res, next) {
+            if (req.user.isAdmin || req.user._id == req.params.id) {
+                User.findOne({
+                    _id: req.user._id
+                }, function(err, user) {
+                    if (err) return res.status(404).send("User not found.");
 
-    function hash_password(req, res, next) {
-
-        // First check if all the required fields are not empty
-        if (req.body.username == null || req.body.email == null || req.body.password == null || req.body.username == '' || req.body.email == '' || req.body.password == '') {
-
-            return res.status(400).send('Incorrect data');
-        }
-        console.log("username: " + req.body.username + " email: " + req.body.email);
-        bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt) {
-            if (err) return next(err);
-
-            bcrypt.hash(req.body.password, salt, null, function(err, hash) {
-                if (err) return next(err);
-                req.body.password = hash;
-                // temporary - app.post below
-                    User.collection.insert(req.body, function(error, user) {
-                        console.log(user);
-                        return res.status(200).send("User created");
-                    });
-                // ----
-                // next();
-            });
+                    return res.status(200).send(user);
+                });
+            } else {
+                return res.status(401).send("Action not authorized");
+            }
         });
-    }
-
-    // Register this endpoint with the application
-    User.register(app, route);
 
     // temporary route
     // TODO: find a way to disable the token authorisation on POST /user only
     app.post(app.settings.apiRoute+'/user/signup', hash_password);
 
     // Get the user profile
-    app.get(app.settings.apiRoute+'/user/:username', function(req, res, next) {
+    app.get(app.settings.apiRoute+'/user/:username/profile', function(req, res, next) {
         console.log(req.params.username);
         User.findOne({
             username: req.params.username
@@ -103,6 +67,31 @@ module.exports = function(app, route) {
                 res.send(data.profile);
         });
     });
+
+    /*
+     * Change public information
+     */
+    app.put(app.settings.apiRoute+'/user/:id', expressJwt({secret: app.settings.secret}), 
+        function(req, res, next) {
+            if (req.user._id == req.params.id) {
+                User.findOne({
+                    _id: req.user._id
+                }, function(err, user) {
+                    if (err || user === null) return res.status(404).send("User not found.");
+                    console.log(user);
+                    user.profile.firstname = req.body.profile.firstname;
+                    user.profile.lastname = req.body.profile.lastname;
+                    user.email = req.body.email;
+
+                    // save the new user
+                    user.save(function(err) {
+                        if (err) return res.status(400).send("User could not be updated");
+
+                        return res.status(200).send("User updated");
+                    });
+                });
+            }
+        });
 
 
     /*
@@ -422,6 +411,72 @@ module.exports = function(app, route) {
             return res.status(401).send("You need to be an admin to perform this action");
         }
     });
+
+    /*
+     *  DELETE a single user - ADMIN
+     */
+    app.delete(app.settings.apiRoute+'/user/:id', function(req, res, next){
+        if (req.user.isAdmin) {
+            // not allowing the users to delete themselves
+            if (req.params.id == req.user._id) return res.status(400).send("Users not allowed to delete themselves");
+            
+            User.remove({
+                _id: req.params.id
+            }, function(err) {
+                if (err) return res.status(400).send("User cannot be deleted");
+
+                return res.status(200).send("User deleted");
+            })
+        } else {
+            return res.status(401).send("Action not authorized");
+        }
+    });
+
+    // HELPER FUNCTIONS
+
+    function checkGetAdmin(req, res, next) {
+        if (req.params.id && req.user._id == req.params.id) {
+            return next();
+        } else if (req.user.isAdmin) {
+            return next();
+        } else {
+            return res.status(401).send("Action not permitted for your user role");
+        }
+
+    }
+
+    function checkDeleteAdmin(req, res, next) {
+        if (req.user.isAdmin) {
+            next();
+        } else {
+            return res.status(401).send("Action not authorized");
+        }
+    }
+
+    function hash_password(req, res, next) {
+
+        // First check if all the required fields are not empty
+        if (req.body.username == null || req.body.email == null || req.body.password == null || req.body.username == '' || req.body.email == '' || req.body.password == '') {
+
+            return res.status(400).send('Incorrect data');
+        }
+        console.log("username: " + req.body.username + " email: " + req.body.email);
+        bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt) {
+            if (err) return next(err);
+
+            bcrypt.hash(req.body.password, salt, null, function(err, hash) {
+                if (err) return next(err);
+                req.body.password = hash;
+                // temporary - app.post below
+                    User.collection.insert(req.body, function(error, user) {
+                        console.log(user);
+                        return res.status(200).send("User created");
+                    });
+                // ----
+                // next();
+            });
+        });
+    }
 
     // Return middleware
     return function(req, res, next) {

@@ -69,7 +69,7 @@ angular.module('clientApp')
 
             var username = JSON.parse($window.sessionStorage.user).username;
             var id = JSON.parse($window.sessionStorage.user).id;
-            User.one(username).get().then(function(data) {
+            User.one(username).customGET('profile').then(function(data) {
             	$scope.networkLoad = false;
                 console.log(data);
                 $scope.profile = data;
