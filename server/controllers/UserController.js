@@ -15,7 +15,6 @@ module.exports = function(app, route) {
 
     // Setup the controller for REST
     var User = mongoose.model('user', app.models.user);
-
     /*
      * GET account details of all users (ADMIN)
      */

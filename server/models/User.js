@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+var timestamps = require('mongoose-timestamp');
 var bcrypt = require('bcrypt-nodejs');
 
 // Create the Movie Schema
@@ -103,6 +104,8 @@ var UserSchema = new mongoose.Schema({
     },
     uploads: []
 });
+
+UserSchema.plugin(timestamps);
 
 UserSchema.methods.comparePassword = function(candidatePassword, cb) {
     bcrypt.compare(candidatePassword, this.password, function(err, isMatch) {
