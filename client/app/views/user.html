@@ -42,7 +42,7 @@
 
 				<img ng-show="user.social.left.active" src="{{ host }}{{ user.social.left.logo }}" class="social-img social-left img-circle" ng-click="accessNetwork(user.social.left.link)" title="{{user.social.left.network}}">
 
-				<img ng-show="user.social.centre.active" src="{{ host }}{{ user.social.centre.logo }}" class="social-img social-centre img-circle" title="Send Message">
+				<img ng-show="user.social.centre.active" src="{{ host }}{{ user.social.centre.logo }}" class="social-img social-centre img-circle" title="{{user.social.centre.network}}" ng-click="accessNetwork(user.social.centre.link)">
 
 			</div>
 		
