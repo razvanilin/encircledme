@@ -393,7 +393,9 @@ module.exports = function(app, route) {
      *  Update user role - works like a toggle
      *  Admin rights needed
      */
-    app.put(app.settings.apiRoute + '/user/admin/:username', function(req, res, next) {
+    app.put(app.settings.apiRoute + '/user/admin/:username', expressJwt({
+        secret: app.settings.secret
+    }), function(req, res, next) {
         if (req.user.isAdmin) {
             // an extra check to make sure users can't demote themselves
             // done to avoid the use case where there are no more admins in the DB
@@ -421,7 +423,9 @@ module.exports = function(app, route) {
     /*
      *  DELETE a single user - ADMIN
      */
-    app.delete(app.settings.apiRoute + '/user/:id', function(req, res, next) {
+    app.delete(app.settings.apiRoute + '/user/:id', expressJwt({
+        secret: app.settings.secret
+    }), function(req, res, next) {
         if (req.user.isAdmin) {
             // not allowing the users to delete themselves
             if (req.params.id == req.user._id) return res.status(400).send("Users not allowed to delete themselves");
