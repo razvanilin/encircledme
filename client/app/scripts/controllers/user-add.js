@@ -20,7 +20,8 @@ angular.module('clientApp')
                 User.one('signup').customPOST($scope.user).then(function() {
                     $location.path('/login');
                 }, function(response) {
-                    $scope.message = response.data;
+                    if (response.data.code === 11000)
+                        $scope.message = "Username or email address are already taken.";
                     $scope.loading = false;
                 });
             };

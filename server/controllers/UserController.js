@@ -475,7 +475,7 @@ module.exports = function(app, route) {
                 req.body.password = hash;
                 // temporary - app.post below
                 User.collection.insert(req.body, function(error, user) {
-                    console.log(user);
+                    if (error) return res.status(400).send(error);
                     return res.status(200).send("User created");
                 });
                 // ----
