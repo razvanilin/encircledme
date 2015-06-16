@@ -1,26 +1,32 @@
-<div class="top-buffer hidden-xs hidden-sm"></div>
-<div class="top-buffer-small hidden-md hidden-lg"></div>
-
 <div class="jumbotron" style="background-color:white;border:none;">
-  <small class="text-muted">- Demo Version -</small>
-  <h1>enCircled.Me</h1>
-  <p class="lead">
-    Become enCircled
-  </p>
-  <p>
-    <div class="btn-group top-buffer-small">
-      <a class="btn btn-lg btn-info" ng-href="#/signup" style="width:150px;">Sign Up</a>
-      <a class="btn btn-lg btn-success" ng-href="#/login" style="width:150px;">Log In</a>
+  <div class="row">
+    <small class="text-muted">- Demo Version | v{{version}} -</small>
+    <h1>enCircled.Me</h1>
+    <p class="lead">
+      Become enCircled
+    </p>
+    <p>
+      <div class="btn-group top-buffer-small">
+        <a class="btn btn-lg btn-info" ng-href="#/signup" style="width:150px;">Sign Up</a>
+        <a class="btn btn-lg btn-success" ng-href="#/login" style="width:150px;">Log In</a>
+      </div>
+    </p>
+  </div>
+
+  <div class="row top-buffer-small">
+    <div class="col-md-6">
+      <p>GitHub</p>
+      <div class="github-card" data-github="razvanilin/encircledme" data-theme="default"></div>
+      <script src="//cdn.jsdelivr.net/github-cards/latest/widget.js"></script>
     </div>
-  </p>
-  <p><small><a href="https://github.com/razvanilin/encircledme">Visit GitHub repo</a></small></p>
-  <p class="top-buffer hidden-xs hidden-sm"></p>
-  <!-- TWITTER -->
-  <p>
-    <a class="twitter-timeline" href="https://twitter.com/hashtag/encircledme" data-widget-id="607650205895376898">#encircledme Tweets</a>
-<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-  </p>
-  <!-- END TWITTER -->
+    <!-- TWITTER -->
+    <div class="col-md-6">
+      <p>Tweets</p>
+      <a class="twitter-timeline" href="https://twitter.com/hashtag/encircledme" data-widget-id="607650205895376898" data-chrome="nofooter noscrollbar transparent">#encircledme Tweets</a>
+      <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+    </div>
+    <!-- END TWITTER -->
+  </div>
 </div>
 
 <footer class="footer" style="width:100%;">
