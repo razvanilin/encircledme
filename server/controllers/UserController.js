@@ -464,12 +464,21 @@ module.exports = function(app, route) {
     }
 
     function hash_password(req, res, next) {
+        usernameCheck = /\W/;
 
-        // First check if all the required fields are not empty
+        // FIELD VALIDATION
         if (req.body.username == null || req.body.email == null || req.body.password == null || req.body.username == '' || req.body.email == '' || req.body.password == '') {
 
             return res.status(400).send('Incorrect data');
+        } else if (usernameCheck.test(req.body.username)) {
+            return res.status(400).send("The username contains illegal characters.");
+        } else if (req.body.username.length < 6 || req.body.username > 20) {
+            return res.status(400).send("The username must be between 6 and 20 characters.");
+        } else  if (req.body.password.length < 6) {
+            return res.status(400).send("The password must be at least 6 characters long.");
         }
+        // END VALIDATION
+
         console.log("username: " + req.body.username + " email: " + req.body.email);
         bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt) {
             if (err) return next(err);
