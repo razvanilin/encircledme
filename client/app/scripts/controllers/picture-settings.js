@@ -90,7 +90,7 @@ angular.module('clientApp')
                 name: 'imageFilter',
                 fn: function(item /*{File|FileLikeObject}*/ , options) {
                     var type = '|' + item.type.slice(item.type.lastIndexOf('/') + 1) + '|';
-                    return '|jpg|png|jpeg|bmp|gif|'.indexOf(type) !== -1;
+                    return '|jpg|png|jpeg|'.indexOf(type) !== -1;
                 }
             });
 
@@ -98,6 +98,7 @@ angular.module('clientApp')
              * Show preview with cropping
              */
             uploader.onAfterAddingFile = function(item) {
+                console.log("toto");
                 $scope.avatarChangeStatus = 0;
                 // $scope.croppedImage = '';
                 $scope.scrollTo();
@@ -145,6 +146,7 @@ angular.module('clientApp')
 
             uploader.onWhenAddingFileFailed = function(item /*{File|FileLikeObject}*/ , filter, options) {
                 //console.info('onWhenAddingFileFailed', item, filter, options);
+                $scope.error = "File format not supported. You can upload JPG/JPEG/PNG.";
             };
             uploader.onAfterAddingAll = function(addedFileItems) {
                 $scope.scrollTo();
@@ -164,9 +166,10 @@ angular.module('clientApp')
                 //console.info('onSuccessItem', fileItem, response, status, headers);
             };
             uploader.onErrorItem = function(fileItem, response, status, headers) {
-                if (status === 403) {
+                //if (status === 403) {
+                    console.log(response);
                     $scope.error = response;
-                }
+                //}
                 //console.info('onErrorItem', fileItem, response, status, headers);
             };
             uploader.onCancelItem = function(fileItem, response, status, headers) {
