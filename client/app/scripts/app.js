@@ -19,7 +19,8 @@ angular
         'angularFileUpload',
         'ngImgCrop',
         'toggle-switch',
-        'autofocus'
+        'autofocus',
+        'ngDraggable'
     ])
     .constant("CONFIG", {
         "API_HOST": "http://127.0.0.1:3000/apiv0",

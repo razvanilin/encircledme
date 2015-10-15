@@ -73,6 +73,7 @@ angular.module('clientApp')
             	$scope.networkLoad = false;
                 console.log(data);
                 $scope.profile = data;
+                $scope.selectedNetworks = angular.copy($scope.profile.social);
             }, function(response) {
                 console.log(response);
             });
@@ -142,6 +143,36 @@ angular.module('clientApp')
                     console.error(response);
                 });
             };
+
+            $scope.selectedNetworks = {
+                top: {logo: "/uploads/link.png"},
+                topLeft: {logo: "/uploads/link.png"},
+                topRight: {logo: "/uploads/link.png"},
+                right: {logo: "/uploads/link.png"},
+                left: {logo: "/uploads/link.png"},
+                bottom: {logo: "/uploads/link.png"},
+                bottomLeft: {logo: "/uploads/link.png"},
+                bottomRight: {logo: "/uploads/link.png"},
+                centre: {logo: "/uploads/link.png"}
+            };
+
+            $scope.selectedNetworks = $scope.profile.social;
+            console.log($scope.selectedNetworks);
+
+            $scope.onDropComplete = function(d, e, pos) {
+                d.position = pos;
+
+                for (var i in $scope.selectedNetworks) {
+                    console.log("yo");
+                    if ($scope.selectedNetworks[i].network == d.network) {
+                        $scope.selectedNetworks[i] = {logo: "/uploads/link.png"};
+                        break;
+                    }
+                }
+
+                $scope.selectedNetworks[pos] = d;
+                console.log($scope.selectedNetworks);
+            }
 
 
         } else {

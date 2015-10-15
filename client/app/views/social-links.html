@@ -15,8 +15,28 @@
         <div class="row top-buffer hidden-xs hidden-sm"></div>      
         <div class="row top-buffer-small hidden-md hidden-lg"></div>
 
+        <div class="row top-buffer-small">
+            <img class="avatar img-circle" ng-src="{{host}}{{profile.avatar}}">
+            <img ng-src="{{host}}{{selectedNetworks.top.logo}}" ng-drop="true" ng-drop-success="onDropComplete($data, $event, 'top')" class="circle social-img social-top active">
+            <img ng-src="{{host}}{{selectedNetworks.topLeft.logo}}" ng-drop="true" ng-drop-success="onDropComplete($data, $event, 'topLeft')" class="circle social-img social-top-left active">
+            <img ng-src="{{host}}{{selectedNetworks.topRight.logo}}" ng-drop="true" ng-drop-success="onDropComplete($data, $event, 'topRight')" class="circle social-img social-top-right active">
+            <img ng-src="{{host}}{{selectedNetworks.left.logo}}" ng-drop="true" ng-drop-success="onDropComplete($data, $event, 'left')" class="circle social-img social-left active">
+            <img ng-src="{{host}}{{selectedNetworks.right.logo}}" ng-drop="true" ng-drop-success="onDropComplete($data, $event, 'right')" class="circle social-img social-right active">
+            <img ng-src="{{host}}{{selectedNetworks.bottom.logo}}" ng-drop="true" ng-drop-success="onDropComplete($data, $event, 'bottom')" class="circle social-img social-bottom active">
+            <img ng-src="{{host}}{{selectedNetworks.bottomLeft.logo}}" ng-drop="true" ng-drop-success="onDropComplete($data, $event, 'bottomLeft')" class="circle social-img social-bottom-left active">
+            <img ng-src="{{host}}{{selectedNetworks.bottomRight.logo}}" ng-drop="true" ng-drop-success="onDropComplete($data, $event, 'bottomRight')" class="circle social-img social-bottom-right active">
+            <img ng-src="{{host}}{{selectedNetworks.centre.logo}}" ng-drop="true" ng-drop-success="onDropComplete($data, $event, 'centre')" class="circle social-img social-centre active">
+        </div>
+
+        <div class="row top-buffer-medium">
+            <div class="col-md-1" ng-repeat="network in profile.social" ng-drag="true" ng-drag-data="network" style="position:relative;" ng-click="beginEdit(profile.position)">
+                <img ng-src="{{host}}{{network.logo}}" class="img-circle" style="width:50px;height:50px;z-index:1;position:absolute;">
+                
+            </div>
+        </div>
+
         <!-- SOCIAL LINKS SETUP -->
-        <div id="manageNetworks" class="row">
+        <!--div id="manageNetworks" class="row">
             
             <div class="col-md-offset-1 col-md-11 table-responsive">
 
@@ -41,8 +61,8 @@
 
             </div>
            
-        </div> <!-- END SOCIAL LINKS SETUP -->
-        <div id="editNetwork" ng-show="viewEdit" class="row">
+        </div--> <!-- END SOCIAL LINKS SETUP -->
+        <!--div id="editNetwork" ng-show="viewEdit" class="row">
                 <div class="col-md-8">
                     <div class="row">
                         <h3>Edit the '{{ selectedNetwork.position }}' Network</h3>
@@ -74,7 +94,6 @@
                 <div class="col-md-4">
                     <div ng-show="uploader.isHTML5" class="top-buffer-small">
                         <p>Upload new logo</p>
-                        <!-- Example: nv-file-drop="" uploader="{Object}" options="{Object}" filters="{String}" -->
                         <div nv-file-drop="" uploader="uploader" options="{ url: uploader.url }">
                             <div nv-file-over="" uploader="uploader" over-class="another-file-over-class" class="well my-drop-zone" style="max-height:100px">
                                 <table style="display:inline-block;">
@@ -91,12 +110,11 @@
                         </div>
                     </div>
 
-                    <!-- Example: nv-file-select="" uploader="{Object}" options="{Object}" filters="{String}" -->
                     <input type="file" nv-file-select="" uploader="uploader"/>
                     <h3><span ng-show="logoLoading" class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span></h3>
                     <div ng-show="logoSuccess" class="alert alert-success" role="alert">New logo was uploaded.</div>
                     <div ng-show="logoError" class="alert alert-danger" role="alert">Logo upload failed.</div>
                 </div>
-            </div>
+            </div-->
     </div>
 </div>
