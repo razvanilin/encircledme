@@ -19,7 +19,6 @@ module.exports = function(config) {
     // list of files / patterns to load in the browser
     files: [
       // bower:js
-      'bower_components/es5-shim/es5-shim.js',
       'bower_components/jquery/dist/jquery.js',
       'bower_components/angular/angular.js',
       'bower_components/bootstrap-sass-official/assets/javascripts/bootstrap.js',
@@ -27,10 +26,11 @@ module.exports = function(config) {
       'bower_components/angular-route/angular-route.js',
       'bower_components/lodash/lodash.js',
       'bower_components/restangular/dist/restangular.js',
-      'bower_components/angular-file-upload/angular-file-upload.js',
+      'bower_components/angular-file-upload/angular-file-upload.min.js',
       'bower_components/ngImgCrop/compile/minified/ng-img-crop.js',
       'bower_components/angular-toggle-switch/angular-toggle-switch.js',
-      'bower_components/ng-autofocus/autofocus.js',
+      'bower_components/ng-autofocus/focusIf.js',
+      'bower_components/ngDraggable/ngDraggable.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       'app/scripts/**/*.js',

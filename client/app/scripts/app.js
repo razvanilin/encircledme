@@ -19,7 +19,7 @@ angular
         'angularFileUpload',
         'ngImgCrop',
         'toggle-switch',
-        'autofocus',
+        'focus-if',
         'ngDraggable'
     ])
     .constant("CONFIG", {

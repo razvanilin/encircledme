@@ -12,10 +12,10 @@
             <h2>Manage your Networks</h2>
         </div>
 
-        <div class="row top-buffer hidden-xs hidden-sm"></div>      
+        <div class="row top-buffer hidden-xs hidden-sm"></div>
         <div class="row top-buffer-small hidden-md hidden-lg"></div>
 
-        <div class="row top-buffer-small">
+        <div class="row top-buffer-medium">
             <img class="avatar img-circle" ng-src="{{host}}{{profile.avatar}}">
             <img ng-src="{{host}}{{selectedNetworks.top.logo}}" ng-drop="true" ng-drop-success="onDropComplete($data, $event, 'top')" class="circle social-img social-top active">
             <img ng-src="{{host}}{{selectedNetworks.topLeft.logo}}" ng-drop="true" ng-drop-success="onDropComplete($data, $event, 'topLeft')" class="circle social-img social-top-left active">
@@ -29,15 +29,20 @@
         </div>
 
         <div class="row top-buffer-medium">
-            <div class="col-md-1" ng-repeat="network in profile.social" ng-drag="true" ng-drag-data="network" style="position:relative;" ng-click="beginEdit(profile.position)">
-                <img ng-src="{{host}}{{network.logo}}" class="img-circle" style="width:50px;height:50px;z-index:1;position:absolute;">
-                
+          <h3>Drag and drop the links on your circle</h3>
+          <p>Double click a network to edit it</p>
+          <div class="col-md-offset-2">
+            <div class="row">
+              <div class="col-md-1" ng-repeat="network in profile.social" ng-drag="true" ng-drag-data="network" ng-dblclick="beginEdit(network.position)">
+                  <img ng-src="{{host}}{{network.logo}}" class="img-circle" style="width:50px;height:50px;z-index:1;position:absolute;">
+              </div>
             </div>
+          </div>
         </div>
 
         <!-- SOCIAL LINKS SETUP -->
         <!--div id="manageNetworks" class="row">
-            
+
             <div class="col-md-offset-1 col-md-11 table-responsive">
 
                 <table class="table">
@@ -60,9 +65,10 @@
                 </table>
 
             </div>
-           
+
         </div--> <!-- END SOCIAL LINKS SETUP -->
-        <!--div id="editNetwork" ng-show="viewEdit" class="row">
+        <div class="jumbotron top-buffer-medium" ng-show="viewEdit">
+        <div id="editNetwork" class="row">
                 <div class="col-md-8">
                     <div class="row">
                         <h3>Edit the '{{ selectedNetwork.position }}' Network</h3>
@@ -84,7 +90,7 @@
 
                       <div class="form-group">
                         <div class="col-sm-offset-4 col-sm-4">
-                          <button type="submit" class="btn btn-lg btn-default" ng-click="editNetwork()"><span ng-show="loading" class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Finish</button>
+                          <button type="submit" class="btn btn-sm btn-default" ng-click="editNetwork()"><span ng-show="loading" class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Save</button>
                         </div>
                       </div>
 
@@ -115,6 +121,7 @@
                     <div ng-show="logoSuccess" class="alert alert-success" role="alert">New logo was uploaded.</div>
                     <div ng-show="logoError" class="alert alert-danger" role="alert">Logo upload failed.</div>
                 </div>
-            </div-->
+            </div>
+          </div>
     </div>
 </div>

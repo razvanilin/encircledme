@@ -79,6 +79,7 @@ angular.module('clientApp')
             });
 
             $scope.beginEdit = function(position) {
+              console.log(position);
             	$scope.logoSuccess = false;
             	$scope.logoError = false;
 
