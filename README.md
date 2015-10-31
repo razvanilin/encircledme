@@ -13,6 +13,8 @@ A web app that allows users to create their own contact page with links to socia
 ### Dependencies ###
 * Node.js and NPM
 
+On Windows and OSX: https://nodejs.org/
+
 ```
 sudo apt-get install nodejs
 sudo apt-get install npm
@@ -23,7 +25,7 @@ or
 sudo yum install nodejs
 sudo yum install npm
 ```
-* Install MongoDB v2.6 or below
+* Install MongoDB v2.6 or below https://www.mongodb.org/downloads
 
 ```
 sudo apt-get install mongodb-org
@@ -41,6 +43,7 @@ sudo npm install -g yo
 ```
 gem install compass
 ```
+On Windows, install ruby from here http://rubyinstaller.org/ and then install the gem `gem install compass` from the command line
 
 ### Getting and setting up the project
 
