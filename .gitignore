@@ -9,3 +9,4 @@ server/sftp-config.json
 server/node_modules
 server/npm-debug.log
 server/uploads
+.DS_Store

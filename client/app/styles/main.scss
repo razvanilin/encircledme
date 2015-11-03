@@ -3,6 +3,9 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 @import "bootstrap-sass-official/assets/stylesheets/_bootstrap.scss";
 // endbower
 
+@import "_bootswatch.scss";
+@import "_variables.scss";
+
 @import url(http://fonts.googleapis.com/css?family=Josefin+Sans:600&subset=latin,latin-ext);
 
 .browsehappy {
@@ -96,7 +99,7 @@ body {
 
 .cropArea {
         overflow: hidden;
-        
+
         height:200px;
     }
 
@@ -142,7 +145,7 @@ body {
     -webkit-border-radius: 25px;
     -moz-border-radius: 25px;
     border-radius: 25px;
-    background-color: #E7E7E7; 
+    background-color: #E7E7E7;
 }
 
 .toggle-switch {
@@ -267,7 +270,7 @@ body {
   max-height: 70%;
   overflow: visible;
   transition: all 1s ease;
-  
+
 }
 .message-window textarea {
   width:100%;
