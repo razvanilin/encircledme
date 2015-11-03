@@ -150,33 +150,36 @@ angular.module('clientApp')
                 });
             };
 
-            $scope.selectedNetworks = {
-                top: {logo: "/uploads/link.png"},
-                topLeft: {logo: "/uploads/link.png"},
-                topRight: {logo: "/uploads/link.png"},
-                right: {logo: "/uploads/link.png"},
-                left: {logo: "/uploads/link.png"},
-                bottom: {logo: "/uploads/link.png"},
-                bottomLeft: {logo: "/uploads/link.png"},
-                bottomRight: {logo: "/uploads/link.png"},
-                centre: {logo: "/uploads/link.png"}
+            $scope.saveChanges = function() {
+              //for (var n in $scope.selectedNetworks)
             };
 
-            $scope.selectedNetworks = $scope.profile.social;
+            $scope.selectedNetworks = {
+                top: {active: false, logo: "/uploads/link.png"},
+                topLeft: {active: false, logo: "/uploads/link.png"},
+                topRight: {active: false, logo: "/uploads/link.png"},
+                right: {active: false, logo: "/uploads/link.png"},
+                left: {active: false, logo: "/uploads/link.png"},
+                bottom: {active: false, logo: "/uploads/link.png"},
+                bottomLeft: {active: false, logo: "/uploads/link.png"},
+                bottomRight: {active: false, logo: "/uploads/link.png"},
+                centre: {active: false, logo: "/uploads/link.png"}
+            };
+
+            //$scope.selectedNetworks = $scope.profile.social;
             console.log($scope.selectedNetworks);
 
             $scope.onDropComplete = function(d, e, pos) {
+
+                var networkPlaceholder = $scope.selectedNetworks[d.position];
+
+                var newNetwork = $scope.selectedNetworks[pos];
+                newNetwork.position = d.position;
+                
                 d.position = pos;
-
-                for (var i in $scope.selectedNetworks) {
-                    console.log("yo");
-                    if ($scope.selectedNetworks[i].network == d.network) {
-                        $scope.selectedNetworks[i] = {logo: "/uploads/link.png"};
-                        break;
-                    }
-                }
-
+                $scope.selectedNetworks[networkPlaceholder.position] = newNetwork;
                 $scope.selectedNetworks[pos] = d;
+
                 console.log($scope.selectedNetworks);
             }
 
