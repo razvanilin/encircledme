@@ -2,7 +2,7 @@
 
 A web app that allows users to create their own contact page with links to social media or other websites.
 
-### The app is now live here: [encircled.me](http://encircled.me/) ##
+### The app is now live here: [encircledme.razvanilin.com](http://encircledme.razvanilin.com/) ##
 * Give it a try 
 * Keep in mind that this is not a stable version and most important of all - it's not secure
 * Don't use passwords that you use for other accounts (e.g. online banking)
